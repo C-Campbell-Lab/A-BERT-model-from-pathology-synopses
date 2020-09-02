@@ -5,7 +5,7 @@ import fire
 from sklearn import metrics
 from transformers import BertConfig, Trainer, TrainingArguments
 
-from .dataset import supply_dataset
+from .dataset import DatasetFactory
 from .model import Classification
 
 
@@ -36,9 +36,14 @@ class Pipeline:
         self.model = Classification(config)
 
     def init_dataset(self, params):
-        self.training_set, self.testing_set = supply_dataset(params)
+        self.dataset_factory = DatasetFactory(params)
 
-    def train(self, training_args: Optional[TrainingArguments]):
+        (
+            self.training_set,
+            self.testing_set,
+        ) = self.dataset_factory.supply_training_dataset()
+
+    def train(self, training_args: Optional[TrainingArguments] = None):
         if training_args is None:
             training_args = TrainingArguments(
                 output_dir="./results",

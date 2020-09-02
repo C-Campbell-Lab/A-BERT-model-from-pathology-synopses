@@ -1,17 +1,20 @@
 import json
 import random
 from collections import defaultdict
+from typing import List
 
 import torch
 from sklearn.preprocessing import MultiLabelBinarizer
 from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 
+from .train import Params
+
 random.seed(42)
 
 
 class CustomDataset(Dataset):
-    def __init__(self, texts, tags, tokenizer: AutoTokenizer, max_len):
+    def __init__(self, texts, tokenizer: AutoTokenizer, max_len, tags=None):
         self.tokenizer = tokenizer
         self.texts = texts
         self.tags = tags
@@ -36,12 +39,57 @@ class CustomDataset(Dataset):
         mask = inputs["attention_mask"]
         token_type_ids = inputs["token_type_ids"]
 
+        if self.tags is None:
+            return {
+                "input_ids": torch.tensor(ids, dtype=torch.long),
+                "attention_mask": torch.tensor(mask, dtype=torch.long),
+                "token_type_ids": torch.tensor(token_type_ids, dtype=torch.long),
+            }
+
         return {
             "input_ids": torch.tensor(ids, dtype=torch.long),
             "attention_mask": torch.tensor(mask, dtype=torch.long),
             "token_type_ids": torch.tensor(token_type_ids, dtype=torch.long),
             "labels": torch.tensor(self.tags[index], dtype=torch.float),
         }
+
+
+class DatasetFactory:
+    def __init__(self, params: Params):
+        self.params = params
+        self.x_test_dict = load_json(params.x_test)
+        self.x_train_dict = load_json(params.x_train)
+        self.y_train_tags = load_json(params.y_train)
+        self.y_test_tags = load_json(params.y_test)
+        self.init_mlb()
+        self.init_tokenizer(params.identifier)
+
+    def init_mlb(self):
+        y = self.y_train_tags + self.y_test_tags
+        mlb = MultiLabelBinarizer().fit(y)
+        assert len(mlb.classes_) == self.params.num_labels, "num_labels is inconsistent"
+        self.mlb = mlb
+
+    def init_tokenizer(self, identifier: str):
+        self.tokenizer = AutoTokenizer.from_pretrained(identifier)
+
+    def supply_training_dataset(self):
+        x_train, y_train_raw = upsampling(
+            self.x_train_dict, self.y_train_tags, target=self.params.upsampling
+        )
+        y_train = self.mlb.transform(y_train_raw)
+        x_test = list(map(compose, self.x_test_dict))
+        y_test = self.mlb.transform(self.y_test_tags)
+        train_dataset = CustomDataset(
+            x_train, self.tokenizer, self.params.max_len, y_train
+        )
+        testing_set = CustomDataset(x_test, self.tokenizer, self.params.max_len, y_test)
+        return train_dataset, testing_set
+
+    def supply_unlabelled_dataset(self, cases: List[dict]):
+        texts = list(map(compose, cases))
+        dataset = CustomDataset(texts, self.tokenizer, self.params.max_len)
+        return dataset
 
 
 # Makeshift upsampling to 125 cases per tag
@@ -73,24 +121,3 @@ def upsampling(x, y, target=100):
 def load_json(path):
     with open(path, "r") as js_:
         return json.load(js_)
-
-
-def supply_dataset(params):
-    x_test_dict = load_json(params.x_test)
-    x_train_dict = load_json(params.x_train)
-    y_train_tags = load_json(params.y_train)
-    y_test_tags = load_json(params.y_test)
-    x_train, y_train_raw = upsampling(
-        x_train_dict, y_train_tags, target=params.upsampling
-    )
-    y = y_train_tags + y_test_tags
-
-    mlb = MultiLabelBinarizer().fit(y)
-    y_train = mlb.transform(y_train_raw)
-    x_test = list(map(compose, x_test_dict))
-    y_test = mlb.transform(y_test_tags)
-
-    tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    train_dataset = CustomDataset(x_train, y_train, tokenizer, params.max_len)
-    testing_set = CustomDataset(x_test, y_test, tokenizer, params.max_len)
-    return train_dataset, testing_set
