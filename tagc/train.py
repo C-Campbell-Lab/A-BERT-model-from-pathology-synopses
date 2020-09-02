@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 import fire
 from sklearn import metrics
@@ -8,67 +9,74 @@ from .dataset import supply_dataset
 from .model import Classification
 
 
-def make_config(dropout_prob=0.3, num_labels=18):
-    config = BertConfig()
-    config.dropout_prob = dropout_prob
-    config.num_labels = num_labels
-    config.identifier = "bert-base-uncased"
-    return config
-
-
-def compute_metrics(pred):
-    labels = pred.label_ids
-    preds = pred.predictions >= 0.5
-    precision, recall, f1, _ = metrics.precision_recall_fscore_support(
-        labels, preds, average="micro"
-    )
-    acc = metrics.accuracy_score(labels, preds)
-    return {
-        "accuracy": acc,
-        "f1": f1,
-        "precision": precision,
-        "recall": recall,
-    }
-
-
-def fine_tuning():
-    config = make_config()
-    model = Classification(config)
-    training_set, testing_set = supply_dataset()
-    training_args = TrainingArguments(
-        output_dir="./results",
-        num_train_epochs=10,
-        per_device_train_batch_size=8,
-        save_steps=1000,
-        save_total_limit=2,
-        evaluate_during_training=True,
-        logging_dir="./logs",
-        eval_steps=225,
-        weight_decay=0.0,
-        learning_rate=1e-05,
-    )
-
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=training_set,
-        eval_dataset=testing_set,
-        compute_metrics=compute_metrics,
-    )
-
-    trainer.train()
-    trainer.evaluate()
-
-
 @dataclass
-class Param:
+class Params:
     x_train: str
     y_train: str
     x_test: str
     y_test: str
     max_len: int
-    upsumpling: int
+    upsampling: int
+    dropout_prob: float
+    num_labels: int
+    identifier: str
+
+
+class Pipeline:
+    def __init__(self, params: Params):
+        self.init_model(params)
+        self.init_dataset(params)
+
+    def init_model(self, params):
+        config = BertConfig()
+        config.dropout_prob = params.dropout_prob
+        config.num_labels = params.num_labels
+        config.identifier = params.identifier
+        self.config = config
+        self.model = Classification(config)
+
+    def init_dataset(self, params):
+        self.training_set, self.testing_set = supply_dataset(params)
+
+    def train(self, training_args: Optional[TrainingArguments]):
+        if training_args is None:
+            training_args = TrainingArguments(
+                output_dir="./results",
+                num_train_epochs=10,
+                per_device_train_batch_size=8,
+                save_steps=1000,
+                save_total_limit=2,
+                evaluate_during_training=True,
+                logging_dir="./logs",
+                eval_steps=225,
+            )
+
+        trainer = Trainer(
+            model=self.model,
+            args=training_args,
+            train_dataset=self.training_set,
+            eval_dataset=self.testing_set,
+            compute_metrics=self._compute_metrics,
+        )
+
+        trainer.train()
+        trainer.evaluate()
+        self.trainer = trainer
+
+    def _compute_metrics(self, pred):
+        labels = pred.label_ids
+        preds = pred.predictions >= 0.5
+        precision, recall, f1, _ = metrics.precision_recall_fscore_support(
+            labels, preds, average="micro"
+        )
+        acc = metrics.accuracy_score(labels, preds)
+        return {
+            "accuracy": acc,
+            "f1": f1,
+            "precision": precision,
+            "recall": recall,
+        }
 
 
 if __name__ == "__main__":
-    print(fire.Fire(Param))
+    print(fire.Fire(Params))
