@@ -37,10 +37,10 @@ class CustomDataset(Dataset):
         token_type_ids = inputs["token_type_ids"]
 
         return {
-            "ids": torch.tensor(ids, dtype=torch.long),
-            "mask": torch.tensor(mask, dtype=torch.long),
+            "input_ids": torch.tensor(ids, dtype=torch.long),
+            "attention_mask": torch.tensor(mask, dtype=torch.long),
             "token_type_ids": torch.tensor(token_type_ids, dtype=torch.long),
-            "targets": torch.tensor(self.tags[index], dtype=torch.float),
+            "labels": torch.tensor(self.tags[index], dtype=torch.float),
         }
 
 
@@ -79,7 +79,7 @@ def supply_dataset(params):
     x_test_dict = load_json(params.x_test)
     x_train_dict = load_json(params.x_train)
     y_train_tags = load_json(params.y_train)
-    y_test_tags = load_json(params.y_train)
+    y_test_tags = load_json(params.y_test)
     x_train, y_train_raw = upsampling(
         x_train_dict, y_train_tags, target=params.upsampling
     )

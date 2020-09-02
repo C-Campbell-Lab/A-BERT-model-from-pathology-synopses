@@ -92,12 +92,15 @@ def fine_tuning(hidden_dropout_prob=0.3, num_labels=18):
     training_set, testing_set = supply_dataset()
     training_args = TrainingArguments(
         output_dir="./results",
-        num_train_epochs=7,
-        per_device_train_batch_size=16,
+        num_train_epochs=10,
+        per_device_train_batch_size=8,
         save_steps=1000,
         save_total_limit=2,
-        warmup_steps=500,  # number of warmup steps for learning rate scheduler
+        evaluate_during_training=True,
         logging_dir="./logs",
+        eval_steps=225,
+        weight_decay=0.0,
+        learning_rate=1e-05,
     )
 
     trainer = Trainer(
