@@ -92,7 +92,7 @@ class DatasetFactory:
         return dataset
 
     def _upsampling(self, x, y, target=100):
-        groupby_idx = self.grouping_idx(y)
+        groupby_idx = self._grouping_idx(y)
         new_x = []
         new_y = []
         for group_idx in groupby_idx.values():

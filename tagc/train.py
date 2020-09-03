@@ -1,3 +1,4 @@
+from functools import cached_property
 from typing import Optional
 
 import fire
@@ -43,6 +44,7 @@ class Pipeline:
                 eval_steps=225,
             )
 
+        self.model.train()
         trainer = Trainer(
             model=self.model,
             args=training_args,
@@ -57,7 +59,7 @@ class Pipeline:
 
     def _compute_metrics(self, pred):
         labels = pred.label_ids
-        preds = pred.predictions >= 0.5
+        preds = pred.predictions >= 0
         precision, recall, f1, _ = metrics.precision_recall_fscore_support(
             labels, preds, average="micro"
         )
@@ -68,6 +70,27 @@ class Pipeline:
             "precision": precision,
             "recall": recall,
         }
+
+    @cached_property
+    def validation_examples(self):
+        assert self.trainer is None, "training first"
+        pred = self.trainer.predict(self.testing_set)
+        texts = self.dataset_factory.x_test_dict
+        true_tags = self.dataset_factory.y_test_tags
+        pred_tags = self.dataset_factory.mlb.inverse_transform(pred.predictions >= 0)
+        example = []
+        for text, pred_tag, true_tag in zip(texts, pred_tags, true_tags):
+            num_tags = len(pred_tag)
+            corr = sum(tag in true_tag for tag in pred_tag)
+            if num_tags == 0:
+                judge = "missing"
+            elif corr == num_tags:
+                judge = "correct"
+            else:
+                judge = f"{corr} in {num_tags} tags correct"
+            example.append((text, "; ".join(pred_tag), "; ".join(true_tag), judge))
+
+        return example
 
 
 if __name__ == "__main__":

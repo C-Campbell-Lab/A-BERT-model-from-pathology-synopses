@@ -14,6 +14,30 @@ class LabelledCase:
 
 
 @dataclass
+class Mask:
+    field: str
+    start: int
+    end: int
+
+    def masking(self, case: Case):
+        field = case[self.field]
+        case[self.field] = field[: self.start] + field[self.end :]
+        return case
+
+    def word(self, case: Case):
+        return case[self.field][self.start : self.end]
+
+
+@dataclass
+class MaskedCase:
+    mask: Mask
+    text: Case
+
+    def masked_text(self):
+        return self.mask(self.text)
+
+
+@dataclass
 class Params:
     x_train: str
     y_train: str
