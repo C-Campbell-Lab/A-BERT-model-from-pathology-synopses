@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from typing import Optional
 
 import fire
@@ -6,20 +5,8 @@ from sklearn import metrics
 from transformers import BertConfig, Trainer, TrainingArguments
 
 from .dataset import DatasetFactory
+from .domain import Params
 from .model import Classification
-
-
-@dataclass
-class Params:
-    x_train: str
-    y_train: str
-    x_test: str
-    y_test: str
-    max_len: int
-    upsampling: int
-    dropout_prob: float
-    num_labels: int
-    identifier: str
 
 
 class Pipeline:

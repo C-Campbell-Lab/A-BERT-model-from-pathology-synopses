@@ -1,4 +1,3 @@
-import json
 import random
 from collections import defaultdict
 from typing import List
@@ -8,7 +7,8 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 
-from .train import Params
+from .data_utils import load_json
+from .domain import Params
 
 random.seed(42)
 
@@ -74,11 +74,11 @@ class DatasetFactory:
         self.tokenizer = AutoTokenizer.from_pretrained(identifier)
 
     def supply_training_dataset(self):
-        x_train, y_train_raw = upsampling(
+        x_train, y_train_raw = self._upsampling(
             self.x_train_dict, self.y_train_tags, target=self.params.upsampling
         )
         y_train = self.mlb.transform(y_train_raw)
-        x_test = list(map(compose, self.x_test_dict))
+        x_test = list(map(self._compose, self.x_test_dict))
         y_test = self.mlb.transform(self.y_test_tags)
         train_dataset = CustomDataset(
             x_train, self.tokenizer, self.params.max_len, y_train
@@ -87,37 +87,29 @@ class DatasetFactory:
         return train_dataset, testing_set
 
     def supply_unlabelled_dataset(self, cases: List[dict]):
-        texts = list(map(compose, cases))
+        texts = list(map(self._compose, cases))
         dataset = CustomDataset(texts, self.tokenizer, self.params.max_len)
         return dataset
 
+    def _upsampling(self, x, y, target=100):
+        groupby_idx = self.grouping_idx(y)
+        new_x = []
+        new_y = []
+        for group_idx in groupby_idx.values():
+            upsample_idx = random.choices(group_idx, k=target)
+            new_x.extend(map(lambda idx: self._compose(x[idx]), upsample_idx))
+            new_y.extend(map(lambda idx: y[idx], upsample_idx))
+        return new_x, new_y
 
-# Makeshift upsampling to 125 cases per tag
-def grouping_idx(y):
-    groupby = defaultdict(list)
-    for idx, tags in enumerate(y):
-        for tag in tags:
-            groupby[tag].append(idx)
-    return groupby
+    # Makeshift upsampling to 125 cases per tag
+    def _grouping_idx(self, y):
+        groupby = defaultdict(list)
+        for idx, tags in enumerate(y):
+            for tag in tags:
+                groupby[tag].append(idx)
+        return groupby
 
-
-def compose(case):
-    tmp = [f"{k}: {v}" for k, v in case.items()]
-    random.shuffle(tmp)
-    return " ".join(tmp)
-
-
-def upsampling(x, y, target=100):
-    groupby_idx = grouping_idx(y)
-    new_x = []
-    new_y = []
-    for group_idx in groupby_idx.values():
-        upsample_idx = random.choices(group_idx, k=target)
-        new_x.extend(map(lambda idx: compose(x[idx]), upsample_idx))
-        new_y.extend(map(lambda idx: y[idx], upsample_idx))
-    return new_x, new_y
-
-
-def load_json(path):
-    with open(path, "r") as js_:
-        return json.load(js_)
+    def _compose(self, case):
+        tmp = [f"{k}: {v}" for k, v in case.items()]
+        random.shuffle(tmp)
+        return " ".join(tmp)
