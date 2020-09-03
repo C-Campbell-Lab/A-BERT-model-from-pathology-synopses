@@ -1,4 +1,7 @@
-from torch import nn
+from typing import Any, Dict, Optional, Union
+
+import torch
+from torch import cuda, nn
 from transformers import BertModel, BertPreTrainedModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
@@ -64,3 +67,54 @@ class Classification(BertPreTrainedModel):
             hidden_states=outputs.hidden_states,
             attentions=outputs.attentions,
         )
+
+
+class StandaloneModel:
+    def __init__(self, model, tokenizer, max_len=200):
+        self.model = model
+        self.tokenizer = tokenizer
+        self.max_len = max_len
+        self.device = "cuda" if cuda.is_available() else "cpu"
+        self.model.to(self.device)
+
+    def predict(self, texts: list, batch=8):
+        self.model.eval()
+        preds: Optional[torch.Tensor] = None
+        for step in range(0, len(texts), batch):
+            inputs = self._encode(texts[step : step + batch])
+            logits = self._predict_step(inputs)
+            preds = logits if preds is None else torch.cat((preds, logits), dim=0)
+        if preds is None:
+            return preds
+        return torch.sigmoid(preds).cpu().numpy()
+
+    def _encode(self, texts):
+        return self.tokenizer.batch_encode_plus(
+            texts,
+            add_special_tokens=True,
+            truncation=True,
+            max_length=self.max_len,
+            pad_to_max_length=True,
+            return_token_type_ids=True,
+        )
+
+    def _predict_step(self, inputs):
+        inputs = self._prepare_inputs(inputs)
+        with torch.no_grad():
+            outputs = self.model(**inputs)
+            logits = outputs[0]
+        return logits.detach()
+
+    def _prepare_inputs(
+        self, inputs: Dict[str, Union[torch.Tensor, Any]]
+    ) -> Dict[str, Union[torch.Tensor, Any]]:
+        """
+        Prepare :obj:`inputs` before feeding them to the model, converting them to tensors if they are not already and
+        handling potential state.
+        """
+        for k, v in inputs.items():
+            inputs[k] = torch.tensor(v, dtype=torch.long).to(
+                self.device, dtype=torch.long
+            )
+
+        return inputs

@@ -19,10 +19,11 @@ class Mask:
     start: int
     end: int
 
-    def masking(self, case: Case):
-        field = case[self.field]
-        case[self.field] = field[: self.start] + field[self.end :]
-        return case
+    def __call__(self, case: Case):
+        case_copy = case.copy()
+        field = case_copy[self.field]
+        case_copy[self.field] = field[: self.start] + field[self.end :]
+        return case_copy
 
     def word(self, case: Case):
         return case[self.field][self.start : self.end]
@@ -30,11 +31,14 @@ class Mask:
 
 @dataclass
 class MaskedCase:
-    mask: Mask
+    masks: List[Mask]
     text: Case
 
-    def masked_text(self):
-        return self.mask(self.text)
+    def masked_cases(self):
+        return [mask(self.text) for mask in self.masks]
+
+    def mask_words(self):
+        return [mask.word(self.text) for mask in self.masks]
 
 
 @dataclass
