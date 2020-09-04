@@ -3,7 +3,7 @@ import re
 import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .domain import Case, Mask, MaskedCase
+from .domain import Case, Mask, MaskedParent, Trace
 from .model import StandaloneModel
 
 
@@ -18,8 +18,8 @@ class MaskMaker:
                 start, end = match.span()
                 mask = Mask(field, start, end)
                 masks.append(mask)
-        masked_case = MaskedCase(masks, case)
-        return masked_case
+        masked_parent = MaskedParent(masks, case)
+        return masked_parent
 
 
 class MaskExplainer:
@@ -28,27 +28,37 @@ class MaskExplainer:
         self.mlb = mlb
 
     def explain(self, model: StandaloneModel, case: Case):
-        primary = model.predict([self._compose(case)])
-        masked_case = self.mask_maker(case)
-        cases = masked_case.masked_cases()
-        texts = list(map(self._compose, cases))
-        outputs = model.predict(texts)
+        origin_output = model.predict([case])
+        masked_parent = self.mask_maker(case)
+        masked_cases = masked_parent.masked_cases()
+        masked_outputs = model.predict(masked_cases)
 
-        pred = primary >= 0.5
+        mask_words = np.array(masked_parent.mask_words())
+
+        trace = Trace(origin_output, masked_outputs, mask_words)
+        ret = self.analysis_trace(trace)
+        return ret
+
+    def analysis_trace(self, trace: Trace):
+        pred = trace.origin_output >= 0.5
         bool_idx = pred[0]
-        important_change = primary[:, bool_idx] - outputs[:, bool_idx]
-        mask_words = np.array(masked_case.mask_words())
-
+        trace.important_change = (
+            trace.origin_output[:, bool_idx] - trace.masked_outputs[:, bool_idx]
+        )
         pred_tag = self.mlb.inverse_transform(pred)[0]
         ret = {}
         for idx, tag in enumerate(pred_tag):
-            rank = np.argsort(important_change[:, idx])[::-1]
+            rank = np.argsort(trace.important_change[:, idx])[::-1]
             pairs = [
                 (word, value)
-                for word, value in zip(mask_words[rank], important_change[:, idx][rank])
+                for word, value in zip(
+                    trace.mask_words[rank], trace.important_change[:, idx][rank]
+                )
             ]
             ret[tag] = pairs
+        self.trace = trace
         return ret
 
-    def _compose(self, case: dict):
-        return " ".join(f"{k}: {v}" for k, v in case.items())
+    def show_trace(self):
+        trace = self.trace
+        return trace.origin_output, trace.masked_outputs, trace.important_change

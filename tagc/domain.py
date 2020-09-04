@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
+
+import numpy as np
 
 Case = dict
 
@@ -30,7 +32,7 @@ class Mask:
 
 
 @dataclass
-class MaskedCase:
+class MaskedParent:
     masks: List[Mask]
     text: Case
 
@@ -52,3 +54,11 @@ class Params:
     dropout_prob: float
     num_labels: int
     identifier: str
+
+
+@dataclass
+class Trace:
+    origin_output: np.array
+    masked_outputs: np.array
+    mask_words: np.array
+    important_change: Optional[np.array] = None

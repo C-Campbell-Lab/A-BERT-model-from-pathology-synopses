@@ -77,16 +77,21 @@ class StandaloneModel:
         self.device = "cuda" if cuda.is_available() else "cpu"
         self.model.to(self.device)
 
-    def predict(self, texts: list, batch=8):
+    def predict(self, cases: list, batch=8):
+        if isinstance(cases[0], dict):
+            cases = list(map(self._compose, cases))
         self.model.eval()
         preds: Optional[torch.Tensor] = None
-        for step in range(0, len(texts), batch):
-            inputs = self._encode(texts[step : step + batch])
+        for step in range(0, len(cases), batch):
+            inputs = self._encode(cases[step : step + batch])
             logits = self._predict_step(inputs)
             preds = logits if preds is None else torch.cat((preds, logits), dim=0)
         if preds is None:
             return preds
         return torch.sigmoid(preds).cpu().numpy()
+
+    def _compose(self, case: dict):
+        return " ".join(f"{k}: {v}" for k, v in case.items())
 
     def _encode(self, texts):
         return self.tokenizer.batch_encode_plus(
