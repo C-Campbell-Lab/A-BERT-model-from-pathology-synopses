@@ -7,7 +7,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 
-from .data_utils import load_json
+from .data_utils import load_datazip
 from .domain import Params
 
 random.seed(42)
@@ -57,10 +57,11 @@ class CustomDataset(Dataset):
 class DatasetFactory:
     def __init__(self, params: Params):
         self.params = params
-        self.x_test_dict = load_json(params.x_test)
-        self.x_train_dict = load_json(params.x_train)
-        self.y_train_tags = load_json(params.y_train)
-        self.y_test_tags = load_json(params.y_test)
+        raw_data = load_datazip(params.datazip_path)
+        self.x_test_dict = raw_data.x_test_dict
+        self.x_train_dict = raw_data.x_train_dict
+        self.y_train_tags = raw_data.y_train_tags
+        self.y_test_tags = raw_data.y_test_tags
         self.init_mlb()
         self.init_tokenizer(params.identifier)
 

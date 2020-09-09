@@ -1,23 +1,26 @@
 import json
 import random
+import time
 from collections import Counter
 from itertools import chain
 from typing import List
+from zipfile import ZipFile
 
+import numpy as np
 from sklearn.model_selection import train_test_split
 
-from .domain import LabelledCase
+from .domain import DATAFILE, LabelledCase, RawData
 
 random.seed(42)
 
 
 def count_tags(tags: List[List[str]]):
-    return Counter(chain(*tags)).most_common()
+    return Counter(chain(*tags))
 
 
 def count_token_len(texts: List[str]):
     lens = list(map(lambda text: len(text.split(" ")), texts))
-    return Counter(lens).most_common()
+    return Counter(lens)
 
 
 def load_json(path):
@@ -95,16 +98,14 @@ def xy_to_labelled_cases(x, y):
     return [LabelledCase(text, tag) for text, tag in zip(x, y)]
 
 
-def split_and_dump_xy(x, y):
+def split_and_dump_dataset(x, y):
     x_train_dict, x_test_dict, y_train_tags, y_test_tags = train_test_split(
         x, y, test_size=0.2, random_state=42
     )
-    dump_json("x.json", x)
-    dump_json("y.json", y)
-    dump_json("x_test_dict.json", x_test_dict)
-    dump_json("y_test_tags.json", y_test_tags)
-    dump_json("x_train_dict.json", x_train_dict)
-    dump_json("y_train_tags.json", y_train_tags)
+    rd = RawData(x, y, x_train_dict, y_train_tags, x_test_dict, y_test_tags)
+    zip_name = f'dataset{time.strftime("%Y%m%d-%H%M%S")}.zip'
+    dump_datazip(rd, zip_name)
+    return zip_name
 
 
 def show_replica(cases: List[dict]):
@@ -125,11 +126,27 @@ def get_unlabelled(all_cases: List[dict], other_cases: List[dict]):
     return unlabelled_cases
 
 
-def edit_review(old_cases: List[LabelledCase], reviews: List[LabelledCase]):
-    cases_copy = old_cases.copy()
-    review_map = {"".join(review.text.values()): review.tag for review in reviews}
-    for idx, case in enumerate(old_cases):
-        key = "".join(case.text.values())
-        if key in review_map:
-            cases_copy[idx].tag = review_map[key]
-    return cases_copy
+def load_datazip(datazip_path: str, datafile: dict = DATAFILE):
+    with ZipFile(datazip_path, "r") as datazip:
+        tmp = []
+        for f_name in datafile.values():
+            with datazip.open(f_name, "r") as file:
+                tmp.append(json.loads(file.read().decode("utf-8")))
+        return RawData(*tmp)
+
+
+def dump_datazip(rawdata: RawData, zip_name="dataset1.1.zip"):
+    with ZipFile(zip_name, "w") as datazip:
+        for name, data in rawdata:
+
+            with datazip.open(f"{name}.json", "w") as file:
+                file.write(json.dumps(data).encode("utf-8"))
+
+
+def topN(preds, classes, n=3):
+    tops = np.argsort(preds)
+    ret = []
+    for i, top in enumerate(tops):
+        sel_idx = top[-n:][::-1]
+        ret.append(list(zip(classes[sel_idx], preds[i][sel_idx])))
+    return ret

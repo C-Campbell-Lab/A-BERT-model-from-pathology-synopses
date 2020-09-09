@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import List, Optional
 
 import numpy as np
@@ -45,10 +45,7 @@ class MaskedParent:
 
 @dataclass
 class Params:
-    x_train: str
-    y_train: str
-    x_test: str
-    y_test: str
+    datazip_path: str
     max_len: int
     upsampling: int
     dropout_prob: float
@@ -69,3 +66,27 @@ class States:
     data: np.array
     tag: list
     index: list
+    tag_n: list
+
+
+DATAFILE = {
+    "x_dict": "x_dict.json",
+    "y_tags": "y_tags.json",
+    "x_train_dict": "x_train_dict.json",
+    "y_train_tags": "y_train_tags.json",
+    "x_test_dict": "x_test_dict.json",
+    "y_test_tags": "y_test_tags.json",
+}
+
+
+@dataclass
+class RawData:
+    x_dict: dict
+    y_tags: list
+    x_train_dict: dict
+    y_train_tags: list
+    x_test_dict: dict
+    y_test_tags: list
+
+    def __iter__(self):
+        return iter(asdict(self).items())
