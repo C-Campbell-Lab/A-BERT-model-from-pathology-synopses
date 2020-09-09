@@ -62,3 +62,10 @@ class Trace:
     masked_outputs: np.array
     mask_words: np.array
     important_change: Optional[np.array] = None
+
+
+@dataclass
+class States:
+    data: np.array
+    tag: list
+    index: list

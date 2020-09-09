@@ -11,13 +11,13 @@ from .domain import LabelledCase
 random.seed(42)
 
 
-class DataProfile:
-    def count_tags(self, tags: List[List[str]]):
-        return Counter(chain(*tags)).most_common()
+def count_tags(tags: List[List[str]]):
+    return Counter(chain(*tags)).most_common()
 
-    def count_token_len(self, texts: List[str]):
-        lens = list(map(lambda text: len(text.split(" ")), texts))
-        return Counter(lens).most_common()
+
+def count_token_len(texts: List[str]):
+    lens = list(map(lambda text: len(text.split(" ")), texts))
+    return Counter(lens).most_common()
 
 
 def load_json(path):

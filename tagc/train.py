@@ -1,4 +1,3 @@
-from functools import cached_property
 from typing import Optional
 
 import fire
@@ -71,7 +70,6 @@ class Pipeline:
             "recall": recall,
         }
 
-    @cached_property
     def validation_examples(self):
         assert self.trainer is None, "training first"
         pred = self.trainer.predict(self.testing_set)

@@ -1,5 +1,6 @@
 from typing import Any, Dict, Optional, Union
 
+import numpy as np
 import torch
 from torch import cuda, nn
 from transformers import BertModel, BertPreTrainedModel
@@ -70,24 +71,26 @@ class Classification(BertPreTrainedModel):
 
 
 class StandaloneModel:
-    def __init__(self, model, tokenizer, max_len=200):
+    def __init__(self, model: Classification, tokenizer, max_len=200):
         self.model = model
         self.tokenizer = tokenizer
         self.max_len = max_len
         self.device = "cuda" if cuda.is_available() else "cpu"
         self.model.to(self.device)
 
-    def predict(self, cases: list, batch=8):
+    def predict(self, cases: list, batch=8, pooled_output=False) -> np.array:
         if isinstance(cases[0], dict):
             cases = list(map(self._compose, cases))
         self.model.eval()
         preds: Optional[torch.Tensor] = None
         for step in range(0, len(cases), batch):
             inputs = self._encode(cases[step : step + batch])
-            logits = self._predict_step(inputs)
-            preds = logits if preds is None else torch.cat((preds, logits), dim=0)
+            outputs = self._predict_step(inputs, pooled_output=pooled_output)
+            preds = outputs if preds is None else torch.cat((preds, outputs), dim=0)
         if preds is None:
             return preds
+        if pooled_output:
+            return preds.cpu().numpy()
         return torch.sigmoid(preds).cpu().numpy()
 
     def _compose(self, case: dict):
@@ -103,9 +106,13 @@ class StandaloneModel:
             return_token_type_ids=True,
         )
 
-    def _predict_step(self, inputs):
+    def _predict_step(self, inputs, pooled_output=False):
         inputs = self._prepare_inputs(inputs)
         with torch.no_grad():
+            if pooled_output:
+                outputs = self.model.base_model(**inputs)
+                pooled_output = outputs[1]
+                return pooled_output.detach()
             outputs = self.model(**inputs)
             logits = outputs[0]
         return logits.detach()
