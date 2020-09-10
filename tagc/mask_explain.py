@@ -23,8 +23,11 @@ class MaskMaker:
 
 
 class MaskExplainer:
-    def __init__(self, mask_maker: MaskMaker, mlb: MultiLabelBinarizer):
-        self.mask_maker = mask_maker
+    def __init__(self, mlb: MultiLabelBinarizer, mask_maker: MaskMaker = None):
+        if mask_maker is None:
+            self.mask_maker = MaskMaker()
+        else:
+            self.mask_maker = mask_maker
         self.mlb = mlb
 
     def explain(self, model: StandaloneModel, case: Case):

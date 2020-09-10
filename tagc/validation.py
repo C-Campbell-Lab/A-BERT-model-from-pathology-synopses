@@ -7,7 +7,7 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
 from .data_utils import count_tags
-from .domain import RawData, States
+from .domain import Mlb, RawData, States
 from .model import StandaloneModel
 
 
@@ -73,7 +73,10 @@ def dimension_reduction_plot(states: States, method_n="PCA", n_components=3):
     fig.show()
 
 
-def judge_on_tag(model: StandaloneModel, x, y, mlb, total_y):
+def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData):
+    x = rawdata.x_test_dict
+    y = rawdata.y_test_tags
+    total_y = rawdata.y_tags
     pred_prob = model.predict(x)
     preds = pred_prob >= 0.5
     mcm = metrics.multilabel_confusion_matrix(mlb.transform(y), preds > 0.5)

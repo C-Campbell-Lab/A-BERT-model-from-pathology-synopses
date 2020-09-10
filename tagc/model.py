@@ -78,6 +78,11 @@ class StandaloneModel:
         self.device = "cuda" if cuda.is_available() else "cpu"
         self.model.to(self.device)
 
+    @classmethod
+    def from_path(cls, model_path: str, tokenizer, max_len=200):
+        model = Classification.from_pretrained(model_path)
+        return cls(model, tokenizer, max_len)
+
     def predict(self, cases: list, batch=8, pooled_output=False) -> np.array:
         if isinstance(cases[0], dict):
             cases = list(map(self._compose, cases))

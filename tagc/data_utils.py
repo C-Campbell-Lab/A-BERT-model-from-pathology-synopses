@@ -8,6 +8,7 @@ from zipfile import ZipFile
 
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MultiLabelBinarizer
 
 from .domain import DATAFILE, Cases, LabelledCase, RawData
 
@@ -15,11 +16,11 @@ random.seed(42)
 
 
 def grouping_idx(y):
-    groupby = defaultdict(list)
+    group_by = defaultdict(list)
     for idx, tags in enumerate(y):
         for tag in tags:
-            groupby[tag].append(idx)
-    return groupby
+            group_by[tag].append(idx)
+    return group_by
 
 
 def count_tags(tags: List[List[str]]):
@@ -159,6 +160,10 @@ def dump_datazip(rawdata: RawData, zip_name="dataset1.1.zip"):
 
             with datazip.open(f"{name}.json", "w") as file:
                 file.write(json.dumps(data).encode("utf-8"))
+
+
+def get_Mlb(rawdata: RawData):
+    return MultiLabelBinarizer().fit(rawdata.y_tags)
 
 
 def topN(preds, classes, n=3):

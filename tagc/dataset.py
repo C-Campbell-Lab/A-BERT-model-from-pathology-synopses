@@ -91,10 +91,10 @@ class DatasetFactory:
         return dataset
 
     def _upsampling(self, x, y, target=100):
-        groupby_idx = grouping_idx(y)
+        group_by_idx = grouping_idx(y)
         new_x = []
         new_y = []
-        for group_idx in groupby_idx.values():
+        for group_idx in group_by_idx.values():
             upsample_idx = random.choices(group_idx, k=target)
             new_x.extend(map(lambda idx: self._compose(x[idx]), upsample_idx))
             new_y.extend(map(lambda idx: y[idx], upsample_idx))
