@@ -1,15 +1,21 @@
+import json
 from dataclasses import asdict, dataclass
 from typing import List, Optional
 
 import numpy as np
+from sklearn.preprocessing import MultiLabelBinarizer
 
 Case = dict
+Cases = List[dict]
+Mlb = MultiLabelBinarizer
+Tag = List[str]
+Tags = List[Tag]
 
 
 @dataclass
 class LabelledCase:
     text: Case
-    tag: List[str]
+    tag: Tag
 
     def serialize(self):
         return {"text": self.text, "tag": "; ".join(self.tag)}
@@ -67,6 +73,7 @@ class States:
     tag: list
     index: list
     tag_n: list
+    from_: list
 
 
 DATAFILE = {
@@ -81,12 +88,22 @@ DATAFILE = {
 
 @dataclass
 class RawData:
-    x_dict: dict
-    y_tags: list
-    x_train_dict: dict
-    y_train_tags: list
-    x_test_dict: dict
-    y_test_tags: list
+    x_dict: Cases
+    y_tags: Tags
+    x_train_dict: Cases
+    y_train_tags: Tags
+    x_test_dict: Cases
+    y_test_tags: Tags
 
     def __iter__(self):
         return iter(asdict(self).items())
+
+    def show(self, from_: str, idx: int):
+        if from_ == "train":
+            x = self.x_train_dict[idx]
+            y = self.y_train_tags[idx]
+        else:
+            x = self.x_test_dict[idx]
+            y = self.y_test_tags[idx]
+        print(json.dumps(x, indent=2))
+        print(y)

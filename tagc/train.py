@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import Optional
 
 import fire
@@ -23,12 +24,11 @@ class Pipeline:
         self.model = Classification(config)
 
     def init_dataset(self, params):
-        self.dataset_factory = DatasetFactory(params)
-
-        (
-            self.training_set,
-            self.testing_set,
-        ) = self.dataset_factory.supply_training_dataset()
+        df = DatasetFactory(params)
+        self.dataset_factory = df
+        self.training_set, self.testing_set = df.supply_training_dataset()
+        self.mlb = df.mlb
+        self.tokenizer = df.tokenizer
 
     def train(self, training_args: Optional[TrainingArguments] = None):
         if training_args is None:
@@ -71,7 +71,7 @@ class Pipeline:
         }
 
     def validation_examples(self):
-        assert self.trainer is None, "training first"
+        assert self.trainer is not None, "training first"
         pred = self.trainer.predict(self.testing_set)
         texts = self.dataset_factory.x_test_dict
         true_tags = self.dataset_factory.y_test_tags
@@ -87,7 +87,7 @@ class Pipeline:
             else:
                 judge = f"{corr} in {num_tags} tags correct"
             example.append((text, "; ".join(pred_tag), "; ".join(true_tag), judge))
-
+        print(Counter(judge))
         return example
 
 

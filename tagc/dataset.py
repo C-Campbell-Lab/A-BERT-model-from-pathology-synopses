@@ -1,14 +1,12 @@
 import random
-from collections import defaultdict
-from typing import List
 
 import torch
 from sklearn.preprocessing import MultiLabelBinarizer
 from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 
-from .data_utils import load_datazip
-from .domain import Params
+from .data_utils import grouping_idx, load_datazip
+from .domain import Cases, Params
 
 random.seed(42)
 
@@ -87,13 +85,13 @@ class DatasetFactory:
         testing_set = CustomDataset(x_test, self.tokenizer, self.params.max_len, y_test)
         return train_dataset, testing_set
 
-    def supply_unlabelled_dataset(self, cases: List[dict]):
+    def supply_unlabelled_dataset(self, cases: Cases):
         texts = list(map(self._compose, cases))
         dataset = CustomDataset(texts, self.tokenizer, self.params.max_len)
         return dataset
 
     def _upsampling(self, x, y, target=100):
-        groupby_idx = self._grouping_idx(y)
+        groupby_idx = grouping_idx(y)
         new_x = []
         new_y = []
         for group_idx in groupby_idx.values():
@@ -103,13 +101,6 @@ class DatasetFactory:
         return new_x, new_y
 
     # Makeshift upsampling to 125 cases per tag
-    def _grouping_idx(self, y):
-        groupby = defaultdict(list)
-        for idx, tags in enumerate(y):
-            for tag in tags:
-                groupby[tag].append(idx)
-        return groupby
-
     def _compose(self, case):
         tmp = [f"{k}: {v}" for k, v in case.items()]
         random.shuffle(tmp)

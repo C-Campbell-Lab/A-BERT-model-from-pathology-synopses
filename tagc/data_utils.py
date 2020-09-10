@@ -1,7 +1,7 @@
 import json
 import random
 import time
-from collections import Counter
+from collections import Counter, defaultdict
 from itertools import chain
 from typing import List
 from zipfile import ZipFile
@@ -9,9 +9,17 @@ from zipfile import ZipFile
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-from .domain import DATAFILE, LabelledCase, RawData
+from .domain import DATAFILE, Cases, LabelledCase, RawData
 
 random.seed(42)
+
+
+def grouping_idx(y):
+    groupby = defaultdict(list)
+    for idx, tags in enumerate(y):
+        for tag in tags:
+            groupby[tag].append(idx)
+    return groupby
 
 
 def count_tags(tags: List[List[str]]):
@@ -41,6 +49,12 @@ def load_labelled_cases(path):
             LabelledCase(record["text"], label_to_tags(record["tag"]))
         )
     return labelled_cases
+
+
+def unwrap_labelled_cases(labelled_cases: List[LabelledCase]):
+    cases = [lc.text for lc in labelled_cases]
+    tags = [lc.tag for lc in labelled_cases]
+    return cases, tags
 
 
 def label_to_tags(label: str):
@@ -85,6 +99,17 @@ def dump_labelled_cases(labelled_cases: List[LabelledCase], path: str):
     dump_json(path, obj)
 
 
+def cases_minus(minuend: Cases, subtrahend: Cases):
+    def not_same_content(case: dict) -> bool:
+        return "".join(case.values()) not in used_cases
+
+    used_cases = {"".join(case.values()) for case in subtrahend}
+    assert "" not in used_cases, "has empty case in other cases"
+    difference = list(filter(not_same_content, minuend))
+
+    return difference
+
+
 def labelled_cases_to_xy(labelled_cases: List[LabelledCase]):
     x = []
     y = []
@@ -103,27 +128,20 @@ def split_and_dump_dataset(x, y):
         x, y, test_size=0.2, random_state=42
     )
     rd = RawData(x, y, x_train_dict, y_train_tags, x_test_dict, y_test_tags)
-    zip_name = f'dataset{time.strftime("%Y%m%d-%H%M%S")}.zip'
+    zip_name = f"dataset{get_timestamp()}.zip"
     dump_datazip(rd, zip_name)
     return zip_name
 
 
-def show_replica(cases: List[dict]):
+def get_timestamp():
+    return time.strftime("%Y%m%d-%H%M%S")
+
+
+def show_replica(cases: Cases):
     tmp = Counter("".join(case.values()) for case in cases)
     for k, v in tmp.items():
         if v > 1:
             print(k)
-
-
-def get_unlabelled(all_cases: List[dict], other_cases: List[dict]):
-    def not_same_content(case: dict) -> bool:
-        return "".join(case.values()) not in used_cases
-
-    used_cases = {"".join(case.values()) for case in other_cases}
-    assert "" not in used_cases, "has empty case in other cases"
-    unlabelled_cases = list(filter(not_same_content, all_cases))
-
-    return unlabelled_cases
 
 
 def load_datazip(datazip_path: str, datafile: dict = DATAFILE):
