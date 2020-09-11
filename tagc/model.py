@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional, Union
 import numpy as np
 import torch
 from torch import cuda, nn
+from tqdm.autonotebook import tqdm
 from transformers import BertModel, BertPreTrainedModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
@@ -94,7 +95,7 @@ class StandaloneModel:
             cases = list(map(self._compose, cases))
         self.model.eval()
         preds: Optional[torch.Tensor] = None
-        for step in range(0, len(cases), batch):
+        for step in tqdm(range(0, len(cases), batch)):
             inputs = self._encode(cases[step : step + batch])
             outputs = self._predict_step(inputs, pooled_output=pooled_output)
             preds = outputs if preds is None else torch.cat((preds, outputs), dim=0)

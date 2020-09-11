@@ -3,7 +3,7 @@ import random
 import time
 from collections import Counter, defaultdict
 from itertools import chain
-from typing import List
+from typing import Dict, List
 from zipfile import ZipFile
 
 import numpy as np
@@ -15,7 +15,7 @@ from .domain import DATAFILE, Cases, LabelledCase, RawData
 random.seed(42)
 
 
-def grouping_idx(y):
+def grouping_idx(y) -> Dict[str, list]:
     group_by = defaultdict(list)
     for idx, tags in enumerate(y):
         for tag in tags:
@@ -120,7 +120,7 @@ def labelled_cases_to_xy(labelled_cases: List[LabelledCase]):
     return x, y
 
 
-def xy_to_labelled_cases(x, y):
+def xy_to_labelled_cases(x, y) -> List[LabelledCase]:
     return [LabelledCase(text, tag) for text, tag in zip(x, y)]
 
 

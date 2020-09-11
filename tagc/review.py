@@ -1,5 +1,5 @@
 import random
-from typing import List
+from typing import Dict, List
 
 from . import data_utils as du
 from .domain import LabelledCase, Mlb, Tags
@@ -32,20 +32,23 @@ def review_pipe(datazip_path: str, review_path: str):
 
 
 def enrich(
-    model: StandaloneModel, mlb: Mlb, all_cases, labelled_cases: List[LabelledCase]
+    model: StandaloneModel,
+    mlb: Mlb,
+    all_cases,
+    labelled_cases: List[LabelledCase],
+    thresh=20,
 ):
     known_cases, known_tags = du.unwrap_labelled_cases(labelled_cases)
     unlabelled_cases = du.cases_minus(all_cases, known_cases)
-    preds = model.predict(unlabelled_cases)
-    pred_tags = mlb.inverse_transform(preds > 0.5)
-    needed = get_needed(known_tags, pred_tags)
+    pred_tags = model.predict_tags(unlabelled_cases, mlb)
+    needed = get_needed(known_tags, pred_tags, thresh=thresh)
     collection = collect(unlabelled_cases, needed, pred_tags)
     du.dump_labelled_cases(collection, f"enrich_{du.get_timestamp()}.json")
 
 
 def get_needed(known_tags: Tags, pred_tags: Tags, thresh=20):
-    def sampleable(tag, lib: dict, need: dict):
-        return lib.get(tag, 0) > need[tag]
+    def sampleable(tag, lib: Dict[str, list], need: dict):
+        return len(lib.get(tag, [])) > need[tag]
 
     have = du.count_tags(known_tags)
     need_num = {}

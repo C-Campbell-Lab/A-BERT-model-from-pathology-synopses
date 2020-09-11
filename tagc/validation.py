@@ -124,3 +124,7 @@ def summary(cases, true_tags, pred_tags):
         example.append((case, "; ".join(pred_tag), "; ".join(true_tag), judge))
         judges.append(judge)
     return example, Counter(judges)
+
+
+# TODO
+# Add other cases

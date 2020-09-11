@@ -65,3 +65,7 @@ class MaskExplainer:
     def show_trace(self):
         trace = self.trace
         return trace.origin_output, trace.masked_outputs, trace.important_change
+
+
+# TODO
+# Top 5 keywords for each tags
