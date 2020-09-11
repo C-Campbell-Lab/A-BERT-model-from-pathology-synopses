@@ -6,6 +6,8 @@ from torch import cuda, nn
 from transformers import BertModel, BertPreTrainedModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
+from .domain import Mlb
+
 
 class Classification(BertPreTrainedModel):
     def __init__(self, config):
@@ -82,6 +84,10 @@ class StandaloneModel:
     def from_path(cls, model_path: str, tokenizer, max_len=200):
         model = Classification.from_pretrained(model_path)
         return cls(model, tokenizer, max_len)
+
+    def predict_tags(self, cases: list, mlb: Mlb, batch=8):
+        preds = self.predict(cases, batch=batch)
+        return mlb.inverse_transform(preds >= 0.5)
 
     def predict(self, cases: list, batch=8, pooled_output=False) -> np.array:
         if isinstance(cases[0], dict):

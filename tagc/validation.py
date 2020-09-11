@@ -11,7 +11,10 @@ from .domain import Mlb, RawData, States
 from .model import StandaloneModel
 
 
-def get_tag_states(model: StandaloneModel, rawdata: RawData):
+def get_tag_states(model: StandaloneModel, rawdata: RawData, mlb: Mlb):
+    def tags_to_str(tags):
+        return ", ".join(sorted(tags))
+
     x = rawdata.x_train_dict + rawdata.x_test_dict
     y = rawdata.y_train_tags + rawdata.y_test_tags
     index = list(range(len(rawdata.x_train_dict)))
@@ -19,9 +22,11 @@ def get_tag_states(model: StandaloneModel, rawdata: RawData):
     from_ = ["train" for _ in range(len(rawdata.x_train_dict))]
     from_.extend("test" for _ in range(len(rawdata.x_test_dict)))
     tag_n = list(map(lambda tags: len(tags), y))
-    tag_y = list(map(lambda tags: ", ".join(sorted(tags)), y))
+    tag_y = list(map(tags_to_str, y))
     pooled_outputs = model.predict(x, pooled_output=True)
-    states = States(pooled_outputs, tag_y, index, tag_n, from_)
+    pred_tags = model.predict_tags(x, mlb)
+    pred_tag_note = list(map(tags_to_str, pred_tags))
+    states = States(pooled_outputs, tag_y, index, tag_n, from_, pred_tag_note)
     return states
 
 
@@ -42,6 +47,7 @@ def dimension_reduction_plot(states: States, method_n="PCA", n_components=3):
             "index": states.index,
             "tag_num": states.tag_n,
             "from": states.from_,
+            "pred_tag": states.pred_tag,
         }
     )
     for n in range(n_components):
@@ -55,7 +61,7 @@ def dimension_reduction_plot(states: States, method_n="PCA", n_components=3):
             z="D3",
             color="tag",
             symbol="tag_num",
-            hover_data=["index", "from"],
+            hover_data=["index", "from", "pred_tag"],
         )
     elif n_components == 2:
         fig = px.scatter(
@@ -64,7 +70,7 @@ def dimension_reduction_plot(states: States, method_n="PCA", n_components=3):
             y="D2",
             color="tag",
             symbol="tag_num",
-            hover_data=["index", "from"],
+            hover_data=["index", "from", "pred_tag"],
         )
     else:
         print("support only 2 or 3 dimension ploting")
@@ -103,11 +109,10 @@ def compress(cm):
     return (corr / amount, corr, amount)
 
 
-def summary(model: StandaloneModel, x, y, mlb):
+def summary(cases, true_tags, pred_tags):
+    example = []
     judges = []
-    preds = model.predict(x)
-    pred_tags = mlb.inverse_transform(preds >= 0.5)
-    for pred_tag, true_tag in zip(pred_tags, y):
+    for case, pred_tag, true_tag in zip(cases, pred_tags, true_tags):
         num_tags = len(pred_tag)
         corr = sum(tag in true_tag for tag in pred_tag)
         if num_tags == 0:
@@ -116,6 +121,6 @@ def summary(model: StandaloneModel, x, y, mlb):
             judge = "correct"
         else:
             judge = f"{corr} in {num_tags} tags correct"
+        example.append((case, "; ".join(pred_tag), "; ".join(true_tag), judge))
         judges.append(judge)
-    count = Counter(judges)
-    return count
+    return example, Counter(judges)

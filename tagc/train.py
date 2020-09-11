@@ -1,13 +1,12 @@
-from collections import Counter
 from typing import Optional
 
-import fire
 from sklearn import metrics
 from transformers import BertConfig, Trainer, TrainingArguments
 
 from .dataset import DatasetFactory
 from .domain import Params
 from .model import Classification
+from .validation import summary
 
 
 class Pipeline:
@@ -73,23 +72,15 @@ class Pipeline:
     def validation_examples(self):
         assert self.trainer is not None, "training first"
         pred = self.trainer.predict(self.testing_set)
-        texts = self.dataset_factory.x_test_dict
+        cases = self.dataset_factory.x_test_dict
         true_tags = self.dataset_factory.y_test_tags
         pred_tags = self.dataset_factory.mlb.inverse_transform(pred.predictions >= 0)
-        example = []
-        for text, pred_tag, true_tag in zip(texts, pred_tags, true_tags):
-            num_tags = len(pred_tag)
-            corr = sum(tag in true_tag for tag in pred_tag)
-            if num_tags == 0:
-                judge = "missing"
-            elif corr == num_tags:
-                judge = "correct"
-            else:
-                judge = f"{corr} in {num_tags} tags correct"
-            example.append((text, "; ".join(pred_tag), "; ".join(true_tag), judge))
-        print(Counter(judge))
+        example, judges_count = summary(cases, true_tags, pred_tags)
+        print(judges_count)
         return example
 
 
 if __name__ == "__main__":
+    import fire
+
     print(fire.Fire(Params))

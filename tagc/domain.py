@@ -74,6 +74,7 @@ class States:
     index: list
     tag_n: list
     from_: list
+    pred_tag: list
 
 
 DATAFILE = {
