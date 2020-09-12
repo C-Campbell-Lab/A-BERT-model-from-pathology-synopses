@@ -5,8 +5,6 @@ from typing import List, Optional
 import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .data_utils import xy_to_labelled_cases
-
 Case = dict
 Cases = List[dict]
 Mlb = MultiLabelBinarizer
@@ -112,4 +110,4 @@ class RawData:
         print(y)
 
     def to_labelled_cases(self):
-        return xy_to_labelled_cases(self.x_dict, self.y_tags)
+        return [LabelledCase(text, tag) for text, tag in zip(self.x_dict, self.y_tags)]
