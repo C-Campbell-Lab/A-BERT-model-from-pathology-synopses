@@ -15,6 +15,16 @@ from .domain import DATAFILE, Cases, LabelledCase, RawData
 random.seed(42)
 
 
+def compose(case: dict, keep_key=False, shuffle=False) -> str:
+    if keep_key:
+        tmp = [f"{k}: {v}" for k, v in case.items()]
+    else:
+        tmp = list(case.values())
+    if shuffle:
+        random.shuffle(tmp)
+    return " ".join(tmp)
+
+
 def grouping_idx(y) -> Dict[str, list]:
     group_by = defaultdict(list)
     for idx, tags in enumerate(y):

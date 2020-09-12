@@ -5,7 +5,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 
-from .data_utils import grouping_idx, load_datazip
+from .data_utils import compose, grouping_idx, load_datazip
 from .domain import Cases, Params
 
 random.seed(42)
@@ -77,7 +77,7 @@ class DatasetFactory:
             self.x_train_dict, self.y_train_tags, target=self.params.upsampling
         )
         y_train = self.mlb.transform(y_train_raw)
-        x_test = list(map(self._compose, self.x_test_dict))
+        x_test = list(map(compose, self.x_test_dict))
         y_test = self.mlb.transform(self.y_test_tags)
         train_dataset = CustomDataset(
             x_train, self.tokenizer, self.params.max_len, y_train
@@ -102,6 +102,4 @@ class DatasetFactory:
 
     # Makeshift upsampling to 125 cases per tag
     def _compose(self, case):
-        tmp = [f"{k}: {v}" for k, v in case.items()]
-        random.shuffle(tmp)
-        return " ".join(tmp)
+        return compose(case, shuffle=True)

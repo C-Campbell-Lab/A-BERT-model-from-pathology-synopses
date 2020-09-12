@@ -7,6 +7,7 @@ from tqdm.autonotebook import tqdm
 from transformers import BertModel, BertPreTrainedModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
+from .data_utils import compose
 from .domain import Mlb
 
 
@@ -91,8 +92,19 @@ class StandaloneModel:
         return mlb.inverse_transform(preds >= 0.5)
 
     def predict(self, cases: list, batch=8, pooled_output=False) -> np.array:
+        """Predict the prob for 18 tags. If cases are dict, they will be
+        composed by their `values` without shuffle.
+
+        Args:
+            cases (list): The input, can be either a list of str or a list of dict.
+            batch (int, optional): The batch size. Defaults to 8.
+            pooled_output (bool, optional): Whether set the output as 768-D vector. Defaults to False.
+
+        Returns:
+            np.array: [description]
+        """
         if isinstance(cases[0], dict):
-            cases = list(map(self._compose, cases))
+            cases = list(map(compose, cases))
         self.model.eval()
         preds: Optional[torch.Tensor] = None
         for step in tqdm(range(0, len(cases), batch)):
@@ -104,9 +116,6 @@ class StandaloneModel:
         if pooled_output:
             return preds.cpu().numpy()
         return torch.sigmoid(preds).cpu().numpy()
-
-    def _compose(self, case: dict):
-        return " ".join(f"{k}: {v}" for k, v in case.items())
 
     def _encode(self, texts):
         return self.tokenizer.batch_encode_plus(
