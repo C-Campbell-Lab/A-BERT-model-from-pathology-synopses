@@ -11,23 +11,24 @@ from .validation import summary
 
 class Pipeline:
     def __init__(self, params: Params):
-        self.init_model(params)
         self.init_dataset(params)
+        self.init_model(params)
 
     def init_model(self, params):
         config = BertConfig()
         config.dropout_prob = params.dropout_prob
-        config.num_labels = params.num_labels
+        config.num_labels = self.num_labels
         config.identifier = params.identifier
         self.config = config
         self.model = Classification(config)
 
-    def init_dataset(self, params):
+    def init_dataset(self, params: Params):
         df = DatasetFactory(params)
         self.dataset_factory = df
         self.training_set, self.testing_set = df.supply_training_dataset()
         self.mlb = df.mlb
         self.tokenizer = df.tokenizer
+        self.num_labels = df.num_labels
 
     def train(self, training_args: Optional[TrainingArguments] = None):
         if training_args is None:

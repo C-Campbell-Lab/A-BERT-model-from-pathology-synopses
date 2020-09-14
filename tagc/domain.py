@@ -55,7 +55,6 @@ class Params:
     max_len: int
     upsampling: int
     dropout_prob: float
-    num_labels: int
     identifier: str
 
 

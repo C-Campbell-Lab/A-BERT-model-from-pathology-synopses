@@ -66,8 +66,9 @@ class DatasetFactory:
     def init_mlb(self):
         y = self.y_train_tags + self.y_test_tags
         mlb = MultiLabelBinarizer().fit(y)
-        assert len(mlb.classes_) == self.params.num_labels, "num_labels is inconsistent"
         self.mlb = mlb
+        self.num_labels = len(mlb.classes_)
+        assert self.num_labels >= 18, "load labels error"
 
     def init_tokenizer(self, identifier: str):
         self.tokenizer = AutoTokenizer.from_pretrained(identifier)
