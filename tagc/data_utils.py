@@ -7,9 +7,11 @@ from typing import Dict, List
 from zipfile import ZipFile
 
 import numpy as np
+import pandas as pd
+import plotly.express as px
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .domain import DATAFILE, Cases, LabelledCase, RawData
+from .domain import DATAFILE, Cases, LabelledCase, RawData, Tag, Tags
 
 random.seed(42)
 
@@ -32,7 +34,7 @@ def grouping_idx(y) -> Dict[str, list]:
     return group_by
 
 
-def count_tags(tags: List[List[str]]):
+def count_tags(tags: Tags):
     return Counter(chain(*tags))
 
 
@@ -56,7 +58,7 @@ def load_labelled_cases(path):
     labelled_cases = []
     for record in records:
         labelled_cases.append(
-            LabelledCase(record["text"], add_acute_LL(label_to_tags(record["tag"])))
+            LabelledCase(record["text"], label_to_tags(record["tag"]))
         )
     return labelled_cases
 
@@ -68,20 +70,30 @@ def unwrap_labelled_cases(labelled_cases: List[LabelledCase]):
 
 
 def label_to_tags(label: str):
-    tmp_tags = list(
-        map(
-            lambda x: tag_patch(
-                x.lower()
-                .strip()
-                .replace(".", "")
-                .replace("syndrome no", "syndrome")
-                .replace("inadquate", "inadequate")
-            ),
-            label.split(";"),
+    return refine_tag(label.split(";"))
+
+
+def refine_tag(tag: Tag):
+    return add_acute_LL(
+        list(
+            map(
+                lambda x: tag_patch(edit_tag_str(x)),
+                tag,
+            )
         )
     )
-    refine_tags = add_acute_LL(tmp_tags)
-    return refine_tags
+
+
+def edit_tag_str(tag: str):
+    return (
+        tag.lower()
+        .strip()
+        .replace(".", "")
+        .replace("syndrome no", "syndrome")
+        .replace("inadquate", "inadequate")
+        .replace("eosinophila", "eosinophilia")
+        .replace("hemophagoctyosis", "hemophagocytosis")
+    )
 
 
 def tag_patch(tag: str):
@@ -209,3 +221,37 @@ def topN(preds, classes, n=3):
         sel_idx = top[-n:][::-1]
         ret.append(list(zip(classes[sel_idx], preds[i][sel_idx])))
     return ret
+
+
+def rawdata_stat(rawdata):
+    def counter_to_df(counter: dict):
+        df = pd.DataFrame.from_dict(counter, orient="index")
+        df.reset_index(inplace=True)
+        df.columns = ["tag", "count"]
+        return df
+
+    train_tag_df = counter_to_df(count_tags(rawdata.y_train_tags))
+    train_tag_df["for"] = "train"
+    test_tag_df = counter_to_df(count_tags(rawdata.y_test_tags))
+    test_tag_df["for"] = "test"
+    tag_df = pd.concat([train_tag_df, test_tag_df])
+    fig = px.bar(tag_df, x="tag", y="count", color="for", title="Tag Stat")
+    fig.add_shape(
+        type="line",
+        x0=0,
+        y0=20,
+        x1=22,
+        y1=20,
+        line=dict(
+            color="Red",
+            width=1,
+        ),
+    )
+    fig.show()
+
+
+def refine_rawdata(rawdata: RawData):
+    rawdata.y_tags = list(map(refine_tag, rawdata.y_tags))
+    rawdata.y_test_tags = list(map(refine_tag, rawdata.y_test_tags))
+    rawdata.y_train_tags = list(map(refine_tag, rawdata.y_train_tags))
+    return rawdata
