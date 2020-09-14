@@ -7,7 +7,6 @@ from typing import Dict, List
 from zipfile import ZipFile
 
 import numpy as np
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
 
 from .domain import DATAFILE, Cases, LabelledCase, RawData
@@ -37,8 +36,8 @@ def count_tags(tags: List[List[str]]):
     return Counter(chain(*tags))
 
 
-def count_token_len(texts: List[str]):
-    lens = list(map(lambda text: len(text.split(" ")), texts))
+def count_token_len(cases: Cases):
+    lens = list(map(lambda case: len(" ".join(case.values()).split(" ")), cases))
     return Counter(lens)
 
 
@@ -136,12 +135,39 @@ def xy_to_labelled_cases(x, y) -> List[LabelledCase]:
 
 def split_and_dump_dataset(x, y):
     x_train_dict, x_test_dict, y_train_tags, y_test_tags = train_test_split(
-        x, y, test_size=0.2, random_state=42
+        x, y, test_size=0.2
     )
     rd = RawData(x, y, x_train_dict, y_train_tags, x_test_dict, y_test_tags)
     zip_name = f"dataset{get_timestamp()}.zip"
     dump_datazip(rd, zip_name)
     return zip_name
+
+
+def train_test_split(x, y, test_size=0.2):
+    tag_stat = count_tags(y)
+    keep_tags = get_rare_tags(tag_stat)
+    train_idx = []
+    test_idx = []
+    left_idx = []
+    for idx, tags in enumerate(y):
+        if any(tag in keep_tags for tag in tags):
+            train_idx.append(idx)
+        else:
+            left_idx.append(idx)
+    random.shuffle(left_idx)
+    bin_point = round(test_size * len(left_idx))
+    train_idx.extend(left_idx[bin_point:])
+    test_idx.extend(left_idx[:bin_point])
+    return (
+        [x[idx] for idx in train_idx],
+        [x[idx] for idx in test_idx],
+        [y[idx] for idx in train_idx],
+        [y[idx] for idx in test_idx],
+    )
+
+
+def get_rare_tags(tag_count: dict, thresh=1):
+    return [tag for tag, count in tag_count.items() if count <= thresh]
 
 
 def get_timestamp():
