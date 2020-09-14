@@ -11,11 +11,17 @@ random.seed(42)
 def edit_review(old_cases: List[LabelledCase], reviews: List[LabelledCase]):
     cases_copy = old_cases.copy()
     review_map = {"".join(review.text.values()): review.tag for review in reviews}
+    used_keys = set()
     for idx, case in enumerate(old_cases):
         key = "".join(case.text.values())
         cases_copy[idx].tag = du.add_acute_LL(cases_copy[idx].tag)
         if key in review_map:
             cases_copy[idx].tag = review_map[key]
+            used_keys.add(key)
+
+    for review_idx, key in enumerate(review_map):
+        if key not in used_keys:
+            cases_copy.append(reviews[review_idx])
     return cases_copy
 
 

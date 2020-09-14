@@ -57,7 +57,7 @@ def load_labelled_cases(path):
     labelled_cases = []
     for record in records:
         labelled_cases.append(
-            LabelledCase(record["text"], label_to_tags(record["tag"]))
+            LabelledCase(record["text"], add_acute_LL(label_to_tags(record["tag"])))
         )
     return labelled_cases
 
