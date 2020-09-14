@@ -202,12 +202,15 @@ def load_datazip(datazip_path: str, datafile: dict = DATAFILE):
         return RawData(*tmp)
 
 
-def dump_datazip(rawdata: RawData, zip_name="dataset1.1.zip"):
+def dump_datazip(rawdata: RawData, zip_name=None):
+    if zip_name is None:
+        zip_name = f"dataset{get_timestamp()}.zip"
     with ZipFile(zip_name, "w") as datazip:
         for name, data in rawdata:
 
             with datazip.open(f"{name}.json", "w") as file:
                 file.write(json.dumps(data).encode("utf-8"))
+    return zip_name
 
 
 def get_Mlb(rawdata: RawData):
@@ -223,18 +226,31 @@ def topN(preds, classes, n=3):
     return ret
 
 
-def rawdata_stat(rawdata):
+def rawdata_stat(rawdata: RawData):
     def counter_to_df(counter: dict):
         df = pd.DataFrame.from_dict(counter, orient="index")
         df.reset_index(inplace=True)
         df.columns = ["tag", "count"]
         return df
 
-    train_tag_df = counter_to_df(count_tags(rawdata.y_train_tags))
+    train_counter = count_tags(rawdata.y_train_tags)
+    test_counter = count_tags(rawdata.y_test_tags)
+    print(f"Train Tag Number: {len(train_counter)}")
+    assert len(train_counter) == len(
+        count_tags(rawdata.y_tags)
+    ), "Splitting is not right"
+    print(f"Test Tag Number: {len(test_counter)}")
+
+    train_tag_df = counter_to_df(train_counter)
     train_tag_df["for"] = "train"
-    test_tag_df = counter_to_df(count_tags(rawdata.y_test_tags))
+    test_tag_df = counter_to_df(test_counter)
     test_tag_df["for"] = "test"
+
     tag_df = pd.concat([train_tag_df, test_tag_df])
+    plot_tag_stat(tag_df)
+
+
+def plot_tag_stat(tag_df):
     fig = px.bar(tag_df, x="tag", y="count", color="for", title="Tag Stat")
     fig.add_shape(
         type="line",
