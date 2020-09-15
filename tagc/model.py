@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from torch import cuda, nn
 from tqdm.autonotebook import tqdm
-from transformers import BertModel, BertPreTrainedModel
+from transformers import AutoTokenizer, BertModel, BertPreTrainedModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
 from .data_utils import compose
@@ -75,15 +75,17 @@ class Classification(BertPreTrainedModel):
 
 
 class StandaloneModel:
-    def __init__(self, model: Classification, tokenizer, max_len=200):
+    def __init__(self, model: Classification, tokenizer=None, max_len=200):
         self.model = model
+        if tokenizer is None:
+            tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
         self.tokenizer = tokenizer
         self.max_len = max_len
         self.device = "cuda" if cuda.is_available() else "cpu"
         self.model.to(self.device)
 
     @classmethod
-    def from_path(cls, model_path: str, tokenizer, max_len=200):
+    def from_path(cls, model_path: str, tokenizer=None, max_len=200):
         model = Classification.from_pretrained(model_path)
         return cls(model, tokenizer, max_len)
 

@@ -30,7 +30,9 @@ def get_tag_states(model: StandaloneModel, rawdata: RawData, mlb: Mlb):
     return states
 
 
-def dimension_reduction_plot(states: States, method_n="PCA", n_components=3):
+def dimension_reduction_plot(
+    states: States, method_n="PCA", n_components=3, dash=False
+):
     if method_n.lower() == "tsne":
         method = TSNE
     else:
@@ -76,6 +78,8 @@ def dimension_reduction_plot(states: States, method_n="PCA", n_components=3):
         print("support only 2 or 3 dimension ploting")
         return
     fig.layout.update(showlegend=False)
+    if dash:
+        return fig
     fig.show()
 
 

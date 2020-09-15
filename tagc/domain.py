@@ -99,14 +99,17 @@ class RawData:
         return iter(asdict(self).items())
 
     def show(self, from_: str, idx: int):
+
+        print(json.dumps(self.retrive(from_, idx), indent=2))
+
+    def retrive(self, from_: str, idx: int):
         if from_ == "train":
             x = self.x_train_dict[idx]
             y = self.y_train_tags[idx]
         else:
             x = self.x_test_dict[idx]
             y = self.y_test_tags[idx]
-        print(json.dumps(x, indent=2))
-        print(y)
+        return {"text": x, "tag": y}
 
     def to_labelled_cases(self):
         return [LabelledCase(text, tag) for text, tag in zip(self.x_dict, self.y_tags)]
