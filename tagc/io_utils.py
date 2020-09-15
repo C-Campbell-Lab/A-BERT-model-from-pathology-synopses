@@ -10,10 +10,9 @@ from tqdm.autonotebook import tqdm
 from .domain import DATAFILE, LabelledCase, RawData
 
 
-def prepare_model():
+def prepare_model(out_path="model"):
     url = "https://storage.googleapis.com/pathopatho/model.zip"
     out_f = "model.zip"
-    out_path = "model"
     download_file(url, out_f)
     unzip_model(out_f, out_path)
 
@@ -31,12 +30,17 @@ def download_file(url, out_f):
 
 
 def unzip_model(p, out):
-
     with ZipFile(p, "r") as zipfile:
         zipfile.extractall(out)
     m = Path(out)
     for f in m.glob("*/*"):
         f.rename(m / f.name)
+
+
+def prepare_dataset(out_f="dataset.zip"):
+    url = "https://storage.googleapis.com/pathopatho/dataset.zip"
+
+    download_file(url, out_f)
 
 
 def get_timestamp():

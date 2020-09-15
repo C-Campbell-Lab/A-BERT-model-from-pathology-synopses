@@ -78,7 +78,7 @@ class StandaloneModel:
     def __init__(self, model: Classification, tokenizer=None, max_len=200):
         self.model = model
         if tokenizer is None:
-            tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+            tokenizer = get_tokenizer()
         self.tokenizer = tokenizer
         self.max_len = max_len
         self.device = "cuda" if cuda.is_available() else "cpu"
@@ -153,3 +153,7 @@ class StandaloneModel:
             )
 
         return inputs
+
+
+def get_tokenizer():
+    return AutoTokenizer.from_pretrained("bert-base-uncased")
