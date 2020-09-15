@@ -48,6 +48,9 @@ class MaskedParent:
     def mask_words(self):
         return [mask.word(self.text) for mask in self.masks]
 
+    def mask_words_(self):
+        return [f"{mask.word(self.text)}({mask.field[:3]})" for mask in self.masks]
+
 
 @dataclass
 class Params:

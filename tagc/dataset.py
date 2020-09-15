@@ -5,8 +5,9 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 
-from .data_utils import compose, grouping_idx, load_datazip
+from .data_utils import compose, grouping_idx
 from .domain import Cases, Params
+from .io_utils import load_datazip
 
 random.seed(42)
 

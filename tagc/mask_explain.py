@@ -1,6 +1,8 @@
 import re
 
 import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from sklearn.preprocessing import MultiLabelBinarizer
 
 from .domain import Case, Mask, MaskedParent, Trace
@@ -36,7 +38,7 @@ class MaskExplainer:
         masked_cases = masked_parent.masked_cases()
         masked_outputs = model.predict(masked_cases)
 
-        mask_words = np.array(masked_parent.mask_words())
+        mask_words = np.array(masked_parent.mask_words_())
 
         trace = Trace(origin_output, masked_outputs, mask_words)
         ret = self.analysis_trace(trace)
@@ -65,6 +67,22 @@ class MaskExplainer:
     def show_trace(self):
         trace = self.trace
         return trace.origin_output, trace.masked_outputs, trace.important_change
+
+
+def plot_explanation(ret):
+    fig = make_subplots(rows=len(ret), cols=1, subplot_titles=tuple(ret.keys()))
+    for loc, pairs in enumerate(ret.values(), start=1):
+        words_p = [p[0] for p in pairs if p[1] >= 0]
+        values_p = [p[1] for p in pairs if p[1] >= 0]
+        words_n = [p[0] for p in pairs if p[1] < 0]
+        values_n = [p[1] for p in pairs if p[1] < 0]
+
+        fig.add_trace(go.Bar(x=words_p, y=values_p, name="pos"), row=loc, col=1)
+        fig.add_trace(go.Bar(x=words_n, y=values_n, name="neg"), row=loc, col=1)
+        fig.update_xaxes(title_text="word", row=loc, col=1)
+        fig.update_yaxes(title_text="influence", row=loc, col=1)
+    fig.layout.update(showlegend=False)
+    fig.show()
 
 
 # TODO

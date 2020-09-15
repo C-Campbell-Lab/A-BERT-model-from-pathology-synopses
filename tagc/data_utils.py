@@ -1,17 +1,15 @@
-import json
 import random
-import time
 from collections import Counter, defaultdict
 from itertools import chain
 from typing import Dict, List
-from zipfile import ZipFile
 
 import numpy as np
 import pandas as pd
 import plotly.express as px
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .domain import DATAFILE, Cases, LabelledCase, RawData, Tag, Tags
+from .domain import Cases, LabelledCase, RawData, Tag, Tags
+from .io_utils import dump_datazip, get_timestamp, load_json
 
 random.seed(42)
 
@@ -41,26 +39,6 @@ def count_tags(tags: Tags):
 def count_token_len(cases: Cases):
     lens = list(map(lambda case: len(" ".join(case.values()).split(" ")), cases))
     return Counter(lens)
-
-
-def load_json(path):
-    with open(path, "r") as js_:
-        return json.load(js_)
-
-
-def dump_json(path, obj):
-    with open(path, "w") as js_:
-        json.dump(obj, js_)
-
-
-def load_labelled_cases(path):
-    records = load_json(path)
-    labelled_cases = []
-    for record in records:
-        labelled_cases.append(
-            LabelledCase(record["text"], label_to_tags(record["tag"]))
-        )
-    return labelled_cases
 
 
 def unwrap_labelled_cases(labelled_cases: List[LabelledCase]):
@@ -116,11 +94,6 @@ def add_acute_LL(tags: List[str]):
     return tags
 
 
-def dump_labelled_cases(labelled_cases: List[LabelledCase], path: str):
-    obj = list(map(LabelledCase.serialize, labelled_cases))
-    dump_json(path, obj)
-
-
 def cases_minus(minuend: Cases, subtrahend: Cases):
     def not_same_content(case: dict) -> bool:
         return "".join(case.values()) not in used_cases
@@ -155,6 +128,16 @@ def split_and_dump_dataset(x, y):
     return zip_name
 
 
+def load_labelled_cases(path):
+    records = load_json(path)
+    labelled_cases = []
+    for record in records:
+        labelled_cases.append(
+            LabelledCase(record["text"], label_to_tags(record["tag"]))
+        )
+    return labelled_cases
+
+
 def train_test_split(x, y, test_size=0.2):
     tag_stat = count_tags(y)
     keep_tags = get_rare_tags(tag_stat)
@@ -182,35 +165,11 @@ def get_rare_tags(tag_count: dict, thresh=1):
     return [tag for tag, count in tag_count.items() if count <= thresh]
 
 
-def get_timestamp():
-    return time.strftime("%Y%m%d-%H%M%S")
-
-
 def show_replica(cases: Cases):
     tmp = Counter("".join(case.values()) for case in cases)
     for k, v in tmp.items():
         if v > 1:
             print(k)
-
-
-def load_datazip(datazip_path: str, datafile: dict = DATAFILE):
-    with ZipFile(datazip_path, "r") as datazip:
-        tmp = []
-        for f_name in datafile.values():
-            with datazip.open(f_name, "r") as file:
-                tmp.append(json.loads(file.read().decode("utf-8")))
-        return RawData(*tmp)
-
-
-def dump_datazip(rawdata: RawData, zip_name=None):
-    if zip_name is None:
-        zip_name = f"dataset{get_timestamp()}.zip"
-    with ZipFile(zip_name, "w") as datazip:
-        for name, data in rawdata:
-
-            with datazip.open(f"{name}.json", "w") as file:
-                file.write(json.dumps(data).encode("utf-8"))
-    return zip_name
 
 
 def get_Mlb(rawdata: RawData):

@@ -4,10 +4,11 @@ import pickle
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import requests
 from dash.dependencies import Input, Output
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .data_utils import load_datazip
+from .io_utils import load_datazip
 from .model import StandaloneModel
 from .validation import dimension_reduction_plot, get_tag_states
 
@@ -16,6 +17,18 @@ def load_state(state_p: str):
     with open(state_p, "rb") as plk:
         state = pickle.load(plk)
     return state
+
+
+def download_file(url, out_path):
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(out_path, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                # If you have chunk encoded response uncomment if
+                # and set chunk_size parameter to None.
+                # if chunk:
+                f.write(chunk)
+    return out_path
 
 
 class Server:
