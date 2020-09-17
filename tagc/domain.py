@@ -1,6 +1,6 @@
 import json
 from dataclasses import asdict, dataclass
-from typing import List, Optional, Tuple
+from typing import List, Optional
 
 import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -45,17 +45,17 @@ class MaskedParent:
     def masked_cases(self):
         return [mask(self.text) for mask in self.masks]
 
-    def mask_words(self):
+    def mask_words(self) -> List[str]:
         return [mask.word(self.text) for mask in self.masks]
 
-    def mask_words_(self):
-        return [f"{mask.word(self.text)}({mask.field[:3]})" for mask in self.masks]
+    def mask_words_field(self) -> List[tuple]:
+        return [(mask.word(self.text), mask.field) for mask in self.masks]
 
 
 @dataclass
 class MaskRet:
     tag: str
-    importance: List[Tuple[str, float]]
+    importance: list
 
 
 @dataclass

@@ -9,6 +9,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 from sklearn.preprocessing import MultiLabelBinarizer
 
+from .domain import MaskRet
 from .io_utils import load_datazip, prepare_dataset, prepare_model
 from .mask_explain import MaskExplainer, plot_explanation
 from .model import StandaloneModel
@@ -67,33 +68,40 @@ class Server:
         mask_id = "mask"
         app.layout = html.Div(
             [
+                html.H2("t-SNE"),
                 html_dots(self.state, id_=dot_id),
+                html.H2("Explanation"),
                 html_case(id_=case_id),
                 html_mask(id_=mask_id),
             ]
         )
 
-        @app.callback(Output(case_id, "children"), [Input(dot_id, "clickData")])
+        @app.callback(
+            [Output(case_id, "children"), Output(mask_id, "figure")],
+            [Input(dot_id, "clickData")],
+        )
         def display_click_data(clickData):
             if clickData is not None:
                 customdata = clickData["points"][0]["customdata"]
                 idx = customdata[0]
                 from_ = customdata[1]
                 data = self.rawdata.retrive(from_, idx)
-                return json.dumps(data, indent=2)
-            return {}
+                case = data["text"]
+                rets = self.mask_explainer.explain(self.model, case, for_color=True)
+                childrend = []
+                fig_rets = []
+                for ret in rets:
+                    importance = ret.importance
+                    pos_kw = [p[0] for p in importance][:5]
+                    childrend.append(html.H3(ret.tag))
+                    childrend.append(draw_color(case, pos_kw))
 
-        @app.callback(Output(mask_id, "figure"), [Input(dot_id, "clickData")])
-        def display_mask(clickData):
-            if clickData is not None:
-                customdata = clickData["points"][0]["customdata"]
-                idx = customdata[0]
-                from_ = customdata[1]
-                data = self.rawdata.retrive(from_, idx)
-                ret = self.mask_explainer.explain(self.model, data["text"])
-                fig = plot_explanation(ret, dash=True)
-                return fig
-            return empty_bar()
+                    fig_importance = [(p[0][0], p[1]) for p in importance]
+                    fig_rets.append(MaskRet(ret.tag, fig_importance))
+
+                fig = plot_explanation(fig_rets, dash=True)
+                return [childrend, fig]
+            return [[], empty_bar()]
 
 
 def html_dots(state, method="tsne", n_components=2, id_="interactions"):
@@ -104,30 +112,35 @@ def html_dots(state, method="tsne", n_components=2, id_="interactions"):
 
 
 def html_case(id_="click-data"):
-    styles = {
-        "pre": {
-            "overflowX": "scroll",
-        }
-    }
     return html.Div(
-        className="row",
-        children=[
-            html.Div(
-                [
-                    dcc.Markdown(
-                        """
-                **Case Content**
-
-                Click on points in the graph.
-            """
-                    ),
-                    html.Pre(id=id_, style=styles["pre"]),
-                ],
-                className="eleven columns",
-            )
-        ],
+        id=id_,
+        style={
+            "white-space": "pre",
+            "overflowX": "scroll",
+        },
     )
 
 
 def html_mask(id_="mask"):
     return dcc.Graph(id=id_)
+
+
+def draw_color(case, key_words):
+    children = []
+    pos_mark = "<POS>"
+    pos_style = {"color": "red"}
+    for word, field in key_words:
+        case[field] = case[field].replace(word, f"{pos_mark}{word}")
+    text = json.dumps(case, indent=2)
+    tmp_text = []
+    for part in text.split(" "):
+        if pos_mark in part:
+            children.append(" ".join(tmp_text))
+            children.append(
+                html.Span(f' {part.replace(pos_mark, "")} ', style=pos_style)
+            )
+            tmp_text.clear()
+        else:
+            tmp_text.append(part)
+    children.append(" ".join(tmp_text))
+    return html.P(children)

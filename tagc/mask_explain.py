@@ -36,14 +36,15 @@ class MaskExplainer:
             self.mask_maker = mask_maker
         self.mlb = mlb
 
-    def explain(self, model: StandaloneModel, case: Case):
+    def explain(self, model: StandaloneModel, case: Case, for_color=False):
         origin_output = model.predict([case], tqdm_disable=True)
         masked_parent = self.mask_maker(case)
         masked_cases = masked_parent.masked_cases()
         masked_outputs = model.predict(masked_cases, tqdm_disable=True)
-
-        mask_words = np.array(masked_parent.mask_words())
-
+        if for_color:
+            mask_words = np.array(masked_parent.mask_words_field())
+        else:
+            mask_words = np.array(masked_parent.mask_words())
         trace = Trace(origin_output, masked_outputs, mask_words)
         ret = self.analysis_trace(trace)
         return ret
