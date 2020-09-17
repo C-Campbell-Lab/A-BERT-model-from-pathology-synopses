@@ -1,11 +1,13 @@
 import re
+from collections import Counter, defaultdict
+from typing import DefaultDict, List
 
 import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .domain import Case, Mask, MaskedParent, Trace
+from .domain import Case, Mask, MaskedParent, MaskRet, Trace
 from .model import StandaloneModel
 
 
@@ -45,37 +47,43 @@ class MaskExplainer:
         return ret
 
     def analysis_trace(self, trace: Trace):
+        def sort_col_descend(values, col):
+            return np.argsort(values[:, col])[::-1]
+
         pred = trace.origin_output >= 0.5
         bool_idx = pred[0]
         trace.important_change = (
             trace.origin_output[:, bool_idx] - trace.masked_outputs[:, bool_idx]
         )
         pred_tag = self.mlb.inverse_transform(pred)[0]
-        ret = {}
+        rets = []
         for idx, tag in enumerate(pred_tag):
-            rank = np.argsort(trace.important_change[:, idx])[::-1]
-            pairs = [
+            rank = sort_col_descend(trace.important_change, idx)
+            importance = [
                 (word, value)
                 for word, value in zip(
                     trace.mask_words[rank], trace.important_change[:, idx][rank]
                 )
             ]
-            ret[tag] = pairs
+            rets.append(MaskRet(tag, importance))
         self.trace = trace
-        return ret
+        return rets
 
     def show_trace(self):
         trace = self.trace
         return trace.origin_output, trace.masked_outputs, trace.important_change
 
 
-def plot_explanation(ret, dash=False):
-    fig = make_subplots(rows=len(ret), cols=1, subplot_titles=tuple(ret.keys()))
-    for loc, pairs in enumerate(ret.values(), start=1):
-        words_p = [p[0] for p in pairs if p[1] >= 0]
-        values_p = [p[1] for p in pairs if p[1] >= 0]
-        words_n = [p[0] for p in pairs if p[1] < 0]
-        values_n = [p[1] for p in pairs if p[1] < 0]
+def plot_explanation(rets: List[MaskRet], dash=False):
+    fig = make_subplots(
+        rows=len(rets), cols=1, subplot_titles=tuple(ret.tag for ret in rets)
+    )
+    for loc, mask_ret in enumerate(rets, start=1):
+        importance = mask_ret.importance
+        words_p = [p[0] for p in importance if p[1] >= 0]
+        values_p = [p[1] for p in importance if p[1] >= 0]
+        words_n = [p[0] for p in importance if p[1] < 0]
+        values_n = [p[1] for p in importance if p[1] < 0]
 
         fig.add_trace(go.Bar(x=words_p, y=values_p, name="pos"), row=loc, col=1)
         fig.add_trace(go.Bar(x=words_n, y=values_n, name="neg"), row=loc, col=1)
@@ -88,5 +96,26 @@ def plot_explanation(ret, dash=False):
 
 
 # TODO
+def top_keywords(
+    mask_explainer: MaskExplainer, model: StandaloneModel, cases: List[Case], top_n=5
+):
+    rets = collect_rets(mask_explainer, model, cases)
+    return sum_keywords(rets, top_n)
+
+
 # Top 5 keywords for each tags
-# def pipe_masking()
+def collect_rets(
+    mask_explainer: MaskExplainer, model: StandaloneModel, cases: List[Case]
+):
+    rets = []
+    for case in cases:
+        rets.extend(mask_explainer.explain(model, case))
+    return rets
+
+
+def sum_keywords(rets: List[MaskRet], top_n=5):
+    dashboard: DefaultDict[str, Counter] = defaultdict(Counter)
+
+    for ret in rets:
+        dashboard[ret.tag].update(ret.importance[:top_n])
+    return dashboard

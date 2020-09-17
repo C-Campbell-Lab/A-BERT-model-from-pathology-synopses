@@ -75,6 +75,7 @@ class Server:
                 from_ = customdata[1]
                 data = self.rawdata.retrive(from_, idx)
                 return json.dumps(data, indent=2)
+            return {}
 
         @app.callback(Output(mask_id, "figure"), [Input(dot_id, "clickData")])
         def display_mask(clickData):
