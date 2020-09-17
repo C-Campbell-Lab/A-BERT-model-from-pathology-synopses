@@ -36,16 +36,13 @@ class MaskExplainer:
             self.mask_maker = mask_maker
         self.mlb = mlb
 
-    def explain(self, model: StandaloneModel, case: Case, for_color=False):
+    def explain(self, model: StandaloneModel, case: Case):
         origin_output = model.predict([case], tqdm_disable=True)
         masked_parent = self.mask_maker(case)
         masked_cases = masked_parent.masked_cases()
         masked_outputs = model.predict(masked_cases, tqdm_disable=True)
-        if for_color:
-            mask_words = np.array(masked_parent.mask_words_field())
-        else:
-            mask_words = np.array(masked_parent.mask_words())
-        trace = Trace(origin_output, masked_outputs, mask_words)
+        masks = np.array(masked_parent.masks)
+        trace = Trace(origin_output, masked_outputs, masks)
         ret = self.analysis_trace(trace)
         return ret
 
@@ -63,9 +60,9 @@ class MaskExplainer:
         for idx, tag in enumerate(pred_tag):
             rank = sort_col_descend(trace.important_change, idx)
             importance = [
-                (word, value)
-                for word, value in zip(
-                    trace.mask_words[rank], trace.important_change[:, idx][rank]
+                (mask, value)
+                for mask, value in zip(
+                    trace.masks[rank], trace.important_change[:, idx][rank]
                 )
             ]
             rets.append(MaskRet(tag, importance))
@@ -77,15 +74,15 @@ class MaskExplainer:
         return trace.origin_output, trace.masked_outputs, trace.important_change
 
 
-def plot_explanation(rets: List[MaskRet], dash=False):
+def plot_explanation(rets: List[MaskRet], case, dash=False):
     fig = make_subplots(
         rows=len(rets), cols=1, subplot_titles=tuple(ret.tag for ret in rets)
     )
     for loc, mask_ret in enumerate(rets, start=1):
         importance = mask_ret.importance
-        words_p = [p[0] for p in importance if p[1] >= 0]
+        words_p = [p[0].word(case) for p in importance if p[1] >= 0]
         values_p = [p[1] for p in importance if p[1] >= 0]
-        words_n = [p[0] for p in importance if p[1] < 0]
+        words_n = [p[0].word(case) for p in importance if p[1] < 0]
         values_n = [p[1] for p in importance if p[1] < 0]
 
         fig.add_trace(go.Bar(x=words_p, y=values_p, name="pos"), row=loc, col=1)

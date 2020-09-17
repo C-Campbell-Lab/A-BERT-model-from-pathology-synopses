@@ -33,6 +33,12 @@ class Mask:
         case_copy[self.field] = field[: self.start] + field[self.end :]
         return case_copy
 
+    def mark(self, case: Case, mark):
+        case_copy = case.copy()
+        field = case_copy[self.field]
+        case_copy[self.field] = field[: self.start] + mark + field[self.start :]
+        return case_copy
+
     def word(self, case: Case):
         return case[self.field][self.start : self.end]
 
@@ -71,7 +77,7 @@ class Params:
 class Trace:
     origin_output: np.array
     masked_outputs: np.array
-    mask_words: np.array
+    masks: np.array
     important_change: Optional[np.array] = None
 
 

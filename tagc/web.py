@@ -1,6 +1,7 @@
 import json
 import os
 import pickle
+from typing import List
 
 import dash
 import dash_core_components as dcc
@@ -9,7 +10,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .domain import MaskRet
+from .domain import Mask
 from .io_utils import load_datazip, prepare_dataset, prepare_model
 from .mask_explain import MaskExplainer, plot_explanation
 from .model import StandaloneModel
@@ -87,19 +88,15 @@ class Server:
                 from_ = customdata[1]
                 data = self.rawdata.retrive(from_, idx)
                 case = data["text"]
-                rets = self.mask_explainer.explain(self.model, case, for_color=True)
+                rets = self.mask_explainer.explain(self.model, case)
                 childrend = []
-                fig_rets = []
                 for ret in rets:
                     importance = ret.importance
-                    pos_kw = [p[0] for p in importance][:5]
+                    pos_key_marks = [p[0] for p in importance][:5]
                     childrend.append(html.H3(ret.tag))
-                    childrend.append(draw_color(case, pos_kw))
+                    childrend.append(draw_color(case, pos_key_marks))
 
-                    fig_importance = [(p[0][0], p[1]) for p in importance]
-                    fig_rets.append(MaskRet(ret.tag, fig_importance))
-
-                fig = plot_explanation(fig_rets, dash=True)
+                fig = plot_explanation(rets, case, dash=True)
                 return [childrend, fig]
             return [[], empty_bar()]
 
@@ -125,14 +122,15 @@ def html_mask(id_="mask"):
     return dcc.Graph(id=id_)
 
 
-def draw_color(case, key_words):
+def draw_color(case, key_masks: List[Mask]):
     children = []
     pos_mark = "<POS>"
     pos_style = {"color": "red"}
-    for word, field in key_words:
-        case[field] = case[field].replace(word, f"{pos_mark}{word}")
+    for mask in key_masks:
+        case = mask.mark(case, pos_mark)
+
     text = json.dumps(case, indent=2)
-    tmp_text = []
+    tmp_text: List[str] = []
     for part in text.split(" "):
         if pos_mark in part:
             children.append(" ".join(tmp_text))
