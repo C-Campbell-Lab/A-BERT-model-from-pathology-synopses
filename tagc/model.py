@@ -113,7 +113,7 @@ class StandaloneModel:
         preds: Optional[torch.Tensor] = None
         case_size = len(cases)
         # tqdm_disable = case_size <= (batch * 10)
-        for step in tqdm(range(0, case_size, batch), tqdm_disable):
+        for step in tqdm(range(0, case_size, batch), disable=tqdm_disable):
             inputs = self._encode(cases[step : step + batch])
             outputs = self._predict_step(inputs, pooled_output=pooled_output)
             preds = outputs if preds is None else torch.cat((preds, outputs), dim=0)

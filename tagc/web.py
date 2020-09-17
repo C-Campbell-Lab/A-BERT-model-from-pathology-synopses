@@ -21,6 +21,12 @@ def load_state(state_p: str):
     return state
 
 
+def dump_state(states, state_p="state"):
+    with open(state_p, "wb") as plk:
+        pickle.dump(states, plk)
+    return state_p
+
+
 def empty_bar():
     return px.bar(x=["None"], y=[0])
 

@@ -6,7 +6,9 @@ import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from sklearn.preprocessing import MultiLabelBinarizer
+from tqdm.autonotebook import tqdm
 
+from .data_utils import count_tags
 from .domain import Case, Mask, MaskedParent, MaskRet, Trace
 from .model import StandaloneModel
 
@@ -95,17 +97,15 @@ def plot_explanation(rets: List[MaskRet], dash=False):
     fig.show()
 
 
-# TODO
 def top_keywords(mask_explainer: MaskExplainer, model: StandaloneModel, cases, top_n=5):
     rets = collect_rets(mask_explainer, model, cases)
     keywords = sum_keywords(rets, top_n)
     return refine_top(keywords, top_n)
 
 
-# Top 5 keywords for each tags
 def collect_rets(mask_explainer: MaskExplainer, model: StandaloneModel, cases):
     rets = []
-    for case in cases:
+    for case in tqdm(cases):
         rets.extend(mask_explainer.explain(model, case))
     return rets
 
@@ -132,3 +132,13 @@ def refine_top(top, top_n=5):
         tmp = sorted(v.items(), key=lambda x: x[1], reverse=True)[:top_n]
         refine_ret[k] = [k for k, _ in tmp]
     return refine_ret
+
+
+def filter_top(top: dict, tags, thresh=20):
+    tag_counter = count_tags(tags)
+    large_enough = [k for k, v in tag_counter.items() if v >= thresh]
+    left = {}
+    for tag, kw in top.items():
+        if tag in large_enough:
+            left[tag] = kw
+    return left
