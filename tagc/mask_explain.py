@@ -1,6 +1,6 @@
 import re
-from collections import Counter, defaultdict
-from typing import DefaultDict, List
+from collections import defaultdict
+from typing import DefaultDict, Dict, List
 
 import numpy as np
 import plotly.graph_objects as go
@@ -35,10 +35,10 @@ class MaskExplainer:
         self.mlb = mlb
 
     def explain(self, model: StandaloneModel, case: Case):
-        origin_output = model.predict([case])
+        origin_output = model.predict([case], tqdm_disable=True)
         masked_parent = self.mask_maker(case)
         masked_cases = masked_parent.masked_cases()
-        masked_outputs = model.predict(masked_cases)
+        masked_outputs = model.predict(masked_cases, tqdm_disable=True)
 
         mask_words = np.array(masked_parent.mask_words())
 
@@ -96,26 +96,39 @@ def plot_explanation(rets: List[MaskRet], dash=False):
 
 
 # TODO
-def top_keywords(
-    mask_explainer: MaskExplainer, model: StandaloneModel, cases: List[Case], top_n=5
-):
+def top_keywords(mask_explainer: MaskExplainer, model: StandaloneModel, cases, top_n=5):
     rets = collect_rets(mask_explainer, model, cases)
-    return sum_keywords(rets, top_n)
+    keywords = sum_keywords(rets, top_n)
+    return refine_top(keywords, top_n)
 
 
 # Top 5 keywords for each tags
-def collect_rets(
-    mask_explainer: MaskExplainer, model: StandaloneModel, cases: List[Case]
-):
+def collect_rets(mask_explainer: MaskExplainer, model: StandaloneModel, cases):
     rets = []
     for case in cases:
         rets.extend(mask_explainer.explain(model, case))
     return rets
 
 
-def sum_keywords(rets: List[MaskRet], top_n=5):
-    dashboard: DefaultDict[str, Counter] = defaultdict(Counter)
+def sum_keywords(rets, top_n=5):
+    dashboard: Dict[str, DefaultDict[str, float]] = {}
 
     for ret in rets:
-        dashboard[ret.tag].update(ret.importance[:top_n])
+        importance = ret.importance[:top_n]
+        if ret.tag in dashboard:
+            tmp_dict = dashboard[ret.tag]
+        else:
+            tmp_dict = defaultdict(float)
+            dashboard[ret.tag] = tmp_dict
+        for k, v in importance:
+            tmp_dict[k] += v
+
     return dashboard
+
+
+def refine_top(top, top_n=5):
+    refine_ret = {}
+    for k, v in top.items():
+        tmp = sorted(v.items(), key=lambda x: x[1], reverse=True)[:top_n]
+        refine_ret[k] = [k for k, _ in tmp]
+    return refine_ret

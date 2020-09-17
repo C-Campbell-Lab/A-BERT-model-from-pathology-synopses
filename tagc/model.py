@@ -93,7 +93,9 @@ class StandaloneModel:
         preds = self.predict(cases, batch=batch)
         return mlb.inverse_transform(preds >= 0.5)
 
-    def predict(self, cases: list, batch=8, pooled_output=False) -> np.array:
+    def predict(
+        self, cases: list, batch=8, pooled_output=False, tqdm_disable=False
+    ) -> np.array:
         """Predict the prob for 18 tags. If cases are dict, they will be
         composed by their `values` without shuffle.
 
@@ -109,7 +111,9 @@ class StandaloneModel:
             cases = list(map(compose, cases))
         self.model.eval()
         preds: Optional[torch.Tensor] = None
-        for step in tqdm(range(0, len(cases), batch)):
+        case_size = len(cases)
+        # tqdm_disable = case_size <= (batch * 10)
+        for step in tqdm(range(0, case_size, batch), tqdm_disable):
             inputs = self._encode(cases[step : step + batch])
             outputs = self._predict_step(inputs, pooled_output=pooled_output)
             preds = outputs if preds is None else torch.cat((preds, outputs), dim=0)

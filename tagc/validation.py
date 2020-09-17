@@ -89,7 +89,7 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData):
     total_y = rawdata.y_tags
     pred_prob = model.predict(x)
     preds = pred_prob >= 0.5
-    mcm = metrics.multilabel_confusion_matrix(mlb.transform(y), preds > 0.5)
+    mcm = metrics.multilabel_confusion_matrix(mlb.transform(y), preds)
     ability = list(map(compress, mcm))
     tag_count = count_tags(total_y)
     sample_sizes = [tag_count[class_] for class_ in mlb.classes_]
