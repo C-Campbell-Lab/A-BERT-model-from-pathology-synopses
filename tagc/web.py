@@ -41,9 +41,9 @@ class Server:
 
         self.init_static()
         self.init_state()
+        self.init_plot()
 
         external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
-
         self.app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
     def init_static(self):
@@ -61,16 +61,22 @@ class Server:
         if self.state is None:
             self.state = get_tag_states(self.model, self.rawdata, self.mlb)
 
-    def plot(self):
+    def init_plot(self):
+        self.fig, self.dimension_reducer = dimension_reduction_plot(
+            self.state, method_n="tsne", n_components=2, dash=True
+        )
 
+    def plot(self):
         app = self.app
+        input_id = "input"
         dot_id = "dot-interactions"
         case_id = "cases"
         mask_id = "mask"
         app.layout = html.Div(
             [
+                html_input(id_=input_id),
                 html.H2("t-SNE"),
-                html_dots(self.state, id_=dot_id),
+                html_dots(dot_id, self.fig),
                 html.H2("Explanation"),
                 html_case(id_=case_id),
                 html_mask(id_=mask_id),
@@ -79,32 +85,45 @@ class Server:
 
         @app.callback(
             [Output(case_id, "children"), Output(mask_id, "figure")],
-            [Input(dot_id, "clickData")],
+            [
+                Input(component_id=input_id, component_property="value"),
+                Input(dot_id, "clickData"),
+            ],
         )
-        def display_click_data(clickData):
-            if clickData is not None:
-                customdata = clickData["points"][0]["customdata"]
-                idx = customdata[0]
-                from_ = customdata[1]
-                data = self.rawdata.retrive(from_, idx)
-                case = data["text"]
-                rets = self.mask_explainer.explain(self.model, case)
-                childrend = []
-                for ret in rets:
-                    importance = ret.importance
-                    pos_key_marks = [p[0] for p in importance][:5]
-                    childrend.append(html.H3(ret.tag))
-                    childrend.append(draw_color(case, pos_key_marks))
-
-                fig = plot_explanation(rets, case, dash=True)
-                return [childrend, fig]
+        def update_output_div(input_value, clickData):
+            if input_value is not None:
+                return self._case_plot({"COMMENT": input_value})
+            elif clickData is not None:
+                return self._display_click_data(clickData)
             return [[], empty_bar()]
 
+    def _display_click_data(self, clickData):
 
-def html_dots(state, method="tsne", n_components=2, id_="interactions"):
-    fig = dimension_reduction_plot(
-        state, method_n=method, n_components=n_components, dash=True
-    )
+        customdata = clickData["points"][0]["customdata"]
+        idx = customdata[0]
+        from_ = customdata[1]
+        data = self.rawdata.retrive(from_, idx)
+        case = data["text"]
+        return self._case_plot(case)
+
+    def _case_plot(self, case):
+        rets = self.mask_explainer.explain(self.model, case)
+        childrend = []
+        for ret in rets:
+            importance = ret.importance
+            pos_key_marks = [p[0] for p in importance][:5]
+            childrend.append(html.H3(ret.tag))
+            childrend.append(draw_color(case, pos_key_marks))
+
+        fig = plot_explanation(rets, case, dash=True)
+        return [childrend, fig]
+
+
+def html_input(id_):
+    return html.Div(["Input: ", dcc.Input(id=id_, type="text")])
+
+
+def html_dots(id_, fig):
     return dcc.Graph(id=id_, figure=fig)
 
 

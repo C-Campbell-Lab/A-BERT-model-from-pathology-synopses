@@ -79,7 +79,7 @@ def dimension_reduction_plot(
         return
     fig.layout.update(showlegend=False)
     if dash:
-        return fig
+        return fig, dimension_reducer
     fig.show()
 
 
