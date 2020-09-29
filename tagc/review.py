@@ -1,7 +1,7 @@
 import random
 from typing import Dict, List
 
-from . import data_utils as du
+from . import data_utils, io_utils
 from .domain import LabelledCase, Mlb, Tags
 from .model import StandaloneModel
 
@@ -14,7 +14,7 @@ def edit_review(old_cases: List[LabelledCase], reviews: List[LabelledCase]):
     used_keys = set()
     for idx, case in enumerate(old_cases):
         key = "".join(case.text.values())
-        cases_copy[idx].tag = du.add_acute_LL(cases_copy[idx].tag)
+        cases_copy[idx].tag = data_utils.add_acute_LL(cases_copy[idx].tag)
         if key in review_map:
             cases_copy[idx].tag = review_map[key]
             used_keys.add(key)
@@ -26,14 +26,14 @@ def edit_review(old_cases: List[LabelledCase], reviews: List[LabelledCase]):
 
 
 def review_pipe(datazip_path: str, review_path: str):
-    raw_data = du.load_datazip(datazip_path)
+    raw_data = io_utils.load_datazip(datazip_path)
     x = raw_data.x_dict
     y = raw_data.y_tags
     labelled_cases = [LabelledCase(k, v) for k, v in zip(x, y)]
-    reviews = du.load_labelled_cases(review_path)
+    reviews = data_utils.load_labelled_cases(review_path)
     reviewed = edit_review(labelled_cases, reviews)
-    new_x, new_y = du.labelled_cases_to_xy(reviewed)
-    zipname = du.split_and_dump_dataset(new_x, new_y)
+    new_x, new_y = data_utils.labelled_cases_to_xy(reviewed)
+    zipname = data_utils.split_and_dump_dataset(new_x, new_y)
     return zipname
 
 
@@ -44,24 +44,26 @@ def enrich(
     labelled_cases: List[LabelledCase],
     thresh=20,
 ):
-    known_cases, known_tags = du.unwrap_labelled_cases(labelled_cases)
-    unlabelled_cases = du.cases_minus(all_cases, known_cases)
+    known_cases, known_tags = data_utils.unwrap_labelled_cases(labelled_cases)
+    unlabelled_cases = data_utils.cases_minus(all_cases, known_cases)
     pred_tags = model.predict_tags(unlabelled_cases, mlb)
     needed = get_needed(known_tags, pred_tags, thresh=thresh)
     collection = collect(unlabelled_cases, needed, pred_tags)
-    du.dump_labelled_cases(collection, f"enrich_{du.get_timestamp()}.json")
+    io_utils.dump_labelled_cases(
+        collection, f"enrich_{data_utils.get_timestamp()}.json"
+    )
 
 
 def get_needed(known_tags: Tags, pred_tags: Tags, thresh=20):
     def sampleable(tag, lib: Dict[str, list], need: dict):
         return len(lib.get(tag, [])) > need[tag]
 
-    have = du.count_tags(known_tags)
+    have = data_utils.count_tags(known_tags)
     need_num = {}
     for tag, num in have.items():
         if num < thresh:
             need_num[tag] = thresh - num
-    lib = du.grouping_idx(pred_tags)
+    lib = data_utils.grouping_idx(pred_tags)
 
     needed = {
         tag: random.sample(lib[tag], need_num[tag])
