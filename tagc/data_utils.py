@@ -200,6 +200,8 @@ def rawdata_stat(rawdata: RawData):
 
     train_counter = count_tags(rawdata.y_train_tags)
     test_counter = count_tags(rawdata.y_test_tags)
+    print(f"Training Size: {len(rawdata.y_train_tags)}")
+    print(f"Test Size: {len(rawdata.y_test_tags)}")
     print(f"Train Tag Number: {len(train_counter)}")
     assert len(train_counter) == len(
         count_tags(rawdata.y_tags)

@@ -22,7 +22,7 @@ class MaskMaker:
         for field, sent in case.items():
             for match in self.finder.finditer(sent):
                 start, end = match.span()
-                mask = Mask(field, start, end)
+                mask = Mask(field, start, end, match.group(0))
                 masks.append(mask)
         masked_parent = MaskedParent(masks, case)
         return masked_parent
@@ -74,15 +74,15 @@ class MaskExplainer:
         return trace.origin_output, trace.masked_outputs, trace.important_change
 
 
-def plot_explanation(rets: List[MaskRet], case, dash=False):
+def plot_explanation(rets: List[MaskRet], dash=False):
     fig = make_subplots(
         rows=len(rets), cols=1, subplot_titles=tuple(ret.tag for ret in rets)
     )
     for loc, mask_ret in enumerate(rets, start=1):
         importance = mask_ret.importance
-        words_p = [p[0].word(case) for p in importance if p[1] >= 0]
+        words_p = [p[0].word for p in importance if p[1] >= 0]
         values_p = [p[1] for p in importance if p[1] >= 0]
-        words_n = [p[0].word(case) for p in importance if p[1] < 0]
+        words_n = [p[0].word for p in importance if p[1] < 0]
         values_n = [p[1] for p in importance if p[1] < 0]
 
         fig.add_trace(go.Bar(x=words_p, y=values_p, name="pos"), row=loc, col=1)
@@ -119,7 +119,7 @@ def sum_keywords(rets, top_n=5):
             tmp_dict = defaultdict(float)
             dashboard[ret.tag] = tmp_dict
         for k, v in importance:
-            tmp_dict[k] += v
+            tmp_dict[k.word] += v
 
     return dashboard
 

@@ -26,6 +26,7 @@ class Mask:
     field: str
     start: int
     end: int
+    word: str
 
     def __call__(self, case: Case):
         case_copy = case.copy()
@@ -39,9 +40,6 @@ class Mask:
         case_copy[self.field] = field[: self.start] + mark + field[self.start :]
         return case_copy
 
-    def word(self, case: Case):
-        return case[self.field][self.start : self.end]
-
 
 @dataclass
 class MaskedParent:
@@ -52,10 +50,10 @@ class MaskedParent:
         return [mask(self.text) for mask in self.masks]
 
     def mask_words(self) -> List[str]:
-        return [mask.word(self.text) for mask in self.masks]
+        return [mask.word for mask in self.masks]
 
     def mask_words_field(self) -> List[tuple]:
-        return [(mask.word(self.text), mask.field) for mask in self.masks]
+        return [(mask.word, mask.field) for mask in self.masks]
 
 
 @dataclass
