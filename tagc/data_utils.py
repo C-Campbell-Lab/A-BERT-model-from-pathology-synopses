@@ -52,14 +52,18 @@ def label_to_tags(label: str):
 
 
 def refine_tag(tag: Tag):
-    return add_acute_LL(
-        list(
-            map(
-                lambda x: tag_patch(edit_tag_str(x)),
-                tag,
+    return [
+        tag
+        for tag in add_acute_LL(
+            list(
+                map(
+                    lambda x: tag_patch(edit_tag_str(x)),
+                    tag,
+                )
             )
         )
-    )
+        if tag != ""
+    ]
 
 
 def edit_tag_str(tag: str):
