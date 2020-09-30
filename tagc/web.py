@@ -1,6 +1,7 @@
 import json
 import os
 import pickle
+import re
 from typing import List
 
 import dash
@@ -11,7 +12,7 @@ from dash.dependencies import Input, Output
 from sklearn.preprocessing import MultiLabelBinarizer
 
 from .domain import Mask
-from .io_utils import load_datazip, prepare_dataset, prepare_model
+from .io_utils import load_datazip, load_json, prepare_dataset, prepare_model
 from .mask_explain import MaskExplainer, plot_explanation
 from .model import StandaloneModel
 from .validation import dimension_reduction_plot, get_tag_states
@@ -37,6 +38,7 @@ class Server:
     def __init__(self, state=None):
         self.dataset_p = "dataset.zip"
         self.model_p = "model"
+        self.unlabelled_p = "data/unlabelled.json"
         self.state = state
 
         self.init_static()
@@ -54,6 +56,7 @@ class Server:
 
     def init_state(self):
         self.rawdata = load_datazip(self.dataset_p)
+        self.unlabelled = load_json(self.unlabelled_p)
 
         self.model = StandaloneModel.from_path(self.model_p)
         self.mlb = MultiLabelBinarizer().fit(self.rawdata.y_tags)
@@ -102,8 +105,11 @@ class Server:
         customdata = clickData["points"][0]["customdata"]
         idx = customdata[0]
         from_ = customdata[1]
-        data = self.rawdata.retrive(from_, idx)
-        case = data["text"]
+        if from_ == "unlabelled":
+            case = self.unlabelled[idx]
+        else:
+            data = self.rawdata.retrive(from_, idx)
+            case = data["text"]
         return self._case_plot(case)
 
     def _case_plot(self, case):
@@ -115,7 +121,7 @@ class Server:
             childrend.append(html.H3(ret.tag))
             childrend.append(draw_color(case, pos_key_marks))
 
-        fig = plot_explanation(rets, case, dash=True)
+        fig = plot_explanation(rets, dash=True)
         return [childrend, fig]
 
 
@@ -142,6 +148,7 @@ def html_mask(id_="mask"):
 
 
 def draw_color(case, key_masks: List[Mask]):
+    finder = re.compile(r"[\w<>]+")
     children = []
     pos_mark = "<POS>"
     pos_style = {"color": "red"}
@@ -149,15 +156,15 @@ def draw_color(case, key_masks: List[Mask]):
         case = mask.mark(case, pos_mark)
 
     text = json.dumps(case, indent=2)
-    tmp_text: List[str] = []
-    for part in text.split(" "):
-        if pos_mark in part:
-            children.append(" ".join(tmp_text))
-            children.append(
-                html.Span(f' {part.replace(pos_mark, "")} ', style=pos_style)
-            )
-            tmp_text.clear()
+    cur = 0
+    for part in finder.finditer(text):
+        g = part.group(0)
+        start, end = part.span()
+        if pos_mark in g:
+            children.append(text[cur:start])
+            children.append(html.Span(f'{g.replace(pos_mark, "")} ', style=pos_style))
         else:
-            tmp_text.append(part)
-    children.append(" ".join(tmp_text))
+            children.append(text[cur:end])
+        cur = end
+    children.append(text[end:])
     return html.P(children)
