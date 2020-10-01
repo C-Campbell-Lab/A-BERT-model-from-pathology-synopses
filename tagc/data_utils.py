@@ -75,7 +75,7 @@ def edit_tag_str(tag: str):
         .replace("inadquate", "inadequate")
         .replace("eosinophila", "eosinophilia")
         .replace("hemophagoctyosis", "hemophagocytosis")
-        .replace("hypercellula", "hypocellular")
+        .replace("hypercellula", "hypercellular")
         .replace("hypocellularr", "hypocellular")
         .replace("lymphoma", "acute lymphoblastic leukemia")
     )
