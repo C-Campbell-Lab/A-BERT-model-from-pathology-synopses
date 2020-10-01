@@ -1,4 +1,5 @@
 import json
+import pickle
 import time
 from pathlib import Path
 from typing import List
@@ -80,3 +81,15 @@ def dump_datazip(rawdata: RawData, zip_name=None):
 def dump_labelled_cases(labelled_cases: List[LabelledCase], path: str):
     obj = list(map(LabelledCase.serialize, labelled_cases))
     dump_json(path, obj)
+
+
+def load_state(state_p: str):
+    with open(state_p, "rb") as plk:
+        state = pickle.load(plk)
+    return state
+
+
+def dump_state(states, state_p="state"):
+    with open(state_p, "wb") as plk:
+        pickle.dump(states, plk)
+    return state_p

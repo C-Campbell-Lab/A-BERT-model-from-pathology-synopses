@@ -1,37 +1,15 @@
-import json
 import os
-import pickle
-import re
-from typing import List
 
 import dash
-import dash_core_components as dcc
 import dash_html_components as html
-import plotly.express as px
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .domain import Mask
+from . import web_utils
 from .io_utils import load_datazip, load_json, prepare_dataset, prepare_model
 from .mask_explain import MaskExplainer, plot_explanation
 from .model import StandaloneModel
 from .validation import dimension_reduction_plot, get_tag_states
-
-
-def load_state(state_p: str):
-    with open(state_p, "rb") as plk:
-        state = pickle.load(plk)
-    return state
-
-
-def dump_state(states, state_p="state"):
-    with open(state_p, "wb") as plk:
-        pickle.dump(states, plk)
-    return state_p
-
-
-def empty_bar():
-    return px.bar(x=["None"], y=[0])
 
 
 class Server:
@@ -72,24 +50,34 @@ class Server:
     def plot(self):
         app = self.app
         input_id = "input"
-        dot_id = "dot-interactions"
+        dot_id = "t-sne"
         case_id = "cases"
         mask_id = "mask"
+        checkbox_id = "checkbox"
+        submit_idx = "submit"
         app.layout = html.Div(
             [
-                html_input(id_=input_id),
+                web_utils.html_input(id_=input_id),
                 html.H2("t-SNE"),
-                html_dots(dot_id, self.fig),
+                web_utils.html_dots(dot_id, self.fig),
                 html.H2("Explanation"),
-                html_case(id_=case_id),
-                html_mask(id_=mask_id),
+                web_utils.html_case(id_=case_id),
+                web_utils.html_mask(id_=mask_id),
+                html.H2("Check the incorrect predictions"),
+                web_utils.html_checkbox(id_=checkbox_id),
+                web_utils.html_submit(id_=submit_idx),
             ]
         )
 
         @app.callback(
-            [Output(case_id, "children"), Output(mask_id, "figure")],
             [
-                Input(component_id=input_id, component_property="value"),
+                Output(case_id, "children"),
+                Output(mask_id, "figure"),
+                Output(checkbox_id, "options"),
+                Output(submit_idx, "disabled"),
+            ],
+            [
+                Input(input_id, "value"),
                 Input(dot_id, "clickData"),
             ],
         )
@@ -98,7 +86,27 @@ class Server:
                 return self._case_plot({"COMMENT": input_value})
             elif clickData is not None:
                 return self._display_click_data(clickData)
-            return [[], empty_bar()]
+            return [[], web_utils.empty_bar(), [], True]
+
+        @app.callback(
+            [
+                Output(dot_id, "clickData"),
+                Output(input_id, "value"),
+                Output(checkbox_id, "value"),
+            ],
+            [Input(submit_idx, "n_clicks")],
+            [State(checkbox_id, "value")],
+        )
+        def update_output(n_clicks, value):
+            if n_clicks is None:
+                raise dash.exceptions.PreventUpdate("cancel the callback")
+            else:
+                print(
+                    'The input value was "{}" and the button has been clicked {} times'.format(
+                        value, n_clicks
+                    )
+                )
+                return None, None, []
 
     def _display_click_data(self, clickData):
 
@@ -115,56 +123,14 @@ class Server:
     def _case_plot(self, case):
         rets = self.mask_explainer.explain(self.model, case)
         childrend = []
+        options = []
         for ret in rets:
+            options.append({"label": ret.tag, "value": ret.tag})
             importance = ret.importance
             pos_key_marks = [p[0] for p in importance][:5]
             childrend.append(html.H3(ret.tag))
-            childrend.append(draw_color(case, pos_key_marks))
+            childrend.append(web_utils.draw_color(case, pos_key_marks))
 
         fig = plot_explanation(rets, dash=True)
-        return [childrend, fig]
 
-
-def html_input(id_):
-    return html.Div(["Input: ", dcc.Input(id=id_, type="text")])
-
-
-def html_dots(id_, fig):
-    return dcc.Graph(id=id_, figure=fig)
-
-
-def html_case(id_="click-data"):
-    return html.Div(
-        id=id_,
-        style={
-            "white-space": "pre",
-            "overflowX": "scroll",
-        },
-    )
-
-
-def html_mask(id_="mask"):
-    return dcc.Graph(id=id_)
-
-
-def draw_color(case, key_masks: List[Mask]):
-    finder = re.compile(r"[\w<>]+")
-    children = []
-    pos_mark = "<POS>"
-    pos_style = {"color": "red"}
-    for mask in key_masks:
-        case = mask.mark(case, pos_mark)
-
-    text = json.dumps(case, indent=2)
-    cur = 0
-    for part in finder.finditer(text):
-        g = part.group(0)
-        start, end = part.span()
-        if pos_mark in g:
-            children.append(text[cur:start])
-            children.append(html.Span(f'{g.replace(pos_mark, "")} ', style=pos_style))
-        else:
-            children.append(text[cur:end])
-        cur = end
-    children.append(text[end:])
-    return html.P(children)
+        return [childrend, fig, options, False]

@@ -46,7 +46,7 @@ class MaskExplainer:
         ret = self.analysis_trace(trace)
         return ret
 
-    def analysis_trace(self, trace: Trace):
+    def analysis_trace(self, trace: Trace) -> List[MaskRet]:
         def sort_col_descend(values, col):
             return np.argsort(values[:, col])[::-1]
 
