@@ -31,6 +31,10 @@ def html_mask(id_="mask"):
     return dcc.Graph(id=id_)
 
 
+def dict_to_str(case):
+    return json.dumps(case, indent=2)
+
+
 def draw_color(case, key_masks: List[Mask]):
     finder = re.compile(r"[\w<>]+")
     children = []
@@ -39,7 +43,7 @@ def draw_color(case, key_masks: List[Mask]):
     for mask in key_masks:
         case = mask.mark(case, pos_mark)
 
-    text = json.dumps(case, indent=2)
+    text = dict_to_str(case)
     cur = 0
     for part in finder.finditer(text):
         g = part.group(0)

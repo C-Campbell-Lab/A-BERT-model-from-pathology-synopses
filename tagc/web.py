@@ -124,13 +124,20 @@ class Server:
         rets = self.mask_explainer.explain(self.model, case)
         childrend = []
         options = []
-        for ret in rets:
-            options.append({"label": ret.tag, "value": ret.tag})
-            importance = ret.importance
-            pos_key_marks = [p[0] for p in importance][:5]
-            childrend.append(html.H3(ret.tag))
-            childrend.append(web_utils.draw_color(case, pos_key_marks))
+        if len(rets) == 0:
+            childrend.append(html.H3("No confidence in any predictions"))
+            childrend.append(web_utils.dict_to_str(case))
+            disabled_submit = True
+            fig = web_utils.empty_bar()
+        else:
+            for ret in rets:
+                options.append({"label": ret.tag, "value": ret.tag})
+                importance = ret.importance
+                pos_key_marks = [p[0] for p in importance][:5]
+                childrend.append(html.H3(ret.tag))
+                childrend.append(web_utils.draw_color(case, pos_key_marks))
 
-        fig = plot_explanation(rets, dash=True)
+            disabled_submit = False
+            fig = plot_explanation(rets, dash=True)
 
-        return [childrend, fig, options, False]
+        return [childrend, fig, options, disabled_submit]
