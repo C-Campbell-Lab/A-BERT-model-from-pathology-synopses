@@ -8,7 +8,7 @@ import pandas as pd
 import plotly.express as px
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from .domain import Cases, LabelledCase, RawData, Tag, Tags
+from .domain import Cases, Label, LabelledCase, Labels, RawData
 from .io_utils import dump_datazip, get_timestamp, load_json
 
 random.seed(42)
@@ -32,7 +32,7 @@ def grouping_idx(y) -> Dict[str, list]:
     return group_by
 
 
-def count_tags(tags: Tags):
+def count_tags(tags: Labels):
     return Counter(chain(*tags))
 
 
@@ -51,14 +51,14 @@ def label_to_tags(label: str):
     return refine_tag(label.split(";"))
 
 
-def refine_tag(tag: Tag):
+def refine_tag(label: Label):
     return [
         tag
         for tag in add_acute_LL(
             list(
                 map(
                     lambda x: tag_patch(edit_tag_str(x)),
-                    tag,
+                    label,
                 )
             )
         )
@@ -67,18 +67,21 @@ def refine_tag(tag: Tag):
 
 
 def edit_tag_str(tag: str):
-    return (
-        tag.lower()
-        .strip()
-        .replace(".", "")
-        .replace("syndrome no", "syndrome")
-        .replace("inadquate", "inadequate")
-        .replace("eosinophila", "eosinophilia")
-        .replace("hemophagoctyosis", "hemophagocytosis")
-        .replace("hypercellula", "hypercellular")
-        .replace("hypocellularr", "hypocellular")
-        .replace("lymphoma", "acute lymphoblastic leukemia")
+    typos = dict(
+        [
+            ("inadquate", "inadequate"),
+            ("eosinophila", "eosinophilia"),
+            ("hemophagoctyosis", "hemophagocytosis"),
+            ("hypercellula", "hypercellular"),
+            ("hypocellularr", "hypocellular"),
+            ("lymphoma", "acute lymphoblastic leukemia"),
+        ]
     )
+
+    tag = tag.lower().strip().replace(".", "").replace("syndrome no", "syndrome")
+
+    tag = typos.get(tag, tag)
+    return tag
 
 
 def tag_patch(tag: str):

@@ -2,7 +2,7 @@ import random
 from typing import Dict, List
 
 from . import data_utils, io_utils
-from .domain import LabelledCase, Mlb, Tags
+from .domain import LabelledCase, Labels, Mlb
 from .model import StandaloneModel
 
 random.seed(42)
@@ -54,7 +54,7 @@ def enrich(
     )
 
 
-def get_needed(known_tags: Tags, pred_tags: Tags, thresh=20):
+def get_needed(known_tags: Labels, pred_tags: Labels, thresh=20):
     def sampleable(tag, lib: Dict[str, list], need: dict):
         return len(lib.get(tag, [])) > need[tag]
 

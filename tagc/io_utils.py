@@ -23,9 +23,6 @@ def download_file(url, out_f):
         r.raise_for_status()
         with open(out_f, "wb") as f:
             for chunk in tqdm(r.iter_content(chunk_size=8192)):
-                # If you have chunk encoded response uncomment if
-                # and set chunk_size parameter to None.
-                # if chunk:
                 f.write(chunk)
     return out_f
 
@@ -40,7 +37,11 @@ def unzip_model(p, out):
 
 def prepare_dataset(out_f="dataset.zip"):
     url = "https://storage.googleapis.com/pathopatho/dataset.zip"
+    download_file(url, out_f)
 
+
+def prepare_unlabelled(out_f="data/unlabelled.json"):
+    url = "https://storage.googleapis.com/pathopatho/unlabelled.json"
     download_file(url, out_f)
 
 

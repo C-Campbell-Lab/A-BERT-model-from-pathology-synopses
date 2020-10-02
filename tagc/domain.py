@@ -8,14 +8,41 @@ from sklearn.preprocessing import MultiLabelBinarizer
 Case = dict
 Cases = List[dict]
 Mlb = MultiLabelBinarizer
-Tag = List[str]
-Tags = List[Tag]
+Tag = str
+Label = List[Tag]
+Labels = List[Label]
+
+TAG = [
+    "lymphoproliferative disorder",
+    "acute myeloid leukemia",
+    "normal",
+    "hypocellular",
+    "myelodysplastic syndrome",
+    "hemophagocytosis",
+    "inadequate",
+    "plasma cell neoplasm",
+    "metastatic",
+    "myeloproliferative neoplasm",
+    "hypercellular",
+    "erythroid hyperplasia",
+    "iron deficiency",
+    "acute leukemia",
+    "chronic myeloid leukemia",
+    "acute promyelocytic leukemia",
+    "acute lymphoblastic leukemia",
+    "mastocytosis",
+    "lymphoma",
+    "granulocytic hyperplasia",
+    "eosinophilia",
+    "basophilia",
+    "red cell aplasia",
+]
 
 
 @dataclass
 class LabelledCase:
     text: Case
-    tag: Tag
+    tag: Label
 
     def serialize(self):
         return {"text": self.text, "tag": "; ".join(self.tag)}
@@ -102,11 +129,11 @@ DATAFILE = {
 @dataclass
 class RawData:
     x_dict: Cases
-    y_tags: Tags
+    y_tags: Labels
     x_train_dict: Cases
-    y_train_tags: Tags
+    y_train_tags: Labels
     x_test_dict: Cases
-    y_test_tags: Tags
+    y_test_tags: Labels
 
     def __iter__(self):
         return iter(asdict(self).items())

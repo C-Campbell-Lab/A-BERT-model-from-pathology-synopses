@@ -6,7 +6,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 
-from .domain import Mask
+from .domain import TAG, Mask
 
 
 def html_input(id_):
@@ -59,9 +59,8 @@ def draw_color(case, key_masks: List[Mask]):
 
 
 def html_checkbox(id_):
-    return dcc.Checklist(
-        id=id_,
-    )
+    options = [{"label": t, "value": t} for t in TAG]
+    return dcc.Checklist(options=options, id=id_)
 
 
 def html_submit(id_):

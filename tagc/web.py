@@ -1,15 +1,18 @@
+import json
 import os
 
 import dash
 import dash_html_components as html
+import requests
 from dash.dependencies import Input, Output, State
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from . import web_utils
-from .io_utils import load_datazip, load_json, prepare_dataset, prepare_model
+from . import io_utils, web_utils
 from .mask_explain import MaskExplainer, plot_explanation
 from .model import StandaloneModel
 from .validation import dimension_reduction_plot, get_tag_states
+
+URL = "https://gosheet-bqjlnzid4q-uc.a.run.app/add"
 
 
 class Server:
@@ -23,18 +26,23 @@ class Server:
         self.init_state()
         self.init_plot()
 
+        self.case_str = ""
+        self.tag_str = ""
+
         external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
         self.app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
     def init_static(self):
         if not os.path.exists(self.dataset_p):
-            prepare_dataset(self.dataset_p)
+            io_utils.prepare_dataset(self.dataset_p)
         if not os.path.exists(self.model_p):
-            prepare_model(self.model_p)
+            io_utils.prepare_model(self.model_p)
+        if not os.path.exists(self.unlabelled_p):
+            io_utils.prepare_unlabelled(self.unlabelled_p)
 
     def init_state(self):
-        self.rawdata = load_datazip(self.dataset_p)
-        self.unlabelled = load_json(self.unlabelled_p)
+        self.rawdata = io_utils.load_datazip(self.dataset_p)
+        self.unlabelled = io_utils.load_json(self.unlabelled_p)
 
         self.model = StandaloneModel.from_path(self.model_p)
         self.mlb = MultiLabelBinarizer().fit(self.rawdata.y_tags)
@@ -63,7 +71,7 @@ class Server:
                 html.H2("Explanation"),
                 web_utils.html_case(id_=case_id),
                 web_utils.html_mask(id_=mask_id),
-                html.H2("Check the incorrect predictions"),
+                html.H2("Check the correct predictions"),
                 web_utils.html_checkbox(id_=checkbox_id),
                 web_utils.html_submit(id_=submit_idx),
             ]
@@ -73,7 +81,7 @@ class Server:
             [
                 Output(case_id, "children"),
                 Output(mask_id, "figure"),
-                Output(checkbox_id, "options"),
+                Output(checkbox_id, "value"),
                 Output(submit_idx, "disabled"),
             ],
             [
@@ -92,7 +100,6 @@ class Server:
             [
                 Output(dot_id, "clickData"),
                 Output(input_id, "value"),
-                Output(checkbox_id, "value"),
             ],
             [Input(submit_idx, "n_clicks")],
             [State(checkbox_id, "value")],
@@ -101,12 +108,14 @@ class Server:
             if n_clicks is None:
                 raise dash.exceptions.PreventUpdate("cancel the callback")
             else:
-                print(
-                    'The input value was "{}" and the button has been clicked {} times'.format(
-                        value, n_clicks
-                    )
-                )
-                return None, None, []
+                judge = {
+                    "text": self.case_str,
+                    "rets": self.tag_str,
+                    "mistakes": json.dumps(value),
+                }
+                requests.post(URL, json=judge)
+
+                return None, None
 
     def _display_click_data(self, clickData):
 
@@ -122,16 +131,19 @@ class Server:
 
     def _case_plot(self, case):
         rets = self.mask_explainer.explain(self.model, case)
+        values = [ret.tag for ret in rets]
+
+        self.case_str = json.dumps(case)
+        self.tag_str = json.dumps(values)
+
         childrend = []
-        options = []
         if len(rets) == 0:
             childrend.append(html.H3("No confidence in any predictions"))
             childrend.append(web_utils.dict_to_str(case))
-            disabled_submit = True
+            disabled_submit = False
             fig = web_utils.empty_bar()
         else:
             for ret in rets:
-                options.append({"label": ret.tag, "value": ret.tag})
                 importance = ret.importance
                 pos_key_marks = [p[0] for p in importance][:5]
                 childrend.append(html.H3(ret.tag))
@@ -140,4 +152,4 @@ class Server:
             disabled_submit = False
             fig = plot_explanation(rets, dash=True)
 
-        return [childrend, fig, options, disabled_submit]
+        return [childrend, fig, values, disabled_submit]
