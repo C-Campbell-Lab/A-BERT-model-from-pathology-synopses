@@ -58,6 +58,7 @@ class Server:
     def plot(self):
         app = self.app
         input_id = "input"
+        input_submit_id = "input_submit"
         dot_id = "t-sne"
         case_id = "cases"
         mask_id = "mask"
@@ -66,6 +67,7 @@ class Server:
         app.layout = html.Div(
             [
                 web_utils.html_input(id_=input_id),
+                web_utils.html_submit(id_=input_submit_id),
                 html.H2("t-SNE"),
                 web_utils.html_dots(dot_id, self.fig),
                 html.H2("Explanation"),
@@ -85,21 +87,26 @@ class Server:
                 Output(submit_idx, "disabled"),
             ],
             [
-                Input(input_id, "value"),
+                Input(input_submit_id, "n_clicks"),
                 Input(dot_id, "clickData"),
             ],
+            [State(input_id, "value")],
         )
-        def update_output_div(input_value, clickData):
-            if input_value is not None:
-                return self._case_plot({"COMMENT": input_value})
-            elif clickData is not None:
+        def update_output_div(n_clicks, clickData, input_value):
+
+            if clickData is not None:
                 return self._display_click_data(clickData)
+
+            elif input_value is not None and n_clicks is not None:
+                return self._case_plot({"COMMENT": input_value})
+
             return [[], web_utils.empty_bar(), [], True]
 
         @app.callback(
             [
                 Output(dot_id, "clickData"),
                 Output(input_id, "value"),
+                Output(input_submit_id, "n_clicks"),
             ],
             [Input(submit_idx, "n_clicks")],
             [State(checkbox_id, "value")],
@@ -115,7 +122,7 @@ class Server:
                 }
                 requests.post(URL, json=judge)
 
-                return None, None
+                return None, None, None
 
     def _display_click_data(self, clickData):
 
