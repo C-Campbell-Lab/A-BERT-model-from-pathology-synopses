@@ -2,6 +2,7 @@ from typing import Optional
 
 from sklearn import metrics
 from transformers import BertConfig, Trainer, TrainingArguments
+from transformers.trainer_utils import EvaluationStrategy
 
 from .dataset import DatasetFactory
 from .domain import Params
@@ -38,9 +39,8 @@ class Pipeline:
                 per_device_train_batch_size=8,
                 save_steps=1000,
                 save_total_limit=2,
-                evaluate_during_training=True,
+                evaluation_strategy=EvaluationStrategy.EPOCH,
                 logging_dir="./logs",
-                eval_steps=225,
             )
 
         self.model.train()
