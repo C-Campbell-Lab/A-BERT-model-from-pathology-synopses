@@ -31,7 +31,7 @@ class CustomDataset(Dataset):
             add_special_tokens=True,
             truncation=True,
             max_length=self.max_len,
-            pad_to_max_length=True,
+            padding="max_length",
             return_token_type_ids=True,
         )
         ids = inputs["input_ids"]

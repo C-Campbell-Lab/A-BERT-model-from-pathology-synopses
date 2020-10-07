@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 import torch
@@ -89,33 +89,47 @@ class StandaloneModel:
         model = Classification.from_pretrained(model_path)
         return cls(model, tokenizer, max_len)
 
-    def predict_tags(self, cases: list, mlb: Mlb, batch=8):
-        preds = self.predict(cases, batch=batch)
+    def predict_tags(
+        self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True
+    ) -> list:
+        preds = self.predict(cases, batch_size=batch_size, tqdm_disable=tqdm_disable)
         return mlb.inverse_transform(preds >= 0.5)
 
+    def predict_prob(
+        self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True
+    ) -> List[List[Tuple[str, float]]]:
+        preds = self.predict(cases, batch_size=batch_size, tqdm_disable=tqdm_disable)
+        return [list(zip(mlb.classes_, pred)) for pred in preds]
+
     def predict(
-        self, cases: list, batch=8, pooled_output=False, tqdm_disable=False
+        self, cases: list, batch_size=8, pooled_output=False, tqdm_disable=False
     ) -> np.array:
-        """Predict the prob for 18 tags. If cases are dict, they will be
+        """Predict the prob for 23 tags. If cases are dict, they will be
         composed by their `values` without shuffle.
 
         Args:
             cases (list): The input, can be either a list of str or a list of dict.
-            batch (int, optional): The batch size. Defaults to 8.
+            batch_size (int, optional): The batch size. Defaults to 8.
             pooled_output (bool, optional): Whether set the output as 768-D vector. Defaults to False.
 
         Returns:
             np.array: [description]
         """
+        pooled_input = False
         if isinstance(cases[0], dict):
             cases = list(map(compose, cases))
+        elif isinstance(cases[0], np.array):
+            pooled_input = True
         self.model.eval()
         preds: Optional[torch.Tensor] = None
         case_size = len(cases)
-        # tqdm_disable = case_size <= (batch * 10)
-        for step in tqdm(range(0, case_size, batch), disable=tqdm_disable):
-            inputs = self._encode(cases[step : step + batch])
-            outputs = self._predict_step(inputs, pooled_output=pooled_output)
+        for step in tqdm(range(0, case_size, batch_size), disable=tqdm_disable):
+            batch = cases[step : step + batch_size]
+            if pooled_input:
+                outputs = self._predict_on_pooled_output(batch)
+            else:
+                inputs = self._encode(batch)
+                outputs = self._predict_step(inputs, pooled_output=pooled_output)
             preds = outputs if preds is None else torch.cat((preds, outputs), dim=0)
         if preds is None:
             return preds
@@ -129,7 +143,7 @@ class StandaloneModel:
             add_special_tokens=True,
             truncation=True,
             max_length=self.max_len,
-            pad_to_max_length=True,
+            padding="max_length",
             return_token_type_ids=True,
         )
 
@@ -157,6 +171,11 @@ class StandaloneModel:
             )
 
         return inputs
+
+    def _predict_on_pooled_output(self, pooled_output: np.array):
+        with torch.no_grad():
+            logits = self.model.classifier(pooled_output)
+        return logits.detach()
 
 
 def get_tokenizer():

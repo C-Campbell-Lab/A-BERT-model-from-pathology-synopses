@@ -11,13 +11,13 @@ from .domain import Mlb, RawData, States
 from .model import StandaloneModel
 
 
-def get_unlabelled_state(model, cases, mlb):
+def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb):
     def tags_to_str(tags):
         return ", ".join(sorted(tags))
 
     k = len(cases)
     pooled_outputs = model.predict(cases, pooled_output=True)
-    pred_tags = model.predict_tags(cases, mlb)
+    pred_tags = model.predict_tags(pooled_outputs, mlb)
     pred_tag_note = list(map(tags_to_str, pred_tags))
     index = list(range(k))
     tag_y = pred_tag_note
@@ -144,7 +144,3 @@ def summary(cases, true_tags, pred_tags):
         example.append((case, "; ".join(pred_tag), "; ".join(true_tag), judge))
         judges.append(judge)
     return example, Counter(judges)
-
-
-# TODO
-# Add other cases

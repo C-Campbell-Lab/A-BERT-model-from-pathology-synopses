@@ -83,6 +83,8 @@ class Server:
             [
                 Output(case_id, "children"),
                 Output(mask_id, "figure"),
+                Output(mask_id, "style"),
+                Output(checkbox_id, "options"),
                 Output(checkbox_id, "value"),
                 Output(submit_idx, "disabled"),
             ],
@@ -93,14 +95,13 @@ class Server:
             [State(input_id, "value")],
         )
         def update_output_div(n_clicks, clickData, input_value):
-
             if clickData is not None:
                 return self._display_click_data(clickData)
 
             elif input_value is not None and n_clicks is not None:
                 return self._case_plot({"COMMENT": input_value})
 
-            return [[], web_utils.empty_bar(), [], True]
+            return [[], web_utils.empty_bar(), {"display": "none"}, [], [], True]
 
         @app.callback(
             [
@@ -129,34 +130,37 @@ class Server:
         customdata = clickData["points"][0]["customdata"]
         idx = customdata[0]
         from_ = customdata[1]
+        pred_tag = customdata[2]
         if from_ == "unlabelled":
             case = self.unlabelled[idx]
         else:
             data = self.rawdata.retrive(from_, idx)
             case = data["text"]
-        return self._case_plot(case)
+        return self._case_plot(case, pred_tag)
 
-    def _case_plot(self, case):
-        rets = self.mask_explainer.explain(self.model, case)
-        values = [ret.tag for ret in rets]
-
-        self.case_str = json.dumps(case)
-        self.tag_str = json.dumps(values)
-
+    def _case_plot(self, case, pred_tag):
         childrend = []
-        if len(rets) == 0:
+        self.case_str = json.dumps(case)
+        self.tag_str = json.dumps(pred_tag)
+        prob = self.model.predict_prob([case], self.mlb)[0]
+
+        options = [{"label": f"{c}: {p:.02f}", "value": c} for (c, p) in prob]
+        if len(pred_tag) == 0:
             childrend.append(html.H3("No confidence in any predictions"))
             childrend.append(web_utils.dict_to_str(case))
+            values = []
             disabled_submit = False
             fig = web_utils.empty_bar()
+            style = {"display": "none"}
         else:
+            rets = self.mask_explainer.explain(self.model, case)
+            values = [ret.tag for ret in rets]
             for ret in rets:
                 importance = ret.importance
                 pos_key_marks = [p[0] for p in importance][:5]
                 childrend.append(html.H3(ret.tag))
                 childrend.append(web_utils.draw_color(case, pos_key_marks))
-
             disabled_submit = False
             fig = plot_explanation(rets, dash=True)
-
-        return [childrend, fig, values, disabled_submit]
+            style = {"display": "block"}
+        return [childrend, fig, style, options, values, disabled_submit]
