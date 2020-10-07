@@ -148,7 +148,8 @@ class Server:
         if len(pred_tag) == 0:
             childrend.append(html.H3("No confidence in any predictions"))
             childrend.append(web_utils.dict_to_str(case))
-            values = []
+            max_prob = max(prob, key=lambda x: x[1])
+            values = [max_prob[0]]
             disabled_submit = False
             fig = web_utils.empty_bar()
             style = {"display": "none"}

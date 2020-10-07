@@ -128,7 +128,8 @@ def refine_top(top, top_n=5):
     refine_ret = {}
     for k, v in top.items():
         tmp = sorted(v.items(), key=lambda x: x[1], reverse=True)[:top_n]
-        refine_ret[k] = [k for k, _ in tmp]
+        sum_ = sum(v for _, v in tmp)
+        refine_ret[k] = [(k, v / sum_) for k, v in tmp]
     return refine_ret
 
 

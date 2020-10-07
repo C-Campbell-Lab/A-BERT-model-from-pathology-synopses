@@ -45,6 +45,11 @@ def prepare_unlabelled(out_f="data/unlabelled.json"):
     download_file(url, out_f)
 
 
+def prepare_state(out_f="data/unstate.pkl"):
+    url = "https://storage.googleapis.com/pathopatho/unstate.pkl"
+    download_file(url, out_f)
+
+
 def get_timestamp():
     return time.strftime("%Y%m%d-%H%M%S")
 
