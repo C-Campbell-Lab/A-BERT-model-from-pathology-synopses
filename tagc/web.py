@@ -1,5 +1,7 @@
 import json
 import os
+import shutil
+from dataclasses import dataclass
 
 import dash
 import dash_html_components as html
@@ -10,19 +12,42 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from . import io_utils, web_utils
 from .mask_explain import MaskExplainer, plot_explanation
 from .model import StandaloneModel
-from .validation import dimension_reduction_plot, get_tag_states
+from .validation import dimension_reduction_plot
 
 URL = "https://gosheet-bqjlnzid4q-uc.a.run.app/add"
 
 
-class Server:
-    def __init__(self, state=None):
-        self.dataset_p = "dataset.zip"
-        self.model_p = "model"
-        self.unlabelled_p = "data/unlabelled.json"
-        self.state = state
+@dataclass
+class WebConfig:
+    dataset_p: str
+    model_p: str
+    unlabelled_p: str
+    state_p: str
 
-        self.init_static()
+    def init_static(self):
+        if not os.path.exists(self.dataset_p):
+            io_utils.prepare_dataset(self.dataset_p)
+        if not os.path.exists(self.model_p):
+            io_utils.prepare_model(self.model_p)
+        if not os.path.exists(self.unlabelled_p):
+            io_utils.prepare_unlabelled(self.unlabelled_p)
+        if not os.path.exists(self.state_p):
+            io_utils.prepare_state(self.state_p)
+
+    def reset(self):
+        shutil.rmtree(self.model_p)
+        os.remove(self.dataset_p)
+        os.remove(self.unlabelled_p)
+        os.remove(self.state_p)
+
+
+class Server:
+    def __init__(self, web_config: WebConfig):
+        self.dataset_p = web_config.dataset_p
+        self.model_p = web_config.model_p
+        self.unlabelled_p = web_config.unlabelled_p
+        self.state_p = web_config.state_p
+
         self.init_state()
         self.init_plot()
 
@@ -32,14 +57,6 @@ class Server:
         external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
         self.app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-    def init_static(self):
-        if not os.path.exists(self.dataset_p):
-            io_utils.prepare_dataset(self.dataset_p)
-        if not os.path.exists(self.model_p):
-            io_utils.prepare_model(self.model_p)
-        if not os.path.exists(self.unlabelled_p):
-            io_utils.prepare_unlabelled(self.unlabelled_p)
-
     def init_state(self):
         self.rawdata = io_utils.load_datazip(self.dataset_p)
         self.unlabelled = io_utils.load_json(self.unlabelled_p)
@@ -47,8 +64,7 @@ class Server:
         self.model = StandaloneModel.from_path(self.model_p)
         self.mlb = MultiLabelBinarizer().fit(self.rawdata.y_tags)
         self.mask_explainer = MaskExplainer(self.mlb)
-        if self.state is None:
-            self.state = get_tag_states(self.model, self.rawdata, self.mlb)
+        self.state = io_utils.load_state(self.state_p)
 
     def init_plot(self):
         self.fig, self.dimension_reducer = dimension_reduction_plot(
