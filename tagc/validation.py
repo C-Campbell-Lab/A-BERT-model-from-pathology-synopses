@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 
 import pandas as pd
 import plotly.express as px
@@ -132,6 +132,7 @@ def compress(cm):
 def summary(cases, true_tags, pred_tags):
     example = []
     judges = []
+    on_tag_num = defaultdict(list)
     for case, pred_tag, true_tag in zip(cases, pred_tags, true_tags):
         num_tags = len(pred_tag)
         corr = sum(tag in true_tag for tag in pred_tag)
@@ -141,6 +142,26 @@ def summary(cases, true_tags, pred_tags):
             judge = "correct"
         else:
             judge = f"{corr} in {num_tags} tags correct"
+
+        on_tag_num[len(true_tag)].append(corr)
+
         example.append((case, "; ".join(pred_tag), "; ".join(true_tag), judge))
         judges.append(judge)
-    return example, Counter(judges)
+    # for k, v in on_tag_num.items():
+    #     right = sum(v)
+    #     num = len(v)
+    #     on_tag_num[k] = (right, num, right/num )
+    return example, Counter(judges), on_tag_num
+
+
+def judge_to_df(on_tag_num):
+    labels = []
+    tag_num = []
+    num = []
+    for k, v in on_tag_num.items():
+        counter = Counter(v)
+        for corr_class, corr_num in counter.items():
+            tag_num.append(k)
+            labels.append(f"{corr_class} Correct")
+            num.append(corr_num)
+    return pd.DataFrame({"Tag Num": tag_num, "Count": num, "Category": labels})

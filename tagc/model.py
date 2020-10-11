@@ -75,19 +75,22 @@ class Classification(BertPreTrainedModel):
 
 
 class StandaloneModel:
-    def __init__(self, model: Classification, tokenizer=None, max_len=200):
+    def __init__(
+        self, model: Classification, tokenizer=None, max_len=150, keep_key=True
+    ):
         self.model = model
         if tokenizer is None:
             tokenizer = get_tokenizer()
         self.tokenizer = tokenizer
         self.max_len = max_len
+        self.keep_key = keep_key
         self.device = "cuda" if cuda.is_available() else "cpu"
         self.model.to(self.device)
 
     @classmethod
-    def from_path(cls, model_path: str, tokenizer=None, max_len=200):
+    def from_path(cls, model_path: str, tokenizer=None, max_len=150, keep_key=True):
         model = Classification.from_pretrained(model_path)
-        return cls(model, tokenizer, max_len)
+        return cls(model, tokenizer, max_len, keep_key)
 
     def predict_tags(
         self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True
@@ -117,7 +120,7 @@ class StandaloneModel:
         """
         pooled_input = False
         if isinstance(cases[0], dict):
-            cases = list(map(compose, cases))
+            cases = list(map(self._compose, cases))
         elif isinstance(cases[0], np.array):
             pooled_input = True
         self.model.eval()
@@ -176,6 +179,9 @@ class StandaloneModel:
         with torch.no_grad():
             logits = self.model.classifier(pooled_output)
         return logits.detach()
+
+    def _compose(self, case):
+        return compose(case, keep_key=self.keep_key, shuffle=True)
 
 
 def get_tokenizer():

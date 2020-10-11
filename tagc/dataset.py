@@ -102,6 +102,5 @@ class DatasetFactory:
             new_y.extend(map(lambda idx: y[idx], upsample_idx))
         return new_x, new_y
 
-    # Makeshift upsampling to 125 cases per tag
     def _compose(self, case):
-        return compose(case, shuffle=True)
+        return compose(case, keep_key=self.params.keep_key, shuffle=True)

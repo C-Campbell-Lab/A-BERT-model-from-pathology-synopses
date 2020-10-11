@@ -96,6 +96,7 @@ class Params:
     upsampling: int
     dropout_prob: float
     identifier: str
+    keep_key: bool
 
 
 @dataclass
