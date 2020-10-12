@@ -134,14 +134,14 @@ def summary(cases, true_tags, pred_tags):
     judges = []
     on_tag_num = defaultdict(list)
     for case, pred_tag, true_tag in zip(cases, pred_tags, true_tags):
-        num_tags = len(true_tags)
+        num_tag = len(true_tag)
         corr = sum(tag in true_tag for tag in pred_tag)
         if len(pred_tag) == 0:
             judge = "missing"
-        elif corr == num_tags:
+        elif corr == num_tag:
             judge = "correct"
         else:
-            judge = f"{corr} in {num_tags} tags correct"
+            judge = f"{corr} in {num_tag} tags correct"
 
         on_tag_num[len(true_tag)].append(corr)
 
