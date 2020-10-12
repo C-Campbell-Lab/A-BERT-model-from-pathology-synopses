@@ -78,8 +78,7 @@ class Pipeline:
         pred_tags = self.dataset_factory.mlb.inverse_transform(pred.predictions >= 0)
         example, judges_count, judges_tag_num = summary(cases, true_tags, pred_tags)
         print(judges_count)
-        print(judges_tag_num)
-        return example, judges_count
+        return example, judges_count, judges_tag_num
 
 
 if __name__ == "__main__":

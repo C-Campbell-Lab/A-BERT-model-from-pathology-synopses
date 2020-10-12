@@ -242,3 +242,10 @@ def refine_rawdata(rawdata: RawData):
     rawdata.y_test_tags = list(map(refine_tag, rawdata.y_test_tags))
     rawdata.y_train_tags = list(map(refine_tag, rawdata.y_train_tags))
     return rawdata
+
+
+def adjust_normal(tags):
+    w = "normal"
+    for tag in tags:
+        if len(tag) > 1 and w in tag:
+            tag.remove(w)

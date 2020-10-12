@@ -95,7 +95,9 @@ def plot_explanation(rets: List[MaskRet], dash=False):
     fig.show()
 
 
-def top_keywords(mask_explainer: MaskExplainer, model: StandaloneModel, cases, top_n=5):
+def top_keywords(
+    mask_explainer: MaskExplainer, model: StandaloneModel, cases, top_n=-1
+):
     rets = collect_rets(mask_explainer, model, cases)
     keywords = sum_keywords(rets, top_n)
     return refine_top(keywords, top_n)
@@ -127,7 +129,8 @@ def sum_keywords(rets, top_n=5):
 def refine_top(top, top_n=5):
     refine_ret = {}
     for k, v in top.items():
-        tmp = sorted(v.items(), key=lambda x: x[1], reverse=True)[:top_n]
+        crop_len = len(v) if top_n == -1 else top_n
+        tmp = sorted(v.items(), key=lambda x: x[1], reverse=True)[:crop_len]
         sum_ = sum(v for _, v in tmp)
         refine_ret[k] = [(k, v / sum_) for k, v in tmp]
     return refine_ret
