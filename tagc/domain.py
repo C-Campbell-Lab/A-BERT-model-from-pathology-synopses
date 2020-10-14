@@ -97,6 +97,7 @@ class Params:
     dropout_prob: float
     identifier: str
     keep_key: bool
+    epoch: int
 
 
 @dataclass

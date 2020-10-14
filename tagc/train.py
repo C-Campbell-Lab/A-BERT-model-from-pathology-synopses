@@ -14,6 +14,7 @@ class Pipeline:
     def __init__(self, params: Params):
         self.init_dataset(params)
         self.init_model(params)
+        self.params = params
 
     def init_model(self, params):
         config = BertConfig()
@@ -35,7 +36,7 @@ class Pipeline:
         if training_args is None:
             training_args = TrainingArguments(
                 output_dir="./results",
-                num_train_epochs=10,
+                num_train_epochs=self.params.epoch,
                 per_device_train_batch_size=8,
                 save_steps=1000,
                 save_total_limit=2,
