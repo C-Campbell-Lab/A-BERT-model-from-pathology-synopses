@@ -121,7 +121,7 @@ class StandaloneModel:
         pooled_input = False
         if isinstance(cases[0], dict):
             cases = list(map(self._compose, cases))
-        elif isinstance(cases[0], np.array):
+        elif isinstance(cases[0], np.ndarray):
             pooled_input = True
         self.model.eval()
         preds: Optional[torch.Tensor] = None
@@ -129,7 +129,9 @@ class StandaloneModel:
         for step in tqdm(range(0, case_size, batch_size), disable=tqdm_disable):
             batch = cases[step : step + batch_size]
             if pooled_input:
-                outputs = self._predict_on_pooled_output(batch)
+                outputs = self._predict_on_pooled_output(
+                    torch.from_numpy(batch).to(self.device, dtype=torch.float)
+                )
             else:
                 inputs = self._encode(batch)
                 outputs = self._predict_step(inputs, pooled_output=pooled_output)

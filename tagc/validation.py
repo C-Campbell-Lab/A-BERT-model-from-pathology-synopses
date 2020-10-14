@@ -117,6 +117,7 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData):
             "Sample_Size": sample_sizes,
         }
     )
+    performance.sort_values("Acc", inplace=True)
     fig = px.scatter(performance, x="Tag", y="Acc", size="Sample_Size", color="Num")
     fig.show()
 
