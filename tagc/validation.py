@@ -112,47 +112,68 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData):
     performance = pd.DataFrame(
         {
             "Tag": mlb.classes_,
-            "Acc": [pair[0] for pair in ability],
-            "Num": [pair[2] for pair in ability],
-            "Sample_Size": sample_sizes,
+            "F1 Score": [pair[0] for pair in ability],
+            "Testing Size": [pair[2] for pair in ability],
+            "Sample Size": sample_sizes,
         }
     )
-    performance.sort_values("Acc", inplace=True)
-    fig = px.scatter(performance, x="Tag", y="Acc", size="Sample_Size", color="Num")
-    fig.show()
+    performance["Training Size"] = (
+        performance["Sample Size"] - performance["Testing Size"]
+    )
+    performance.sort_values(
+        "F1 Score",
+        inplace=True,
+    )
+    fig = px.scatter(
+        performance, x="Tag", y="F1 Score", size="Training Size", color="Testing Size"
+    )
+
+    return fig
 
 
 def compress(cm):
-    err, corr = cm[1]
-    amount = err + corr
+    tn, fp = cm[0]
+    fn, tp = cm[1]
+    amount = fn + tp
     if amount == 0:
-        return (0, corr, amount)
-    return (corr / amount, corr, amount)
+        f1 = 0
+    else:
+        f1 = 2 * tp / (2 * tp + fp + fn)
+    return (f1, tp, amount)
 
 
 def summary(cases, true_tags, pred_tags):
     example = []
     judges = []
-    on_tag_num = defaultdict(list)
+    less_tag_num = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+    more_tag_num = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+    equal_tag_num = defaultdict(lambda: defaultdict(int))
+    data = {
+        "less": less_tag_num,
+        "more": more_tag_num,
+        "equal": equal_tag_num,
+    }
     for case, pred_tag, true_tag in zip(cases, pred_tags, true_tags):
         num_tag = len(true_tag)
+        pred_num_tag = len(pred_tag)
         corr = sum(tag in true_tag for tag in pred_tag)
-        if len(pred_tag) == 0:
-            judge = "missing"
-        elif corr == num_tag:
-            judge = "correct"
+        if pred_num_tag < num_tag:
+            judge = f"Less: {corr} in {pred_num_tag} tags correct"
+            data["less"][num_tag][pred_num_tag - num_tag][corr] += 1
+        elif pred_num_tag > num_tag:
+            judge = f"More: {corr} in {pred_num_tag} tags correct"
+            data["more"][num_tag][pred_num_tag - num_tag][corr] += 1
         else:
-            judge = f"{corr} in {num_tag} tags correct"
-
-        on_tag_num[len(true_tag)].append(corr)
+            if corr == pred_num_tag:
+                judge = "Correct"
+            else:
+                judge = f"Equal: {corr} in {pred_num_tag} tags correct"
+            data["equal"][num_tag][corr] += 1
 
         example.append((case, "; ".join(pred_tag), "; ".join(true_tag), judge))
         judges.append(judge)
-    # for k, v in on_tag_num.items():
-    #     right = sum(v)
-    #     num = len(v)
-    #     on_tag_num[k] = (right, num, right/num )
-    return example, Counter(judges), on_tag_num
+
+    return example, Counter(judges), data
 
 
 def judge_to_df(on_tag_num):

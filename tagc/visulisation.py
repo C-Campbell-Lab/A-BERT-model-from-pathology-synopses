@@ -188,37 +188,6 @@ def kw_polt(top_key):
     fig.show()
 
 
-def summary(cases, true_tags, pred_tags):
-    example = []
-    judges = []
-    less_tag_num = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
-    more_tag_num = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
-    equal_tag_num = defaultdict(int)
-    data = {
-        "less": less_tag_num,
-        "more": more_tag_num,
-        "equal": equal_tag_num,
-    }
-    for case, pred_tag, true_tag in zip(cases, pred_tags, true_tags):
-        num_tag = len(true_tag)
-        pred_num_tag = len(pred_tag)
-        corr = sum(tag in true_tag for tag in pred_tag)
-        if pred_num_tag < num_tag:
-            judge = f"Less: {corr} in {num_tag} tags correct"
-            data["less"][num_tag][pred_num_tag - num_tag][corr] += 1
-        elif pred_num_tag > num_tag:
-            judge = f"More: {corr} in {pred_num_tag} tags correct"
-            data["more"][num_tag][pred_num_tag - num_tag][corr] += 1
-        else:
-            judge = "correct"
-            data["equal"][num_tag] += 1
-
-        example.append((case, "; ".join(pred_tag), "; ".join(true_tag), judge))
-        judges.append(judge)
-
-    return example, Counter(judges), data
-
-
 def plot_summary(data):
     tree_data = defaultdict(dict)
     for n in range(1, 7):
@@ -246,8 +215,16 @@ def plot_summary(data):
                 values.append(count)
                 parents.append("")
             else:
-                values.append(data[type_][n])
-                labels.append("correct")
+                tmp_v = []
+                for k, v in data[type_][n].items():
+                    labels.append(f"{k} correct")
+                    tmp_v.append(v)
+                    parents.append(type_)
+
+                values.extend(tmp_v)
+
+                values.append(sum(tmp_v))
+                labels.append(type_)
                 parents.append("")
                 # labels.append(type_)
 

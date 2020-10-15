@@ -128,7 +128,7 @@ def xy_to_labelled_cases(x, y) -> List[LabelledCase]:
     return [LabelledCase(text, tag) for text, tag in zip(x, y)]
 
 
-def split_and_dump_dataset(x, y):
+def split_and_dump_dataset(x, y, test_size=0.2):
     x_train_dict, x_test_dict, y_train_tags, y_test_tags = train_test_split(
         x, y, test_size=0.2
     )
