@@ -38,10 +38,10 @@ class Pipeline:
                 output_dir="./results",
                 num_train_epochs=self.params.epoch,
                 per_device_train_batch_size=16,
-                save_steps=1000,
-                save_total_limit=2,
                 evaluation_strategy=EvaluationStrategy.EPOCH,
                 logging_dir="./logs",
+                load_best_model_at_end=True,
+                metric_for_best_model="eval_f1",
             )
 
         self.model.train()

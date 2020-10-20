@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, BertModel, BertPreTrainedModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
 from .data_utils import compose
-from .domain import Mlb
+from .domain import THRESH, Mlb
 
 
 class Classification(BertPreTrainedModel):
@@ -76,7 +76,7 @@ class Classification(BertPreTrainedModel):
 
 class StandaloneModel:
     def __init__(
-        self, model: Classification, tokenizer=None, max_len=150, keep_key=True
+        self, model: Classification, tokenizer=None, max_len=100, keep_key=False
     ):
         self.model = model
         if tokenizer is None:
@@ -192,10 +192,9 @@ def get_tokenizer():
 
 
 def label_output(preds: np.array, thresh=None):
-    if thresh is not None:
-        thresh_items = preds >= thresh
-    else:
-        thresh_items = preds >= 0.5
+    if thresh is None:
+        thresh = THRESH
+    thresh_items = preds >= thresh
     for idx, thresh_item in enumerate(thresh_items):
         if sum(thresh_item) == 0:
             ix = np.argmax(preds[idx])

@@ -11,13 +11,13 @@ from .domain import Mlb, RawData, States
 from .model import StandaloneModel, label_output
 
 
-def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb):
+def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb, thresh=None):
     def tags_to_str(tags):
         return ", ".join(sorted(tags))
 
     k = len(cases)
     pooled_outputs = model.predict(cases, pooled_output=True)
-    pred_tags = model.predict_tags(pooled_outputs, mlb)
+    pred_tags = model.predict_tags(pooled_outputs, mlb, thresh=thresh)
     pred_tag_note = list(map(tags_to_str, pred_tags))
     index = list(range(k))
     tag_y = pred_tag_note
@@ -27,7 +27,7 @@ def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb):
     return states
 
 
-def get_tag_states(model: StandaloneModel, rawdata: RawData, mlb: Mlb):
+def get_tag_states(model: StandaloneModel, rawdata: RawData, mlb: Mlb, thresh=None):
     def tags_to_str(tags):
         return ", ".join(sorted(tags))
 
@@ -40,7 +40,7 @@ def get_tag_states(model: StandaloneModel, rawdata: RawData, mlb: Mlb):
     tag_n = list(map(lambda tags: len(tags), y))
     tag_y = list(map(tags_to_str, y))
     pooled_outputs = model.predict(x, pooled_output=True)
-    pred_tags = model.predict_tags(x, mlb)
+    pred_tags = model.predict_tags(x, mlb, thresh=thresh)
     pred_tag_note = list(map(tags_to_str, pred_tags))
     states = States(pooled_outputs, tag_y, index, tag_n, from_, pred_tag_note)
     return states
@@ -105,7 +105,11 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
     total_y = rawdata.y_tags
     pred_prob = model.predict(x)
     preds = label_output(pred_prob, thresh)
-    mcm = metrics.multilabel_confusion_matrix(mlb.transform(y), preds)
+    y_vector = mlb.transform(y)
+    precision, recall, f1, _ = metrics.precision_recall_fscore_support(
+        y_vector, preds, average="micro"
+    )
+    mcm = metrics.multilabel_confusion_matrix(y_vector, preds)
     ability = list(map(compress, mcm))
     tag_count = count_tags(total_y)
     sample_sizes = [tag_count[class_] for class_ in mlb.classes_]
@@ -127,7 +131,35 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
     fig = px.scatter(
         performance, x="Tag", y="F1 Score", size="Training Size", color="Testing Size"
     )
-
+    fig.update_layout(
+        showlegend=False,
+        annotations=[
+            dict(
+                x=21,
+                y=0.25,
+                xref="x",
+                yref="y",
+                text=f"Precision: {precision:.03f}",
+                showarrow=False,
+            ),
+            dict(
+                x=21,
+                y=0.2,
+                xref="x",
+                yref="y",
+                text=f"Recall: {recall:.03f}",
+                showarrow=False,
+            ),
+            dict(
+                x=21,
+                y=0.15,
+                xref="x",
+                yref="y",
+                text=f"F1 Score: {f1:.03f}",
+                showarrow=False,
+            ),
+        ],
+    )
     return fig
 
 

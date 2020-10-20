@@ -1,3 +1,4 @@
+import gc
 from copy import copy
 
 import torch
@@ -19,13 +20,16 @@ def main(dataset_path):
         tmp_ds.y_train_tags = [ds.y_train_tags[idx] for idx in train]
         tmp_ds.x_test_dict = [ds.x_train_dict[idx] for idx in test]
         tmp_ds.y_test_tags = [ds.y_train_tags[idx] for idx in test]
-        params = Params(tmp_ds, 150, 150, 0.5, "bert-base-uncased", True, 5)
+        params = Params(tmp_ds, 100, 200, 0.5, "bert-base-uncased", False, 6)
         pipeline = Pipeline(params)
         pipeline.train()
         model = StandaloneModel(pipeline.model, pipeline.tokenizer)
         probs = model.predict_prob(tmp_ds.x_test_dict, pipeline.mlb)
         probs = [[(n, str(p)) for n, p in prob] for prob in probs]
         cv_result.append({"prob": probs, "tag": tmp_ds.y_test_tags})
+        del model
+        del pipeline
+        gc.collect()
         with torch.no_grad():
             torch.cuda.empty_cache()
 
