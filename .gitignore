@@ -141,3 +141,4 @@ model
 data
 .vscode
 # End of https://www.toptal.com/developers/gitignore/api/python
+out

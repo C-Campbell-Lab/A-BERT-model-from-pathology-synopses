@@ -8,7 +8,7 @@ from sklearn.manifold import TSNE
 
 from .data_utils import count_tags
 from .domain import Mlb, RawData, States
-from .model import StandaloneModel
+from .model import StandaloneModel, label_output
 
 
 def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb):
@@ -99,12 +99,12 @@ def dimension_reduction_plot(
     fig.show()
 
 
-def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData):
+def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None):
     x = rawdata.x_test_dict
     y = rawdata.y_test_tags
     total_y = rawdata.y_tags
     pred_prob = model.predict(x)
-    preds = pred_prob >= 0.5
+    preds = label_output(pred_prob, thresh)
     mcm = metrics.multilabel_confusion_matrix(mlb.transform(y), preds)
     ability = list(map(compress, mcm))
     tag_count = count_tags(total_y)

@@ -93,10 +93,11 @@ class StandaloneModel:
         return cls(model, tokenizer, max_len, keep_key)
 
     def predict_tags(
-        self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True
+        self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True, thresh=None
     ) -> list:
         preds = self.predict(cases, batch_size=batch_size, tqdm_disable=tqdm_disable)
-        return mlb.inverse_transform(preds >= 0.5)
+        thresh_items = label_output(preds, thresh)
+        return mlb.inverse_transform(thresh_items)
 
     def predict_prob(
         self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True
@@ -188,3 +189,18 @@ class StandaloneModel:
 
 def get_tokenizer():
     return AutoTokenizer.from_pretrained("bert-base-uncased")
+
+
+def label_output(preds: np.array, thresh=None):
+    if thresh is not None:
+        thresh_items = preds >= thresh
+    else:
+        thresh_items = preds >= 0.5
+    for idx, thresh_item in enumerate(thresh_items):
+        if sum(thresh_item) == 0:
+            ix = np.argmax(preds[idx])
+            thresh_item[ix] = True
+    assert (
+        sum(sum(thresh_item) == 0 for thresh_item in thresh_items) == 0
+    ), "no prediction"
+    return thresh_items

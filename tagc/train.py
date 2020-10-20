@@ -37,7 +37,7 @@ class Pipeline:
             training_args = TrainingArguments(
                 output_dir="./results",
                 num_train_epochs=self.params.epoch,
-                per_device_train_batch_size=8,
+                per_device_train_batch_size=16,
                 save_steps=1000,
                 save_total_limit=2,
                 evaluation_strategy=EvaluationStrategy.EPOCH,

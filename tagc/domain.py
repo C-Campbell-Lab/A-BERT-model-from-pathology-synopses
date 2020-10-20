@@ -90,17 +90,6 @@ class MaskRet:
 
 
 @dataclass
-class Params:
-    datazip_path: str
-    max_len: int
-    upsampling: int
-    dropout_prob: float
-    identifier: str
-    keep_key: bool
-    epoch: int
-
-
-@dataclass
 class Trace:
     origin_output: np.array
     masked_outputs: np.array
@@ -155,3 +144,14 @@ class RawData:
 
     def to_labelled_cases(self):
         return [LabelledCase(text, tag) for text, tag in zip(self.x_dict, self.y_tags)]
+
+
+@dataclass
+class Params:
+    raw_data: RawData
+    max_len: int
+    upsampling: int
+    dropout_prob: float
+    identifier: str
+    keep_key: bool
+    epoch: int

@@ -7,7 +7,6 @@ from transformers import AutoTokenizer
 
 from .data_utils import compose, grouping_idx
 from .domain import Cases, Params
-from .io_utils import load_datazip
 
 random.seed(42)
 
@@ -56,7 +55,7 @@ class CustomDataset(Dataset):
 class DatasetFactory:
     def __init__(self, params: Params):
         self.params = params
-        raw_data = load_datazip(params.datazip_path)
+        raw_data = params.raw_data
         self.x_test_dict = raw_data.x_test_dict
         self.x_train_dict = raw_data.x_train_dict
         self.y_train_tags = raw_data.y_train_tags
