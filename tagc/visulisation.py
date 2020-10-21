@@ -165,10 +165,6 @@ def kw_plot(top_key):
         top = v[:top_n]
         labels.extend(i[0] for i in top)
         tmp_v = [i[1] for i in top]
-        # values.extend(tmp_v)
-        # labels.append('All Other Words')
-        # values.append(1 - sum(tmp_v))
-        # parents.extend(k for _ in range(top_n + 1))
 
         values.extend(v / sum(tmp_v) for v in tmp_v)
         parents.extend(k for _ in range(top_n))
@@ -306,4 +302,37 @@ def plot_tag_performance(performance, overall):
             ),
         ],
     )
+    return fig
+
+
+def plot_num_performance(performance_n: pd.DataFrame):
+    fig = go.Figure()
+    x_title = "Tag Number"
+    x = performance_n[x_title]
+    size = performance_n["Count"]
+    for c in ["F1 Score", "Recall", "Precision"]:
+
+        y = performance_n[c]
+        fig.add_trace(
+            go.Scatter(
+                x=x,
+                y=y,
+                name=c,
+                mode="markers+text",
+                marker=dict(
+                    size=size,
+                    sizemode="area",
+                    sizeref=2.0 * max(size) / (40.0 ** 2),
+                    sizemin=4,
+                ),
+                text=[f"{v:.03f}" for v in y],
+                textposition="middle right",
+            )
+        )
+
+    fig.update_layout(
+        width=1280, height=600, uniformtext_minsize=11, uniformtext_mode="show"
+    )
+    fig.update_xaxes(title_text=x_title)
+
     return fig

@@ -116,8 +116,10 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
     performance = pd.DataFrame(
         {
             "Tag": mlb.classes_,
-            "F1 Score": [pair[0] for pair in ability],
-            "Testing Size": [pair[2] for pair in ability],
+            "Precision": [pair[0] for pair in ability],
+            "Recall": [pair[1] for pair in ability],
+            "F1 Score": [pair[2] for pair in ability],
+            "Testing Size": [pair[3] for pair in ability],
             "Sample Size": sample_sizes,
         }
     )
@@ -132,14 +134,18 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
 
 
 def compress(cm):
+    def safe_divide(a, b):
+        if b == 0:
+            return 0
+        return a / b
+
     tn, fp = cm[0]
     fn, tp = cm[1]
     amount = fn + tp
-    if amount == 0:
-        f1 = 0
-    else:
-        f1 = 2 * tp / (2 * tp + fp + fn)
-    return (f1, tp, amount)
+    precision = safe_divide(tp, tp + fp)
+    recall = safe_divide(tp, amount)
+    f1 = safe_divide(2 * precision * recall, precision + recall)
+    return (precision, recall, f1, amount)
 
 
 def summary(cases, true_tags, pred_tags):
@@ -190,14 +196,41 @@ def summary(cases, true_tags, pred_tags):
     return (example, Counter(judges), data, df)
 
 
-def judge_to_df(on_tag_num):
-    labels = []
-    tag_num = []
-    num = []
-    for k, v in on_tag_num.items():
-        counter = Counter(v)
-        for corr_class, corr_num in counter.items():
-            tag_num.append(k)
-            labels.append(f"{corr_class} Correct")
-            num.append(corr_num)
-    return pd.DataFrame({"Tag Num": tag_num, "Count": num, "Category": labels})
+def judge_on_num(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None):
+    x = rawdata.x_test_dict
+    y = rawdata.y_test_tags
+    tag_num_map = defaultdict(list)
+    for idx, tag in enumerate(y):
+        tag_num_map[len(tag)].append(idx)
+
+    tag_nums = []
+    sizes = []
+    precisions = []
+    recalls = []
+    f1s = []
+
+    for tag_num, indexes in tag_num_map.items():
+        num_x = [x[idx] for idx in indexes]
+        num_y = [y[idx] for idx in indexes]
+        pred_prob = model.predict(num_x)
+        preds = label_output(pred_prob, thresh)
+        y_vector = mlb.transform(num_y)
+        precision, recall, f1, _ = metrics.precision_recall_fscore_support(
+            y_vector, preds, average="micro"
+        )
+        tag_nums.append(tag_num)
+        sizes.append(len(indexes))
+        precisions.append(precision)
+        recalls.append(recall)
+        f1s.append(f1)
+
+    df = pd.DataFrame(
+        {
+            "Tag Number": tag_nums,
+            "Count": sizes,
+            "F1 Score": f1s,
+            "Recall": recalls,
+            "Precision": precisions,
+        }
+    )
+    return df

@@ -42,6 +42,8 @@ class Pipeline:
                 logging_dir="./logs",
                 load_best_model_at_end=True,
                 metric_for_best_model="eval_f1",
+                warmup_steps=500,
+                weight_decay=0.01,
             )
 
         self.model.train()

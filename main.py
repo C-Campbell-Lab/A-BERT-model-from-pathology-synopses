@@ -25,10 +25,17 @@ from tagc.validation import (
     dimension_reduction_plot,
     get_tag_states,
     get_unlabelled_state,
+    judge_on_num,
     judge_on_tag,
     summary,
 )
-from tagc.visulisation import kw_plot, plot_summary, plot_tag_performance, state_plot
+from tagc.visulisation import (
+    kw_plot,
+    plot_num_performance,
+    plot_summary,
+    plot_tag_performance,
+    state_plot,
+)
 
 random.seed(42)
 
@@ -54,6 +61,10 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
     model = StandaloneModel.from_path("TagModel", keep_key=False, max_len=100)
     # Rawdata_stat
     fig = rawdata_stat(rawdata)
+    fig.update_layout(
+        width=1280,
+        height=600,
+    )
     fig.write_image("outputs/data_stat.pdf")
     # Unlabelled
     all_cases = load_json("cases.json")
@@ -90,6 +101,7 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
             mlb,
         ),
     )
+    df.to_csv("outputs/summary.csv")
     fig = plot_summary(data)
     fig.write_image("outputs/fig3b_Pie.pdf")
     review = []
@@ -99,10 +111,15 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
     dump_json("outputs/review.json", review)
     # Performance
     performance, overall = judge_on_tag(model, mlb, rawdata)
+    performance.to_csv("outputs/Perf_tag.csv")
     fig = plot_tag_performance(performance, overall)
-    fig.write_image("outputs/fig3c_TagPerf.pdf")
+    fig.write_image("outputs/fig3c_Perf_tag.pdf")
+    performance_n = judge_on_num(model, mlb, rawdata)
+    performance_n.to_csv("outputs/Perf_num.csv")
+    fig = plot_num_performance(performance_n)
+    fig.write_image("outputs/fig3c_Perf_num.pdf")
     # Keyword
-    maskExplainer = MaskExplainer(mlb, thresh=0.5)
+    maskExplainer = MaskExplainer(mlb)
     top = top_keywords(maskExplainer, model, rawdata.x_dict)
     tag_counter = count_tags(rawdata.y_tags)
     large_enough = [k for k, v in tag_counter.items() if v >= 20]

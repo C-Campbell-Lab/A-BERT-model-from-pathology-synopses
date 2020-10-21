@@ -40,6 +40,7 @@ TAG = [
 
 try:
     with open("thresh.json") as target:
+        print("Use thresh.json")
         THRESH = json.load(target)
 except FileNotFoundError:
     print("Use 0.5 Threshold")
