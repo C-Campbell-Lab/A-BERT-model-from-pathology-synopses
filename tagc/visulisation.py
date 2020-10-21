@@ -1,4 +1,5 @@
 from collections import Counter, defaultdict
+from math import ceil
 
 import pandas as pd
 import plotly.express as px
@@ -84,11 +85,13 @@ def state_plot(states, method_n="PCA", thresh=15):
 
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
-    #     fig.update_layout(
-    #     width=1280,
-    #     height=800,
-    # )
-    fig.show()
+    fig.update_layout(
+        legend=dict(
+            orientation="h",
+        ),
+        width=1280,
+        height=600,
+    )
     return fig
 
 
@@ -140,9 +143,9 @@ def plot_judge_num(j_tag_num, mode="Correct"):
     return fig
 
 
-def kw_polt(top_key):
+def kw_plot(top_key):
     col_num = 2
-    row_num = int(18 / col_num)
+    row_num = ceil(len(top_key) / col_num)
     fig = make_subplots(
         cols=col_num,
         rows=row_num,
@@ -185,7 +188,7 @@ def kw_polt(top_key):
         )
 
     fig.update_layout(width=1280, height=800, uniformtext=dict(minsize=10, mode="show"))
-    fig.show()
+    return fig
 
 
 def plot_summary(data):
@@ -257,4 +260,50 @@ def plot_summary(data):
             row=row,
             col=col,
         )
-    fig.show()
+
+    fig.update_layout(
+        width=1280,
+        height=600,
+    )
+    return fig
+
+
+def plot_tag_performance(performance, overall):
+    fig = px.scatter(
+        performance, x="Tag", y="F1 Score", size="Training Size", color="Testing Size"
+    )
+    precision = overall["precision"]
+    recall = overall["recall"]
+    f1 = overall["f1"]
+    fig.update_layout(
+        width=1280,
+        height=600,
+        showlegend=False,
+        annotations=[
+            dict(
+                x=21,
+                y=0.25,
+                xref="x",
+                yref="y",
+                text=f"Precision: {precision:.03f}",
+                showarrow=False,
+            ),
+            dict(
+                x=21,
+                y=0.2,
+                xref="x",
+                yref="y",
+                text=f"Recall: {recall:.03f}",
+                showarrow=False,
+            ),
+            dict(
+                x=21,
+                y=0.15,
+                xref="x",
+                yref="y",
+                text=f"F1 Score: {f1:.03f}",
+                showarrow=False,
+            ),
+        ],
+    )
+    return fig

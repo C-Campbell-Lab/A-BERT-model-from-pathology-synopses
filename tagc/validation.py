@@ -128,39 +128,7 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
         "F1 Score",
         inplace=True,
     )
-    fig = px.scatter(
-        performance, x="Tag", y="F1 Score", size="Training Size", color="Testing Size"
-    )
-    fig.update_layout(
-        showlegend=False,
-        annotations=[
-            dict(
-                x=21,
-                y=0.25,
-                xref="x",
-                yref="y",
-                text=f"Precision: {precision:.03f}",
-                showarrow=False,
-            ),
-            dict(
-                x=21,
-                y=0.2,
-                xref="x",
-                yref="y",
-                text=f"Recall: {recall:.03f}",
-                showarrow=False,
-            ),
-            dict(
-                x=21,
-                y=0.15,
-                xref="x",
-                yref="y",
-                text=f"F1 Score: {f1:.03f}",
-                showarrow=False,
-            ),
-        ],
-    )
-    return fig
+    return performance, {"precision": precision, "recall": recall, "f1": f1}
 
 
 def compress(cm):
@@ -185,27 +153,41 @@ def summary(cases, true_tags, pred_tags):
         "more": more_tag_num,
         "equal": equal_tag_num,
     }
+    corrects = []
+    pred_tag_numbers = []
+    tag_numbers = []
     for case, pred_tag, true_tag in zip(cases, pred_tags, true_tags):
-        num_tag = len(true_tag)
-        pred_num_tag = len(pred_tag)
+        tag_num = len(true_tag)
+        pred_tag_num = len(pred_tag)
         corr = sum(tag in true_tag for tag in pred_tag)
-        if pred_num_tag < num_tag:
-            judge = f"Less: {corr} in {pred_num_tag} tags correct"
-            data["less"][num_tag][pred_num_tag - num_tag][corr] += 1
-        elif pred_num_tag > num_tag:
-            judge = f"More: {corr} in {pred_num_tag} tags correct"
-            data["more"][num_tag][pred_num_tag - num_tag][corr] += 1
+        if pred_tag_num < tag_num:
+            judge = f"Less: {corr}/{pred_tag_num} correct. Label:{tag_num} tags"
+            data["less"][tag_num][pred_tag_num - tag_num][corr] += 1
+        elif pred_tag_num > tag_num:
+            judge = f"More: {corr}/{pred_tag_num} correct. Label:{tag_num} tags"
+            data["more"][tag_num][pred_tag_num - tag_num][corr] += 1
         else:
-            if corr == pred_num_tag:
-                judge = "Correct"
+            if corr == pred_tag_num:
+                judge = "correct"
             else:
-                judge = f"Equal: {corr} in {pred_num_tag} tags correct"
-            data["equal"][num_tag][corr] += 1
+                judge = f"Equal: {corr}/{pred_tag_num} correct. Label:{tag_num} tags"
+            data["equal"][tag_num][corr] += 1
+
+        corrects.append(corr)
+        pred_tag_numbers.append(pred_tag_num)
+        tag_numbers.append(tag_num)
 
         example.append((case, "; ".join(pred_tag), "; ".join(true_tag), judge))
         judges.append(judge)
 
-    return example, Counter(judges), data
+    df = pd.DataFrame(
+        {
+            "Correct Count": corrects,
+            "Pred Tag Number": pred_tag_numbers,
+            "Tag Number": tag_numbers,
+        }
+    )
+    return (example, Counter(judges), data, df)
 
 
 def judge_to_df(on_tag_num):

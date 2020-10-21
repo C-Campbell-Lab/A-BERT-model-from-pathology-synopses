@@ -99,3 +99,17 @@ def dump_state(states, state_p="state"):
     with open(state_p, "wb") as plk:
         pickle.dump(states, plk)
     return state_p
+
+
+def build_eval_json(sampled_cases, pred_prob, pred_out):
+    eval_json = []
+    for idx, (case, prob, pred) in enumerate(zip(sampled_cases, pred_prob, pred_out)):
+        eval_json.append(
+            {
+                "id": idx,
+                "text": case,
+                "prob": [(n, str(p)) for n, p in prob],
+                "pred": [bool(v == 1) for v in pred],
+            }
+        )
+    return eval_json

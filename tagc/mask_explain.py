@@ -9,8 +9,8 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from tqdm.autonotebook import tqdm
 
 from .data_utils import count_tags
-from .domain import Case, Mask, MaskedParent, MaskRet, Trace
-from .model import StandaloneModel
+from .domain import THRESH, Case, Mask, MaskedParent, MaskRet, Trace
+from .model import StandaloneModel, label_output
 
 
 class MaskMaker:
@@ -29,12 +29,15 @@ class MaskMaker:
 
 
 class MaskExplainer:
-    def __init__(self, mlb: MultiLabelBinarizer, mask_maker: MaskMaker = None):
+    def __init__(
+        self, mlb: MultiLabelBinarizer, mask_maker: MaskMaker = None, thresh=None
+    ):
         if mask_maker is None:
             self.mask_maker = MaskMaker()
         else:
             self.mask_maker = mask_maker
         self.mlb = mlb
+        self.thresh = THRESH if thresh is None else thresh
 
     def explain(self, model: StandaloneModel, case: Case):
         origin_output = model.predict([case], tqdm_disable=True)
@@ -50,7 +53,7 @@ class MaskExplainer:
         def sort_col_descend(values, col):
             return np.argsort(values[:, col])[::-1]
 
-        pred = trace.origin_output >= 0.5
+        pred = label_output(trace.origin_output, self.thresh)
         bool_idx = pred[0]
         trace.important_change = (
             trace.origin_output[:, bool_idx] - trace.masked_outputs[:, bool_idx]
