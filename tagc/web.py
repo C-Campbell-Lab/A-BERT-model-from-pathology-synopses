@@ -13,6 +13,7 @@ from . import io_utils, web_utils
 from .mask_explain import MaskExplainer, plot_explanation
 from .model import StandaloneModel
 from .validation import dimension_reduction_plot
+from tagc.validation import dimension_reduction
 
 URL = "https://gosheet-bqjlnzid4q-uc.a.run.app/add"
 
@@ -67,9 +68,8 @@ class Server:
         self.state = io_utils.load_state(self.state_p)
 
     def init_plot(self):
-        self.fig, self.dimension_reducer = dimension_reduction_plot(
-            self.state, method_n="tsne", n_components=2, dash=True
-        )
+        state_df = dimension_reduction(self.state, method_n="tsne", n_components=2)
+        self.fig = dimension_reduction_plot(state_df, n_components=2)
 
     def plot(self):
         app = self.app

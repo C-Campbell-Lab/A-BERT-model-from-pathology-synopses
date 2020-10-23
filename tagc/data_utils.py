@@ -5,7 +5,6 @@ from typing import Dict, List
 
 import numpy as np
 import pandas as pd
-import plotly.express as px
 from sklearn.preprocessing import MultiLabelBinarizer
 
 from .domain import Cases, Label, LabelledCase, Labels, RawData
@@ -218,23 +217,7 @@ def rawdata_stat(rawdata: RawData):
     test_tag_df["for"] = "test"
 
     tag_df = pd.concat([train_tag_df, test_tag_df])
-    return plot_tag_stat(tag_df)
-
-
-def plot_tag_stat(tag_df):
-    fig = px.bar(tag_df, x="tag", y="count", color="for", title="Tag Stat")
-    fig.add_shape(
-        type="line",
-        x0=0,
-        y0=20,
-        x1=24,
-        y1=20,
-        line=dict(
-            color="Red",
-            width=1,
-        ),
-    )
-    return fig
+    return tag_df
 
 
 def refine_rawdata(rawdata: RawData):

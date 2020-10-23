@@ -6,32 +6,17 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.validators.scatter.marker import SymbolValidator
-from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
 
 
-def state_plot(states, method_n="PCA", thresh=15):
-
-    n_components = 2
-    if method_n.lower() == "tsne":
-        method = TSNE
-    else:
-        method = PCA
-    dimension_reducer = method(n_components=n_components)
-    result = dimension_reducer.fit_transform(states.data)
-    if isinstance(dimension_reducer, PCA):
-        print(
-            f"Explained variation per principal component: {dimension_reducer.explained_variance_ratio_}"
-        )
-    df = pd.DataFrame(
-        {
-            "tag": states.tag,
-            "index": states.index,
-            "tag_num": states.tag_n,
-            "from": states.from_,
-            "pred_tag": states.pred_tag,
-        }
+def plot_tag_stat(tag_df: pd.DataFrame):
+    fig = px.bar(
+        tag_df, x="tag", y="count", color="for", title="Tag Stat", text="count"
     )
+
+    return fig
+
+
+def state_plot(df: pd.DataFrame, thresh=15):
 
     markers = df.tag.value_counts()
     tag_value_counts = markers >= thresh
@@ -50,9 +35,6 @@ def state_plot(states, method_n="PCA", thresh=15):
         color_dict[tag] = colors[color_idx]
     df["color"] = df.tag.map(color_dict)
     df["symbol"] = df.tag.map(symbol_dict)
-
-    for n in range(n_components):
-        df[f"D{n+1}"] = result[:, n]
 
     fig = go.Figure()
     sel_tags = sorted(show_legends, key=len)
@@ -144,7 +126,7 @@ def plot_judge_num(j_tag_num, mode="Correct"):
 
 
 def kw_plot(top_key):
-    col_num = 2
+    col_num = 1
     row_num = ceil(len(top_key) / col_num)
     fig = make_subplots(
         cols=col_num,
@@ -173,17 +155,15 @@ def kw_plot(top_key):
         row = idx // col_num + 1
         fig.add_trace(
             go.Treemap(
-                labels=labels,
-                parents=parents,
-                values=values,
-                marker_colorscale="Reds"
-                # textinfo = "label+value",
+                labels=labels, parents=parents, values=values, marker_colorscale="Greys"
             ),
             row=row,
             col=col,
         )
 
-    fig.update_layout(width=1280, height=800, uniformtext=dict(minsize=10, mode="show"))
+    fig.update_layout(
+        width=1280, height=1600, uniformtext=dict(minsize=10, mode="hide")
+    )
     return fig
 
 
@@ -203,7 +183,6 @@ def plot_summary(data):
                         tmp_v.append(v)
                         parents.append(f"pred {k_ + n}")
 
-                    # labels.append(f'{k_} {type_}')
                     labels.append(f"pred {k_ + n}")
                     sum_v = sum(tmp_v)
                     values.extend(tmp_v)
@@ -225,7 +204,6 @@ def plot_summary(data):
                 values.append(sum(tmp_v))
                 labels.append(type_)
                 parents.append("")
-                # labels.append(type_)
 
         tree_data[n]["labels"] = labels
         tree_data[n]["parents"] = parents
@@ -264,54 +242,72 @@ def plot_summary(data):
     return fig
 
 
-def plot_tag_performance(performance, overall):
+def plot_tag_performance(performance: pd.DataFrame, overall):
+    performance = performance.loc[performance["Testing Size"] > 3]
+    fig = go.Figure()
     fig = px.scatter(
-        performance, x="Tag", y="F1 Score", size="Training Size", color="Testing Size"
+        performance,
+        x="Tag",
+        y="F1 Score",
+        size="Training Size",
+        color="Testing Size",
+        text=[f"{v:.02f}" for v in performance["F1 Score"]],
     )
-    precision = overall["precision"]
-    recall = overall["recall"]
+    fig.update_traces(textposition="middle right")
+    # precision = overall["precision"]
+    # recall = overall["recall"]
     f1 = overall["f1"]
+    x_loc = len(performance) - 2
     fig.update_layout(
         width=1280,
         height=600,
         showlegend=False,
         annotations=[
             dict(
-                x=21,
-                y=0.25,
-                xref="x",
-                yref="y",
-                text=f"Precision: {precision:.03f}",
-                showarrow=False,
-            ),
-            dict(
-                x=21,
-                y=0.2,
-                xref="x",
-                yref="y",
-                text=f"Recall: {recall:.03f}",
-                showarrow=False,
-            ),
-            dict(
-                x=21,
-                y=0.15,
+                x=x_loc,
+                y=f1,
                 xref="x",
                 yref="y",
                 text=f"F1 Score: {f1:.03f}",
                 showarrow=False,
             ),
+            # dict(
+            #     x=x_loc,
+            #     y=f1 - 0.05,
+            #     xref="x",
+            #     yref="y",
+            #     text=f"Precision: {precision:.03f}",
+            #     showarrow=False,
+            # ),
+            # dict(
+            #     x=x_loc,
+            #     y=f1 - 0.1,
+            #     xref="x",
+            #     yref="y",
+            #     text=f"Recall: {recall:.03f}",
+            #     showarrow=False,
+            # ),
         ],
     )
+    # fig.add_shape(
+    #     type="line",
+    #     x0=1,
+    #     y0=f1,
+    #     x1=x_loc,
+    #     y1=f1,
+    #     line=dict(
+    #         color="Black",
+    #         width=1,
+    #     ),
+    # )
     return fig
 
 
 def plot_num_performance(performance_n: pd.DataFrame):
     fig = go.Figure()
-    x_title = "Tag Number"
-    x = performance_n[x_title]
+    x = performance_n.index
     size = performance_n["Count"]
-    for c in ["F1 Score", "Recall", "Precision"]:
-
+    for c in ["F1 Score"]:
         y = performance_n[c]
         fig.add_trace(
             go.Scatter(
@@ -323,7 +319,7 @@ def plot_num_performance(performance_n: pd.DataFrame):
                     size=size,
                     sizemode="area",
                     sizeref=2.0 * max(size) / (40.0 ** 2),
-                    sizemin=4,
+                    sizemin=5,
                 ),
                 text=[f"{v:.03f}" for v in y],
                 textposition="middle right",
@@ -333,6 +329,6 @@ def plot_num_performance(performance_n: pd.DataFrame):
     fig.update_layout(
         width=1280, height=600, uniformtext_minsize=11, uniformtext_mode="show"
     )
-    fig.update_xaxes(title_text=x_title)
+    fig.update_xaxes(title_text="Tag Number")
 
     return fig

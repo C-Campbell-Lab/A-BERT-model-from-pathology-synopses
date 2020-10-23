@@ -46,9 +46,7 @@ def get_tag_states(model: StandaloneModel, rawdata: RawData, mlb: Mlb, thresh=No
     return states
 
 
-def dimension_reduction_plot(
-    states: States, method_n="PCA", n_components=3, dash=False
-):
+def dimension_reduction(states: States, method_n="PCA", n_components=3):
     if method_n.lower() == "tsne":
         method = TSNE
     else:
@@ -70,7 +68,10 @@ def dimension_reduction_plot(
     )
     for n in range(n_components):
         df[f"D{n+1}"] = result[:, n]
+    return df
 
+
+def dimension_reduction_plot(df, n_components=3):
     if n_components == 3:
         fig = px.scatter_3d(
             df,
@@ -94,9 +95,7 @@ def dimension_reduction_plot(
         print("support only 2 or 3 dimension ploting")
         return
     fig.layout.update(showlegend=False)
-    if dash:
-        return fig, dimension_reducer
-    fig.show()
+    return fig
 
 
 def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None):
@@ -233,4 +232,22 @@ def judge_on_num(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
             "Precision": precisions,
         }
     )
+    df.index = df["Tag Number"]
     return df
+
+
+def judge_on_summary(summary_df: pd.DataFrame):
+    def gb(df, c):
+        df_ = df.copy()
+        tmp_c = c + "_"
+        df_[tmp_c] = df[c]
+        return df_.groupby(tmp_c).sum()
+
+    tc = gb(summary_df, "Tag Number")
+    tc["Recall"] = tc["Correct Count"] / tc["Tag Number"]
+    tc["Precision"] = tc["Correct Count"] / tc["Pred Tag Number"]
+    tc["F1 Score"] = (
+        2 * tc["Recall"] * tc["Precision"] / (tc["Recall"] + tc["Precision"])
+    )
+    tc["Count"] = tc["Tag Number"] / tc.index
+    return tc
