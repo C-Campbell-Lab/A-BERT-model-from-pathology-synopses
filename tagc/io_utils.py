@@ -109,7 +109,7 @@ def build_eval_json(sampled_cases, pred_prob, pred_out):
                 "id": idx,
                 "text": case,
                 "prob": [(n, str(p)) for n, p in prob],
-                "pred": [bool(v == 1) for v in pred],
+                "pred": [bool(v) for v in pred],
             }
         )
     return eval_json

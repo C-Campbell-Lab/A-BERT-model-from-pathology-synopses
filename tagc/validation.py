@@ -1,10 +1,12 @@
 from collections import Counter, defaultdict
 
 import pandas as pd
+import numpy as np
 import plotly.express as px
 from sklearn import metrics
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+import miniball
 
 from .data_utils import count_tags
 from .domain import Mlb, RawData, States
@@ -251,3 +253,31 @@ def judge_on_summary(summary_df: pd.DataFrame):
     )
     tc["Count"] = tc["Tag Number"] / tc.index
     return tc
+
+
+def merge_dimension(df: pd.DataFrame):
+    collector = defaultdict(list)
+    for row in df.iterrows():
+        items = row[1]
+        label: str = items[0]
+        for tag in label.split(", "):
+            collector[tag].append(items[-2:])
+
+    d1s = []
+    d2s = []
+    counts = []
+    tags = []
+    r_square = []
+    for tag, locs in collector.items():
+        count = len(locs)
+        counts.append(count)
+        locs = np.array(locs, dtype="float")
+        C, r2 = miniball.get_bounding_ball(locs)
+        r_square.append(r2)
+        d1s.append(C[0])
+        d2s.append(C[1])
+        tags.append(tag)
+
+    return pd.DataFrame(
+        {"Count": counts, "Tag": tags, "D1": d1s, "D2": d2s, "R square": r_square}
+    )

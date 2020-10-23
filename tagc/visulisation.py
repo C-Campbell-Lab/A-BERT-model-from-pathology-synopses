@@ -254,8 +254,6 @@ def plot_tag_performance(performance: pd.DataFrame, overall):
         text=[f"{v:.02f}" for v in performance["F1 Score"]],
     )
     fig.update_traces(textposition="middle right")
-    # precision = overall["precision"]
-    # recall = overall["recall"]
     f1 = overall["f1"]
     x_loc = len(performance) - 2
     fig.update_layout(
@@ -271,35 +269,8 @@ def plot_tag_performance(performance: pd.DataFrame, overall):
                 text=f"F1 Score: {f1:.03f}",
                 showarrow=False,
             ),
-            # dict(
-            #     x=x_loc,
-            #     y=f1 - 0.05,
-            #     xref="x",
-            #     yref="y",
-            #     text=f"Precision: {precision:.03f}",
-            #     showarrow=False,
-            # ),
-            # dict(
-            #     x=x_loc,
-            #     y=f1 - 0.1,
-            #     xref="x",
-            #     yref="y",
-            #     text=f"Recall: {recall:.03f}",
-            #     showarrow=False,
-            # ),
         ],
     )
-    # fig.add_shape(
-    #     type="line",
-    #     x0=1,
-    #     y0=f1,
-    #     x1=x_loc,
-    #     y1=f1,
-    #     line=dict(
-    #         color="Black",
-    #         width=1,
-    #     ),
-    # )
     return fig
 
 
@@ -331,4 +302,62 @@ def plot_num_performance(performance_n: pd.DataFrame):
     )
     fig.update_xaxes(title_text="Tag Number")
 
+    return fig
+
+
+def plot_merge(df: pd.DataFrame):
+
+    tags = df["Tag"]
+    d1s = df["D1"]
+    d2s = df["D2"]
+    areas = [r2 / 9 for r2 in df["R square"]]
+    # fig = go.Figure(
+    #     data=[
+    #         go.Scatter(
+    #             x=d1s,
+    #             y=d2s,
+    #             mode="markers+text",
+    #             marker=dict(
+    #                 color=counts,
+    #                 size=areas,
+    #                 showscale=True,
+    #                 sizemode="area",
+    #                 sizemin=5,
+    #                 line_width=2,
+    #             ),
+    #             text=tags,
+    # textposition="inside",
+    #         )
+    #     ]
+    # )
+
+    fig = go.Figure()
+    for idx, tag in enumerate(tags):
+        fig.add_trace(
+            go.Scatter(
+                x=[d1s[idx]],
+                y=[d2s[idx]],
+                mode="markers+text",
+                showlegend=True,
+                name=tag,
+                marker=dict(
+                    size=areas[idx],
+                    sizemode="area",
+                    sizemin=10,
+                    line_width=2,
+                    opacity=0.4,
+                ),
+                text=tags[idx],
+            )
+        )
+
+    fig.update_xaxes(showticklabels=False)
+    fig.update_yaxes(showticklabels=False)
+    fig.update_layout(
+        legend=dict(
+            orientation="h",
+        ),
+        width=1280,
+        height=600,
+    )
     return fig

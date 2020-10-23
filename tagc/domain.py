@@ -44,7 +44,7 @@ try:
         THRESH = json.load(target)
 except FileNotFoundError:
     print("Use 0.5 Threshold")
-    THRESH = 0.5
+THRESH = 0.5
 
 
 @dataclass

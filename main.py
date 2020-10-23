@@ -83,19 +83,23 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
     if os.path.exists(fn):
         unstate_df = pd.read_csv(fn, index_col=0)
     else:
-        all_cases = load_json("cases.json")
-        known_cases, known_tags = data_utils.unwrap_labelled_cases(
-            rawdata.to_labelled_cases()
-        )
-        unlabelled_cases = data_utils.cases_minus(all_cases, known_cases)
-        k = 1000
-        sampled_cases = random.sample(unlabelled_cases, k)
+        unlabelled_p = "outputs/unlabelled.json"
+        if os.path.exists(unlabelled_p):
+            sampled_cases = load_json(unlabelled_p)
+        else:
+            all_cases = load_json("cases.json")
+            known_cases, known_tags = data_utils.unwrap_labelled_cases(
+                rawdata.to_labelled_cases()
+            )
+            unlabelled_cases = data_utils.cases_minus(all_cases, known_cases)
+            k = 1000
+            sampled_cases = random.sample(unlabelled_cases, k)
+            dump_json("outputs/unlabelled.json", sampled_cases)
+
         sampled_state = get_unlabelled_state(model, sampled_cases, mlb)
         dump_state(sampled_state, state_p="outputs/unstate.pkl")
         unstate_df = dimension_reduction(sampled_state, "TSNE", n_components=2)
         unstate_df.to_csv(fn)
-
-        dump_json("outputs/unlabelled.json", sampled_cases)
         pred_tag = model.predict_tags(sampled_cases, mlb)
         pred_prob = model.predict_prob(sampled_cases, mlb)
         pred_out = mlb.transform(pred_tag)

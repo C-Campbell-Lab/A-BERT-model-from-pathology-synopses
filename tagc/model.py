@@ -88,7 +88,7 @@ class StandaloneModel:
         self.model.to(self.device)
 
     @classmethod
-    def from_path(cls, model_path: str, tokenizer=None, max_len=150, keep_key=True):
+    def from_path(cls, model_path: str, tokenizer=None, max_len=100, keep_key=False):
         model = Classification.from_pretrained(model_path)
         return cls(model, tokenizer, max_len, keep_key)
 
@@ -184,7 +184,7 @@ class StandaloneModel:
         return logits.detach()
 
     def _compose(self, case):
-        return compose(case, keep_key=self.keep_key, shuffle=True)
+        return compose(case, keep_key=self.keep_key, shuffle=False)
 
 
 def get_tokenizer():
@@ -198,7 +198,7 @@ def label_output(preds: np.array, thresh=None):
     for idx, thresh_item in enumerate(thresh_items):
         if sum(thresh_item) == 0:
             ix = np.argmax(preds[idx])
-            thresh_item[ix] = True
+            thresh_items[idx][ix] = True
     assert (
         sum(sum(thresh_item) == 0 for thresh_item in thresh_items) == 0
     ), "no prediction"
