@@ -92,6 +92,25 @@ class StandaloneModel:
         model = Classification.from_pretrained(model_path)
         return cls(model, tokenizer, max_len, keep_key)
 
+    def over_predict(self, cases: List[dict], batch_size=8, n=3, tqdm_disable=True):
+        preds = None
+        for i in range(n):
+            texts = [
+                compose(case, keep_key=self.keep_key, shuffle=True) for case in cases
+            ]
+            p = self.predict(texts, batch_size=batch_size, tqdm_disable=tqdm_disable)
+            preds = p if preds is None else np.maximum(preds, p)
+        return preds
+
+    def over_predict_tags(
+        self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True, thresh=None, n=3
+    ) -> list:
+        preds = self.over_predict(
+            cases, batch_size=batch_size, tqdm_disable=tqdm_disable, n=n
+        )
+        thresh_items = label_output(preds, thresh)
+        return mlb.inverse_transform(thresh_items)
+
     def predict_tags(
         self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True, thresh=None
     ) -> list:

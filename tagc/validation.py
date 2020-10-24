@@ -100,11 +100,16 @@ def dimension_reduction_plot(df, n_components=3):
     return fig
 
 
-def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None):
+def judge_on_tag(
+    model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None, n=None
+):
     x = rawdata.x_test_dict
     y = rawdata.y_test_tags
     total_y = rawdata.y_tags
-    pred_prob = model.predict(x)
+    if n is not None:
+        pred_prob = model.over_predict(x, n=n)
+    else:
+        pred_prob = model.predict(x)
     preds = label_output(pred_prob, thresh)
     y_vector = mlb.transform(y)
     precision, recall, f1, _ = metrics.precision_recall_fscore_support(
@@ -197,7 +202,9 @@ def summary(cases, true_tags, pred_tags):
     return (example, Counter(judges), data, df)
 
 
-def judge_on_num(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None):
+def judge_on_num(
+    model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None, n=None
+):
     x = rawdata.x_test_dict
     y = rawdata.y_test_tags
     tag_num_map = defaultdict(list)
@@ -213,7 +220,10 @@ def judge_on_num(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
     for tag_num, indexes in tag_num_map.items():
         num_x = [x[idx] for idx in indexes]
         num_y = [y[idx] for idx in indexes]
-        pred_prob = model.predict(num_x)
+        if n is not None:
+            pred_prob = model.over_predict(num_x, n=n)
+        else:
+            pred_prob = model.predict(num_x)
         preds = label_output(pred_prob, thresh)
         y_vector = mlb.transform(num_y)
         precision, recall, f1, _ = metrics.precision_recall_fscore_support(

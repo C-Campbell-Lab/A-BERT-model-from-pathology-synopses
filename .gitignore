@@ -144,3 +144,4 @@ data
 out
 *.pdf
 *.csv
+*.ipynb

@@ -20,7 +20,7 @@ from tagc.io_utils import (
     load_json,
 )
 from tagc.mask_explain import MaskExplainer, top_keywords
-from tagc.model import StandaloneModel
+from tagc.model import StandaloneModel, label_output
 from tagc.train import Pipeline
 from tagc.validation import (
     dimension_reduction,
@@ -100,10 +100,10 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
         dump_state(sampled_state, state_p="outputs/unstate.pkl")
         unstate_df = dimension_reduction(sampled_state, "TSNE", n_components=2)
         unstate_df.to_csv(fn)
-        pred_tag = model.predict_tags(sampled_cases, mlb)
-        pred_prob = model.predict_prob(sampled_cases, mlb)
-        pred_out = mlb.transform(pred_tag)
-        eval_json = build_eval_json(sampled_cases, pred_prob, pred_out)
+        preds = model.over_predict(sampled_cases, n=5)
+        thresh_items = label_output(preds)
+        pred_prob = [list(zip(mlb.classes_, pred)) for pred in preds]
+        eval_json = build_eval_json(sampled_cases, pred_prob, thresh_items)
         dump_json("outputs/eval.json", eval_json)
     fig = dimension_reduction_plot(unstate_df, n_components=2)
     fig.update_layout(
@@ -127,10 +127,7 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
     example, j_count, data, df = summary(
         rawdata.x_test_dict,
         rawdata.y_test_tags,
-        model.predict_tags(
-            rawdata.x_test_dict,
-            mlb,
-        ),
+        model.over_predict_tags(rawdata.x_test_dict, mlb, n=5),
     )
     df.to_csv("outputs/summary.csv")
     fig = plot_summary(data)
@@ -144,11 +141,11 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
             review.append({"text": case, "pred_tag": pred_tag, "tag": true_tag})
     dump_json("outputs/review.json", review)
     # Performance
-    performance, overall = judge_on_tag(model, mlb, rawdata)
+    performance, overall = judge_on_tag(model, mlb, rawdata, n=5)
     performance.to_csv("outputs/Perf_tag.csv")
     fig = plot_tag_performance(performance, overall)
     fig.write_image("outputs/fig3c_Perf_tag.pdf")
-    performance_n = judge_on_num(model, mlb, rawdata)
+    performance_n = judge_on_num(model, mlb, rawdata, n=5)
     performance_n.to_csv("outputs/Perf_num.csv")
     fig = plot_num_performance(performance_n)
     fig.write_image("outputs/fig3c_Perf_num.pdf")
