@@ -163,3 +163,4 @@ class Params:
     identifier: str
     keep_key: bool
     epoch: int
+    mlb: Optional[MultiLabelBinarizer] = None

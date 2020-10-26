@@ -218,7 +218,5 @@ def label_output(preds: np.array, thresh=None):
         if sum(thresh_item) == 0:
             ix = np.argmax(preds[idx])
             thresh_items[idx][ix] = True
-    assert (
-        sum(sum(thresh_item) == 0 for thresh_item in thresh_items) == 0
-    ), "no prediction"
+
     return thresh_items

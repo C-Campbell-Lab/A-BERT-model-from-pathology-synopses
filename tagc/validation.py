@@ -1,12 +1,10 @@
 from collections import Counter, defaultdict
 
 import pandas as pd
-import numpy as np
 import plotly.express as px
 from sklearn import metrics
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
-import miniball
 
 from .data_utils import count_tags
 from .domain import Mlb, RawData, States
@@ -127,6 +125,10 @@ def judge_on_tag(
             "F1 Score": [pair[2] for pair in ability],
             "Testing Size": [pair[3] for pair in ability],
             "Sample Size": sample_sizes,
+            "TN": [pair[4] for pair in ability],
+            "FP": [pair[5] for pair in ability],
+            "FN": [pair[6] for pair in ability],
+            "TP": [pair[7] for pair in ability],
         }
     )
     performance["Training Size"] = (
@@ -140,18 +142,19 @@ def judge_on_tag(
 
 
 def compress(cm):
-    def safe_divide(a, b):
-        if b == 0:
-            return 0
-        return a / b
-
     tn, fp = cm[0]
     fn, tp = cm[1]
     amount = fn + tp
     precision = safe_divide(tp, tp + fp)
     recall = safe_divide(tp, amount)
     f1 = safe_divide(2 * precision * recall, precision + recall)
-    return (precision, recall, f1, amount)
+    return (precision, recall, f1, amount, tn, fp, fn, tp)
+
+
+def safe_divide(a, b):
+    if b == 0:
+        return 0
+    return a / b
 
 
 def summary(cases, true_tags, pred_tags):
@@ -263,31 +266,3 @@ def judge_on_summary(summary_df: pd.DataFrame):
     )
     tc["Count"] = tc["Tag Number"] / tc.index
     return tc
-
-
-def merge_dimension(df: pd.DataFrame):
-    collector = defaultdict(list)
-    for row in df.iterrows():
-        items = row[1]
-        label: str = items[0]
-        for tag in label.split(", "):
-            collector[tag].append(items[-2:])
-
-    d1s = []
-    d2s = []
-    counts = []
-    tags = []
-    r_square = []
-    for tag, locs in collector.items():
-        count = len(locs)
-        counts.append(count)
-        locs = np.array(locs, dtype="float")
-        C, r2 = miniball.get_bounding_ball(locs)
-        r_square.append(r2)
-        d1s.append(C[0])
-        d2s.append(C[1])
-        tags.append(tag)
-
-    return pd.DataFrame(
-        {"Count": counts, "Tag": tags, "D1": d1s, "D2": d2s, "R square": r_square}
-    )

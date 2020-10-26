@@ -60,14 +60,18 @@ class DatasetFactory:
         self.x_train_dict = raw_data.x_train_dict
         self.y_train_tags = raw_data.y_train_tags
         self.y_test_tags = raw_data.y_test_tags
-        self.init_mlb()
+        if params.mlb is not None:
+            self.mlb = params.mlb
+            self.num_labels = len(self.mlb.classes_)
+        else:
+            self.init_mlb()
         self.init_tokenizer(params.identifier)
 
     def init_mlb(self):
         y = self.y_train_tags + self.y_test_tags
         mlb = MultiLabelBinarizer().fit(y)
         self.mlb = mlb
-        self.num_labels = len(mlb.classes_)
+        self.num_labels = len(self.mlb.classes_)
         assert self.num_labels >= 18, "load labels error"
 
     def init_tokenizer(self, identifier: str):

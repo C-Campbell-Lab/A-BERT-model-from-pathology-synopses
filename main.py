@@ -61,11 +61,11 @@ def train_main_model(rawdata):
         torch.cuda.empty_cache()
 
 
-def make_figures(rawdata, mlb, adjust_thresh=False):
+def make_figures(rawdata, mlb, output_p="outputs", adjust_thresh=False):
     model = StandaloneModel.from_path("TagModel", keep_key=False, max_len=100)
 
     # Rawdata_stat
-    fn = "outputs/tag_stat.csv"
+    fn = f"{output_p}/tag_stat.csv"
     if os.path.exists(fn):
         tag_stat = pd.read_csv(fn, index_col=0)
     else:
@@ -76,14 +76,14 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
         width=1280,
         height=600,
     )
-    fig.write_image("outputs/data_stat.pdf")
+    fig.write_image(f"{output_p}/data_stat.pdf")
 
     # Unlabelled
-    fn = "outputs/unlabel_tsne.csv"
+    fn = f"{output_p}/unlabel_tsne.csv"
     if os.path.exists(fn):
         unstate_df = pd.read_csv(fn, index_col=0)
     else:
-        unlabelled_p = "outputs/unlabelled.json"
+        unlabelled_p = f"{output_p}/unlabelled.json"
         if os.path.exists(unlabelled_p):
             sampled_cases = load_json(unlabelled_p)
         else:
@@ -94,26 +94,26 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
             unlabelled_cases = data_utils.cases_minus(all_cases, known_cases)
             k = 1000
             sampled_cases = random.sample(unlabelled_cases, k)
-            dump_json("outputs/unlabelled.json", sampled_cases)
+            dump_json(f"{output_p}/unlabelled.json", sampled_cases)
 
         sampled_state = get_unlabelled_state(model, sampled_cases, mlb)
-        dump_state(sampled_state, state_p="outputs/unstate.pkl")
+        dump_state(sampled_state, state_p=f"{output_p}/unstate.pkl")
         unstate_df = dimension_reduction(sampled_state, "TSNE", n_components=2)
         unstate_df.to_csv(fn)
         preds = model.over_predict(sampled_cases, n=5)
         thresh_items = label_output(preds)
         pred_prob = [list(zip(mlb.classes_, pred)) for pred in preds]
         eval_json = build_eval_json(sampled_cases, pred_prob, thresh_items)
-        dump_json("outputs/eval.json", eval_json)
+        dump_json(f"{output_p}/eval.json", eval_json)
     fig = dimension_reduction_plot(unstate_df, n_components=2)
     fig.update_layout(
         width=1280,
         height=600,
     )
-    fig.write_image("outputs/unlabelled_TSNE.pdf")
+    fig.write_image(f"{output_p}/unlabelled_TSNE.pdf")
 
     # Labelled
-    fn = "outputs/label_tsne.csv"
+    fn = f"{output_p}/label_tsne.csv"
     if os.path.exists(fn):
         state_df = pd.read_csv(fn, index_col=0)
     else:
@@ -121,7 +121,7 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
         state_df = dimension_reduction(states, "TSNE", n_components=2)
         state_df.to_csv(fn)
     fig = state_plot(state_df, 12)
-    fig.write_image("outputs/fig3a_TSNE.pdf")
+    fig.write_image(f"{output_p}/fig3a_TSNE.pdf")
 
     # Summary
     example, j_count, data, df = summary(
@@ -129,29 +129,29 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
         rawdata.y_test_tags,
         model.over_predict_tags(rawdata.x_test_dict, mlb, n=5),
     )
-    df.to_csv("outputs/summary.csv")
+    df.to_csv(f"{output_p}/summary.csv")
     fig = plot_summary(data)
-    fig.write_image("outputs/fig3b_Pie.pdf")
+    fig.write_image(f"{output_p}/fig3b_Pie.pdf")
     performance_summary = judge_on_summary(df)
     fig = plot_num_performance(performance_summary)
-    fig.write_image("outputs/fig3c_Perf_sum.pdf")
+    fig.write_image(f"{output_p}/fig3c_Perf_sum.pdf")
     review = []
     for case, pred_tag, true_tag, judge in example:
         if "Label" in judge:
             review.append({"text": case, "pred_tag": pred_tag, "tag": true_tag})
-    dump_json("outputs/review.json", review)
+    dump_json(f"{output_p}/review.json", review)
     # Performance
     performance, overall = judge_on_tag(model, mlb, rawdata, n=5)
-    performance.to_csv("outputs/Perf_tag.csv")
+    performance.to_csv(f"{output_p}/Perf_tag.csv")
     fig = plot_tag_performance(performance, overall)
-    fig.write_image("outputs/fig3c_Perf_tag.pdf")
+    fig.write_image(f"{output_p}/fig3c_Perf_tag.pdf")
     performance_n = judge_on_num(model, mlb, rawdata, n=5)
-    performance_n.to_csv("outputs/Perf_num.csv")
+    performance_n.to_csv(f"{output_p}/Perf_num.csv")
     fig = plot_num_performance(performance_n)
-    fig.write_image("outputs/fig3c_Perf_num.pdf")
+    fig.write_image(f"{output_p}/fig3c_Perf_num.pdf")
 
     # Keyword
-    fn = "outputs/top_key.json"
+    fn = f"{output_p}/top_key.json"
     if os.path.exists(fn):
         top_key = load_json(fn)
     else:
@@ -165,7 +165,7 @@ def make_figures(rawdata, mlb, adjust_thresh=False):
                 top_key[t] = v
         dump_json(fn, top_key)
     fig = kw_plot(top_key)
-    fig.write_image("outputs/fig4_Kws.pdf")
+    fig.write_image(f"{output_p}/fig4_Kws.pdf")
 
 
 def kf_flow(ds):
@@ -192,10 +192,17 @@ def kf_flow(ds):
     dump_json("cv_result.json", cv_result)
 
 
-def main(dataset_path, run_kf=False, plot=True, train=False, run_thresh=False):
+def main(
+    dataset_path,
+    run_kf=False,
+    plot=True,
+    train=False,
+    run_thresh=False,
+    output_p="outputs",
+):
     ds = load_datazip(dataset_path)
     mlb = MultiLabelBinarizer().fit(ds.y_tags)
-    os.makedirs("outputs", exist_ok=True)
+    os.makedirs(f"{output_p}", exist_ok=True)
 
     if train:
         train_main_model(ds)
@@ -203,7 +210,7 @@ def main(dataset_path, run_kf=False, plot=True, train=False, run_thresh=False):
         kf_flow(ds)
     if run_thresh:
         rets = load_json("cv_result.json")
-        analysis_kf(rets, mlb, "outputs/")
+        analysis_kf(rets, mlb, f"{output_p}/")
     if plot:
         make_figures(ds, mlb)
 

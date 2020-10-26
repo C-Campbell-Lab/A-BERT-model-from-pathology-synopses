@@ -32,10 +32,10 @@ class Pipeline:
         self.tokenizer = df.tokenizer
         self.num_labels = df.num_labels
 
-    def train(self, training_args: Optional[TrainingArguments] = None):
+    def train(self, training_args: Optional[TrainingArguments] = None, output_dir="."):
         if training_args is None:
             training_args = TrainingArguments(
-                output_dir="./results",
+                output_dir=f"{output_dir}/results",
                 num_train_epochs=self.params.epoch,
                 per_device_train_batch_size=16,
                 evaluation_strategy=EvaluationStrategy.EPOCH,
