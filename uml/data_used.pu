@@ -1,0 +1,40 @@
+@startuml data_use
+skinparam defaultTextAlignment center
+skinparam linetype ortho
+skinparam Dpi 300
+
+rectangle all_data as "
+==Aspirate Pathology Synopses
+(11418)
+"
+
+rectangle dev as "
+==Development Set
+(500; 4.38%)
+"
+together {
+
+rectangle eval as "
+==Final Evaluation Set
+(1000; 8.76%)"
+
+rectangle train as "
+==Trainig Set
+(400; 80%)
+"
+
+rectangle test as "
+==Test Set
+(100; 20%)
+"
+
+}
+
+
+all_data -d-> eval : "Random sample from the rest"
+all_data -d-> dev : "Sampling-training-sampling iteration"
+dev -d-> train
+dev -d-> test
+
+
+@enduml

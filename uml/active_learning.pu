@@ -1,0 +1,45 @@
+@startuml active_learning
+!define GCPPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-icons-GCP/master/dist
+!include GCPPuml/GCPCommon.puml
+!include GCPPuml/AI_and_Machine_Learning/AI_Platform.puml
+!include GCPPuml/Databases/Cloud_Datastore.puml
+
+/'
+The other icons will need to come from other stdlib libraries: backup, users, clients.
+'/
+!include <awslib/AWSCommon>
+!include <awslib/AWSSimplified.puml>
+!include <awslib/Compute/all.puml>
+!include <awslib/mobile/all.puml>
+!include <awslib/general/all.puml>
+
+!include <material/common>
+!include <material/timer.puml>
+
+' skinparam linetype polyline
+skinparam linetype ortho
+skinparam dpi 200
+skinparam ParticipantPadding 60
+'top to bottom direction
+
+Users(Users, "Pathologists", " ")
+
+
+Client(UI, "", " ")
+
+AI_Platform(AI_Platform, "Model", "Backend Sever")
+Cloud_Datastore(Cloud_Datastore, "Evaluation Results", "Google Sheet")
+
+
+
+
+
+Users -r-> UI : Interact
+
+AI_Platform <--r-> UI : Call API
+UI -r-> Cloud_Datastore : Save
+
+Cloud_Datastore -r-> AI_Platform : Train
+
+
+@enduml

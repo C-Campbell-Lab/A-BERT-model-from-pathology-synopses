@@ -12,34 +12,38 @@ import torch
 import shutil
 
 
-def pipe():
+def over_effect():
     size_effect(
-        output_p="up_effect",
+        output_p="over_effect",
         dataset_path="dataset.zip",
         upsample=200,
         keep_key=False,
+        over=-1,
+        step=400,
     )
 
-    size_effect(
-        output_p="up_effect",
-        dataset_path="dataset.zip",
-        upsample=-1,
-        keep_key=False,
-    )
+    # size_effect(
+    #     output_p="up_effect",
+    #     dataset_path="dataset.zip",
+    #     upsample=-1,
+    #     keep_key=False,
+    # )
 
     size_effect(
-        output_p="up_effect",
+        output_p="over_effect",
         dataset_path="dataset.zip",
         upsample=200,
         keep_key=True,
+        over=-1,
+        step=400,
     )
 
-    size_effect(
-        output_p="up_effect",
-        dataset_path="dataset.zip",
-        upsample=-1,
-        keep_key=True,
-    )
+    # size_effect(
+    #     output_p="up_effect",
+    #     dataset_path="dataset.zip",
+    #     upsample=-1,
+    #     keep_key=True,
+    # )
 
 
 def size_effect(
@@ -47,14 +51,16 @@ def size_effect(
     dataset_path="dataset.zip",
     upsample=200,
     keep_key=False,
+    over=None,
+    step=50,
 ):
-    over = -1 if upsample == -1 else 5
+    if over is None:
+        over = -1 if upsample == -1 else 5
     output_p = f"{'keepKey_' if keep_key else ''}{output_p}{upsample if upsample != -1 else ''}"
     os.makedirs(output_p, exist_ok=True)
     ds = load_datazip(dataset_path)
     mlb = MultiLabelBinarizer().fit(ds.y_tags)
-    step = 50
-    for size in range(step, len(ds.x_dict), step):
+    for size in range(step, len(ds.x_train_dict) + 1, step):
         part_ds = slice_dataset(ds, size)
         max_len = 150
         params = Params(
@@ -95,4 +101,4 @@ def slice_dataset(ds, size):
 if __name__ == "__main__":
     import fire
 
-    fire.Fire(size_effect)
+    fire.Fire(over_effect)

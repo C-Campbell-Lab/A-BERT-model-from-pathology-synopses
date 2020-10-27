@@ -1,0 +1,79 @@
+@startuml pred_aug
+skinparam linetype ortho
+
+rectangle origin as "
+    **Field A**: Description A.
+    ---
+    **Field B**: Description B.
+    ---
+    **Field C**: Description C.
+    "
+
+package Text {
+
+    card t1 as "Field A: Description A. Field B: Description B.
+     Field C: Description C."
+
+    card t2 as "Field B: Description B. Field A: Description A.
+     Field C: Description C."
+
+    card t3 as "Field C: Description C. Field A: Description A.
+     Field B: Description B."
+
+    t1 -d[hidden]-> t2
+
+    t2 -d[hidden]-> t3
+}
+
+package Predictions {
+    card p1 as "
+    tag1 -> **0.82**
+    ---
+    tag2 -> 0.41
+    ---
+    tag3 -> **0.23**
+    ---
+    tag4 -> 0.01
+    "
+
+    card p2 as "
+    tag1 -> 0.62
+    ---
+    tag2 -> 0.51
+    ---
+    tag3 -> 0.21
+    ---
+    tag4 -> **0.03**
+    "
+
+    card p3 as "
+    tag1 -> 0.71
+    ---
+    tag2 -> **0.64**
+    ---
+    tag3 -> 0.22
+    ---
+    tag4 -> 0.02
+    "
+
+    p1 -d[hidden]-> p2
+
+    p2 -d[hidden]-> p3
+}
+
+card p as "
+tag1 -> **0.82**
+---
+tag2 -> **0.64**
+---
+tag3 -> **0.23**
+---
+tag4 -> **0.03**
+"
+
+origin --> Text : "Convert to texts with augmentation"
+
+Text -> Predictions
+
+Predictions --> p : Combine the max value for each tag
+@enduml
