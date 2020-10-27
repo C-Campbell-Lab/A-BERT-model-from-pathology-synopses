@@ -33,9 +33,10 @@ class Pipeline:
         self.num_labels = df.num_labels
 
     def train(self, training_args: Optional[TrainingArguments] = None, output_dir="."):
+        model_p = f"{output_dir}/results"
         if training_args is None:
             training_args = TrainingArguments(
-                output_dir=f"{output_dir}/results",
+                output_dir=model_p,
                 num_train_epochs=self.params.epoch,
                 per_device_train_batch_size=16,
                 evaluation_strategy=EvaluationStrategy.EPOCH,
@@ -58,6 +59,7 @@ class Pipeline:
         trainer.train()
         trainer.evaluate()
         self.trainer = trainer
+        return model_p
 
     def _compute_metrics(self, pred):
         labels = pred.label_ids

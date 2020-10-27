@@ -6,7 +6,7 @@ from torch.utils.data import Dataset
 from transformers import AutoTokenizer
 
 from .data_utils import compose, grouping_idx
-from .domain import Cases, Params
+from .domain import Params
 
 random.seed(42)
 
@@ -90,20 +90,21 @@ class DatasetFactory:
         testing_set = CustomDataset(x_test, self.tokenizer, self.params.max_len, y_test)
         return train_dataset, testing_set
 
-    def supply_unlabelled_dataset(self, cases: Cases):
-        texts = list(map(self._compose, cases))
-        dataset = CustomDataset(texts, self.tokenizer, self.params.max_len)
-        return dataset
-
     def _upsampling(self, x, y, target=100):
-        group_by_idx = grouping_idx(y)
-        new_x = []
-        new_y = []
-        for group_idx in group_by_idx.values():
-            upsample_idx = random.choices(group_idx, k=target)
-            new_x.extend(map(lambda idx: self._compose(x[idx]), upsample_idx))
-            new_y.extend(map(lambda idx: y[idx], upsample_idx))
+        if target == -1:
+            new_x = list(map(lambda case: self._compose(case, shuffle=False), x))
+            new_y = y
+        else:
+            group_by_idx = grouping_idx(y)
+            new_x = []
+            new_y = []
+            for group_idx in group_by_idx.values():
+                upsample_idx = random.choices(group_idx, k=target)
+                new_x.extend(
+                    map(lambda idx: self._compose(x[idx], shuffle=True), upsample_idx)
+                )
+                new_y.extend(map(lambda idx: y[idx], upsample_idx))
         return new_x, new_y
 
-    def _compose(self, case):
-        return compose(case, keep_key=self.params.keep_key, shuffle=True)
+    def _compose(self, case, shuffle=True):
+        return compose(case, keep_key=self.params.keep_key, shuffle=shuffle)

@@ -105,9 +105,14 @@ class StandaloneModel:
     def over_predict_tags(
         self, cases: list, mlb: Mlb, batch_size=8, tqdm_disable=True, thresh=None, n=3
     ) -> list:
-        preds = self.over_predict(
-            cases, batch_size=batch_size, tqdm_disable=tqdm_disable, n=n
-        )
+        if n == -1:
+            preds = self.predict(
+                cases, batch_size=batch_size, tqdm_disable=tqdm_disable
+            )
+        else:
+            preds = self.over_predict(
+                cases, batch_size=batch_size, tqdm_disable=tqdm_disable, n=n
+            )
         thresh_items = label_output(preds, thresh)
         return mlb.inverse_transform(thresh_items)
 
