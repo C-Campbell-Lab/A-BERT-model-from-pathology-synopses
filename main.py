@@ -45,15 +45,15 @@ random.seed(42)
 
 
 def train_main_model(rawdata):
-    params = Params(rawdata, 100, 200, 0.5, "bert-base-uncased", False, 10)
+    params = Params(rawdata, 150, 200, 0.5, "bert-base-uncased", True, 10)
     pipeline = Pipeline(params)
     pipeline.train()
     example, judges_count, data, df = pipeline.validation_examples()
     print(judges_count)
     df.to_csv(get_timestamp() + ".csv")
-    pipeline.trainer.save_model("TagModel")
+    pipeline.trainer.save_model("TagModelK")
     os.system(
-        "zip model.zip TagModel/config.json TagModel/pytorch_model.bin TagModel/training_args.bin"
+        "zip modelK.zip TagModelK/config.json TagModelK/pytorch_model.bin TagModelK/training_args.bin"
     )
     del pipeline
     gc.collect()
@@ -62,7 +62,7 @@ def train_main_model(rawdata):
 
 
 def make_figures(rawdata, mlb, output_p="outputs", adjust_thresh=False):
-    model = StandaloneModel.from_path("TagModel", keep_key=False, max_len=100)
+    model = StandaloneModel.from_path("TagModelK", keep_key=True, max_len=150)
 
     # Rawdata_stat
     fn = f"{output_p}/tag_stat.csv"
@@ -198,7 +198,7 @@ def main(
     plot=True,
     train=False,
     run_thresh=False,
-    output_p="outputs",
+    output_p="outputsK",
 ):
     ds = load_datazip(dataset_path)
     mlb = MultiLabelBinarizer().fit(ds.y_tags)
@@ -212,7 +212,7 @@ def main(
         rets = load_json("cv_result.json")
         analysis_kf(rets, mlb, f"{output_p}/")
     if plot:
-        make_figures(ds, mlb)
+        make_figures(ds, mlb, output_p=output_p)
 
 
 if __name__ == "__main__":

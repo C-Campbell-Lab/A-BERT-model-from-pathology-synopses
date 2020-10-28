@@ -12,38 +12,17 @@ import torch
 import shutil
 
 
-def over_effect():
-    size_effect(
-        output_p="over_effect",
-        dataset_path="dataset.zip",
-        upsample=200,
-        keep_key=False,
-        over=-1,
-        step=400,
-    )
-
-    # size_effect(
-    #     output_p="up_effect",
-    #     dataset_path="dataset.zip",
-    #     upsample=-1,
-    #     keep_key=False,
-    # )
-
-    size_effect(
-        output_p="over_effect",
-        dataset_path="dataset.zip",
-        upsample=200,
-        keep_key=True,
-        over=-1,
-        step=400,
-    )
-
-    # size_effect(
-    #     output_p="up_effect",
-    #     dataset_path="dataset.zip",
-    #     upsample=-1,
-    #     keep_key=True,
-    # )
+def run_exp(output_p):
+    for upsample in (200, -200):
+        for keep_key in (True, False):
+            size_effect(
+                output_p=output_p,
+                dataset_path="dataset.zip",
+                upsample=upsample,
+                keep_key=keep_key,
+                over=5,
+                step=400,
+            )
 
 
 def size_effect(
@@ -56,7 +35,7 @@ def size_effect(
 ):
     if over is None:
         over = -1 if upsample == -1 else 5
-    output_p = f"{'keepKey_' if keep_key else ''}{output_p}{upsample if upsample != -1 else ''}"
+    output_p = f"{output_p}/{'keepKey_' if keep_key else 'noKey_'}{upsample}"
     os.makedirs(output_p, exist_ok=True)
     ds = load_datazip(dataset_path)
     mlb = MultiLabelBinarizer().fit(ds.y_tags)
@@ -70,25 +49,31 @@ def size_effect(
         pipeline = Pipeline(params)
         model_p = pipeline.train(output_dir=output_p)
         model = StandaloneModel(pipeline.model, pipeline.tokenizer, keep_key=keep_key)
-        _, _, _, df = summary(
-            ds.x_test_dict,
-            ds.y_test_tags,
-            model.over_predict_tags(ds.x_test_dict, mlb, n=over),
-        )
-        df.to_csv(f"{output_p}/{size}_summary.csv")
-        performance, overall = judge_on_tag(model, mlb, ds, n=over)
-        dump_json(
-            f"{output_p}/{size}_overall.json", {k: str(v) for k, v in overall.items()}
-        )
-        performance.to_csv(f"{output_p}/{size}_Perf_tag.csv")
-        fig = plot_tag_performance(performance, overall)
-        fig.write_image(f"{output_p}/{size}_Perf_tag.pdf")
+        eval_model(model, ds, over, mlb, output_p, size)
+        if size >= len(ds.x_train_dict):
+            pipeline.trainer.save_model(f"{output_p}/model")
         del model
         del pipeline
         gc.collect()
         with torch.no_grad():
             torch.cuda.empty_cache()
         shutil.rmtree(model_p)
+
+
+def eval_model(model, ds, over, mlb, output_p, size):
+
+    performance, metric, pred_tags = judge_on_tag(model, mlb, ds, n=over)
+    dump_json(f"{output_p}/{size}_overall.json", metric)
+    performance.to_csv(f"{output_p}/{size}_Perf_tag.csv")
+    fig = plot_tag_performance(performance, metric)
+    fig.write_image(f"{output_p}/{size}_Perf_tag.pdf")
+
+    _, _, _, df = summary(
+        ds.x_test_dict,
+        ds.y_test_tags,
+        pred_tags,
+    )
+    df.to_csv(f"{output_p}/{size}_summary.csv")
 
 
 def slice_dataset(ds, size):
@@ -101,4 +86,4 @@ def slice_dataset(ds, size):
 if __name__ == "__main__":
     import fire
 
-    fire.Fire(over_effect)
+    fire.Fire(run_exp)

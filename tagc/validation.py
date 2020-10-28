@@ -136,7 +136,9 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
         "F1 Score",
         inplace=True,
     )
-    return performance, {"precision": precision, "recall": recall, "f1": f1}
+    metric_ret = {"precision": precision, "recall": recall, "f1": f1}
+    pred_tags = mlb.inverse_transform(preds)
+    return performance, metric_ret, pred_tags
 
 
 def compress(cm):

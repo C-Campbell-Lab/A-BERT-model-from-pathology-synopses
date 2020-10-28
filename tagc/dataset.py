@@ -91,19 +91,22 @@ class DatasetFactory:
         return train_dataset, testing_set
 
     def _upsampling(self, x, y, target=100):
-        if target == -1:
-            new_x = list(map(lambda case: self._compose(case, shuffle=False), x))
-            new_y = y
+
+        group_by_idx = grouping_idx(y)
+        new_x = []
+        new_y = []
+        if target < 0:
+            shuffle = False
+            size = abs(target)
         else:
-            group_by_idx = grouping_idx(y)
-            new_x = []
-            new_y = []
-            for group_idx in group_by_idx.values():
-                upsample_idx = random.choices(group_idx, k=target)
-                new_x.extend(
-                    map(lambda idx: self._compose(x[idx], shuffle=True), upsample_idx)
-                )
-                new_y.extend(map(lambda idx: y[idx], upsample_idx))
+            shuffle = True
+            size = target
+        for group_idx in group_by_idx.values():
+            upsample_idx = random.choices(group_idx, k=size)
+            new_x.extend(
+                map(lambda idx: self._compose(x[idx], shuffle=shuffle), upsample_idx)
+            )
+            new_y.extend(map(lambda idx: y[idx], upsample_idx))
         return new_x, new_y
 
     def _compose(self, case, shuffle=True):

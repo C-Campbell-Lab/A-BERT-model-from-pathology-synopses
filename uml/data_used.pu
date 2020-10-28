@@ -12,7 +12,7 @@ rectangle dev as "
 ==Development Set
 (500; 4.38%)
 "
-together {
+together ret {
 
 rectangle eval as "
 ==Final Evaluation Set

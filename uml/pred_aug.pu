@@ -1,5 +1,6 @@
 @startuml pred_aug
 skinparam linetype ortho
+skinparam Dpi 300
 
 rectangle origin as "
     **Field A**: Description A.
