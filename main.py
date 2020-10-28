@@ -10,7 +10,7 @@ import pandas as pd
 
 from tagc import data_utils
 from tagc.cal_thresh import analysis_kf
-from tagc.data_utils import count_tags, get_timestamp, rawdata_stat
+from tagc.data_utils import count_tags, rawdata_stat
 from tagc.domain import Params
 from tagc.io_utils import (
     build_eval_json,
@@ -50,7 +50,6 @@ def train_main_model(rawdata):
     pipeline.train()
     example, judges_count, data, df = pipeline.validation_examples()
     print(judges_count)
-    df.to_csv(get_timestamp() + ".csv")
     pipeline.trainer.save_model("TagModelK")
     os.system(
         "zip modelK.zip TagModelK/config.json TagModelK/pytorch_model.bin TagModelK/training_args.bin"
