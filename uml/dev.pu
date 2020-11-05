@@ -1,0 +1,39 @@
+@startuml dev
+skinparam defaultTextAlignment center
+skinparam linetype polyline
+skinparam Dpi 300
+
+
+' card lab1 as "Whether keep field"
+
+' card lab2 as "The augmentation"
+
+' card lab3 as "The datasize"
+
+' card lab4 as "The augmented prediction"
+
+
+rectangle data as "
+Development Set
+//Labelled Cases//"
+
+card train as "Train Set"
+
+together {
+card test as "Test Set"
+
+card model as "Models"
+}
+card output as "The Best Model"
+
+data -r-> train : 80%
+
+data -r-> test : 20%
+
+train --> model : "10 epochs"
+
+test -u-> model : "Evaluation"
+
+model --> output : "The highest f1-score"
+
+@enduml

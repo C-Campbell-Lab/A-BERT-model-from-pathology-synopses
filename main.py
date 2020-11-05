@@ -10,7 +10,13 @@ import pandas as pd
 
 from tagc import data_utils
 from tagc.cal_thresh import analysis_kf
-from tagc.data_utils import count_tags, rawdata_stat
+from tagc.data_utils import (
+    count_tags,
+    labelled_cases_to_xy,
+    load_labelled_cases,
+    rawdata_stat,
+    split_and_dump_dataset,
+)
 from tagc.domain import Params
 from tagc.io_utils import (
     build_eval_json,
@@ -27,7 +33,6 @@ from tagc.validation import (
     dimension_reduction_plot,
     get_tag_states,
     get_unlabelled_state,
-    judge_on_num,
     judge_on_summary,
     judge_on_tag,
     summary,
@@ -60,9 +65,11 @@ def train_main_model(rawdata):
         torch.cuda.empty_cache()
 
 
-def make_figures(rawdata, mlb, output_p="outputs", adjust_thresh=False):
-    model = StandaloneModel.from_path("TagModelK", keep_key=True, max_len=150)
-
+def make_figures(rawdata, mlb, output_p="outputs"):
+    model = StandaloneModel.from_path(
+        "lab4/keepKey_200/model", keep_key=True, max_len=150
+    )
+    over = 5
     # Rawdata_stat
     fn = f"{output_p}/tag_stat.csv"
     if os.path.exists(fn):
@@ -99,7 +106,7 @@ def make_figures(rawdata, mlb, output_p="outputs", adjust_thresh=False):
         dump_state(sampled_state, state_p=f"{output_p}/unstate.pkl")
         unstate_df = dimension_reduction(sampled_state, "TSNE", n_components=2)
         unstate_df.to_csv(fn)
-        preds = model.over_predict(sampled_cases, n=5)
+        preds = model.over_predict(sampled_cases, n=over)
         thresh_items = label_output(preds)
         pred_prob = [list(zip(mlb.classes_, pred)) for pred in preds]
         eval_json = build_eval_json(sampled_cases, pred_prob, thresh_items)
@@ -122,12 +129,20 @@ def make_figures(rawdata, mlb, output_p="outputs", adjust_thresh=False):
     fig = state_plot(state_df, 12)
     fig.write_image(f"{output_p}/fig3a_TSNE.pdf")
 
+    # Performance
+    performance, metric, pred_tags = judge_on_tag(model, mlb, rawdata, n=over)
+    dump_json(f"{output_p}/{over}_overall.json", metric)
+    performance.to_csv(f"{output_p}/{over}_Perf_tag.csv")
+    fig = plot_tag_performance(performance, metric)
+    fig.write_image(f"{output_p}/{over}_Perf_tag.pdf")
+
     # Summary
     example, j_count, data, df = summary(
         rawdata.x_test_dict,
         rawdata.y_test_tags,
-        model.over_predict_tags(rawdata.x_test_dict, mlb, n=5),
+        pred_tags,
     )
+
     df.to_csv(f"{output_p}/summary.csv")
     fig = plot_summary(data)
     fig.write_image(f"{output_p}/fig3b_Pie.pdf")
@@ -139,17 +154,7 @@ def make_figures(rawdata, mlb, output_p="outputs", adjust_thresh=False):
         if "Label" in judge:
             review.append({"text": case, "pred_tag": pred_tag, "tag": true_tag})
     dump_json(f"{output_p}/review.json", review)
-    # Performance
-    performance, overall = judge_on_tag(model, mlb, rawdata, n=5)
-    performance.to_csv(f"{output_p}/Perf_tag.csv")
-    fig = plot_tag_performance(performance, overall)
-    fig.write_image(f"{output_p}/fig3c_Perf_tag.pdf")
-    performance_n = judge_on_num(model, mlb, rawdata, n=5)
-    performance_n.to_csv(f"{output_p}/Perf_num.csv")
-    fig = plot_num_performance(performance_n)
-    fig.write_image(f"{output_p}/fig3c_Perf_num.pdf")
 
-    # Keyword
     fn = f"{output_p}/top_key.json"
     if os.path.exists(fn):
         top_key = load_json(fn)
@@ -192,13 +197,16 @@ def kf_flow(ds):
 
 
 def main(
-    dataset_path,
+    dataset_path: str,
     run_kf=False,
     plot=True,
     train=False,
     run_thresh=False,
     output_p="outputsK",
 ):
+    if dataset_path.endswith(".json"):
+        json_data = load_labelled_cases(dataset_path)
+        dataset_path = split_and_dump_dataset(*labelled_cases_to_xy(json_data))
     ds = load_datazip(dataset_path)
     mlb = MultiLabelBinarizer().fit(ds.y_tags)
     os.makedirs(f"{output_p}", exist_ok=True)

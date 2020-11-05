@@ -9,7 +9,7 @@ from tagc.io_utils import (
 from sklearn.preprocessing import MultiLabelBinarizer
 from tagc.validation import dimension_reduction, get_unlabelled_state
 
-model = StandaloneModel.from_path("TagModel", keep_key=False, max_len=100)
+model = StandaloneModel.from_path("lab4/keepKey_200/model", keep_key=True, max_len=150)
 unlabelled_p = "outputs/unlabelled.json"
 sampled_cases = load_json(unlabelled_p)
 ds = load_datazip("dataset.zip")

@@ -10,7 +10,7 @@ rectangle origin as "
     **Field C**: Description C.
     "
 
-package Text {
+rectangle Text {
 
     card t1 as "Field A: Description A. Field B: Description B.
      Field C: Description C."
@@ -26,7 +26,7 @@ package Text {
     t2 -d[hidden]-> t3
 }
 
-package Predictions {
+rectangle Predictions {
     card p1 as "
     tag1 -> **0.82**
     ---
@@ -74,7 +74,9 @@ tag4 -> **0.03**
 
 origin --> Text : "Convert to texts with augmentation"
 
-Text -> Predictions
+t1 -> p1
+t2 -> p2
+t3 -> p3
 
 Predictions --> p : Combine the max value for each tag
 @enduml

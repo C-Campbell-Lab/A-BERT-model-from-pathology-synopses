@@ -12,7 +12,7 @@ random.seed(42)
 
 
 class CustomDataset(Dataset):
-    def __init__(self, texts, tokenizer: AutoTokenizer, max_len, tags=None):
+    def __init__(self, texts, tokenizer: AutoTokenizer, max_len: int, tags=None):
         self.tokenizer = tokenizer
         self.texts = texts
         self.tags = tags
@@ -72,7 +72,6 @@ class DatasetFactory:
         mlb = MultiLabelBinarizer().fit(y)
         self.mlb = mlb
         self.num_labels = len(self.mlb.classes_)
-        assert self.num_labels >= 18, "load labels error"
 
     def init_tokenizer(self, identifier: str):
         self.tokenizer = AutoTokenizer.from_pretrained(identifier)

@@ -19,7 +19,7 @@ rectangle eval as "
 (1000; 8.76%)"
 
 rectangle train as "
-==Trainig Set
+==Training Set
 (400; 80%)
 "
 

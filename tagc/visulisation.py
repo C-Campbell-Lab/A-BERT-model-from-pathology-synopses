@@ -1,11 +1,12 @@
 from collections import Counter, defaultdict
-from math import ceil
 
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.validators.scatter.marker import SymbolValidator
+
+import plotly.figure_factory as ff
 
 
 def plot_tag_stat(tag_df: pd.DataFrame):
@@ -126,43 +127,32 @@ def plot_judge_num(j_tag_num, mode="Correct"):
 
 
 def kw_plot(top_key):
-    col_num = 1
-    row_num = ceil(len(top_key) / col_num)
-    fig = make_subplots(
-        cols=col_num,
-        rows=row_num,
-        horizontal_spacing=0.01,
-        vertical_spacing=0.01,
-        specs=[
-            [{"type": "treemap", "rowspan": 1} for _ in range(col_num)]
-            for _ in range(row_num)
-        ],
-    )
-
     top_n = 5
+    labels = []
+    values = []
+    parents = []
     for idx, (k, v) in enumerate(top_key.items()):
-        labels = []
-        values = []
-        parents = []
         top = v[:top_n]
         labels.extend(i[0] for i in top)
         tmp_v = [i[1] for i in top]
-
-        values.extend(v / sum(tmp_v) for v in tmp_v)
+        values.extend(round(v, 3) for v in tmp_v)
         parents.extend(k for _ in range(top_n))
-
-        col = idx % col_num + 1
-        row = idx // col_num + 1
-        fig.add_trace(
-            go.Treemap(
-                labels=labels, parents=parents, values=values, marker_colorscale="Greys"
-            ),
-            row=row,
-            col=col,
-        )
-
+    kws_df = pd.DataFrame({"influence": values, "reason": labels, "tag": parents})
+    heat_df = kws_df.groupby("tag").agg(list)
+    z = heat_df["influence"].values.tolist()
+    y = heat_df.index.to_list()
+    z_text = heat_df["reason"].values.tolist()
+    fig = ff.create_annotated_heatmap(
+        z,
+        y=y,
+        x=list(range(1, 1 + len(z), 1)),
+        annotation_text=z_text,
+        colorscale="Blues",
+        showscale=True,
+    )
     fig.update_layout(
-        width=1280, height=1600, uniformtext=dict(minsize=10, mode="hide")
+        width=1280,
+        height=600,
     )
     return fig
 
