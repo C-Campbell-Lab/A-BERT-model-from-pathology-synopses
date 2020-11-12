@@ -145,7 +145,7 @@ def kw_plot(top_key):
     fig = ff.create_annotated_heatmap(
         z,
         y=y,
-        x=list(range(1, 1 + len(z), 1)),
+        x=list(range(1, 1 + top_n, 1)),
         annotation_text=z_text,
         colorscale="Blues",
         showscale=True,
@@ -232,19 +232,23 @@ def plot_summary(data):
     return fig
 
 
-def plot_tag_performance(performance: pd.DataFrame, overall):
-    performance = performance.loc[performance["Testing Size"] > 3]
+def plot_tag_performance(performance: pd.DataFrame, overall, auc=True):
+    y_title = "AUC" if auc else "F1 Score"
+    performance.sort_values(
+        y_title,
+        inplace=True,
+    )
     fig = go.Figure()
     fig = px.scatter(
         performance,
         x="Tag",
-        y="F1 Score",
+        y=y_title,
         size="Training Size",
         color="Testing Size",
-        text=[f"{v:.02f}" for v in performance["F1 Score"]],
+        text=[f"{v:.02f}" for v in performance[y_title]],
     )
     fig.update_traces(textposition="middle right")
-    f1 = overall["f1"]
+    perf_average = overall[y_title]
     x_loc = len(performance) - 2
     fig.update_layout(
         width=1280,
@@ -253,10 +257,10 @@ def plot_tag_performance(performance: pd.DataFrame, overall):
         annotations=[
             dict(
                 x=x_loc,
-                y=f1,
+                y=perf_average,
                 xref="x",
                 yref="y",
-                text=f"F1 Score: {f1:.03f}",
+                text=f"{y_title}: {perf_average:.03f}",
                 showarrow=False,
             ),
         ],

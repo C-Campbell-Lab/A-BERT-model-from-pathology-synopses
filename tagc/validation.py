@@ -5,6 +5,7 @@ import plotly.express as px
 from sklearn import metrics
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+import numpy as np
 
 from .data_utils import count_tags
 from .domain import Mlb, RawData, States
@@ -98,7 +99,9 @@ def dimension_reduction_plot(df, n_components=3):
     return fig
 
 
-def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None, n=-1):
+def judge_on_tag(
+    model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None, n=-1, micro=True
+):
     x = rawdata.x_test_dict
     y = rawdata.y_test_tags
     total_y = rawdata.y_tags
@@ -106,18 +109,45 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
         pred_prob = model.predict(x)
     else:
         pred_prob = model.over_predict(x, n=n)
+
     preds = label_output(pred_prob, thresh)
     y_vector = mlb.transform(y)
+    pred_tags = mlb.inverse_transform(preds)
+
+    # Fileter
+    class_num = len(mlb.classes_)
+    sel_tag_idx = [i for i in range(class_num) if len(np.unique(y_vector[:, i])) != 1]
+    y_vector = y_vector[:, sel_tag_idx]
+    pred_prob = pred_prob[:, sel_tag_idx]
+    preds = preds[:, sel_tag_idx]
+    sel_class = [mlb.classes_[i] for i in sel_tag_idx]
+
+    # Computation
+    if micro:
+        average_auc = metrics.roc_auc_score(
+            y_vector, pred_prob, average="micro", multi_class="ovr"
+        )
+    else:
+        average_auc = metrics.roc_auc_score(
+            y_vector, pred_prob, average="macro", multi_class="ovr"
+        )
+
+    aucs = [
+        metrics.roc_auc_score(y_vector[:, i], pred_prob[:, i])
+        for i in range(len(sel_tag_idx))
+    ]
+
     precision, recall, f1, _ = metrics.precision_recall_fscore_support(
         y_vector, preds, average="micro"
     )
     mcm = metrics.multilabel_confusion_matrix(y_vector, preds)
     ability = list(map(compress, mcm))
     tag_count = count_tags(total_y)
-    sample_sizes = [tag_count[class_] for class_ in mlb.classes_]
+    sample_sizes = [tag_count[class_] for class_ in sel_class]
+    # Aggregation
     performance = pd.DataFrame(
         {
-            "Tag": mlb.classes_,
+            "Tag": sel_class,
             "Precision": [pair[0] for pair in ability],
             "Recall": [pair[1] for pair in ability],
             "F1 Score": [pair[2] for pair in ability],
@@ -127,17 +157,19 @@ def judge_on_tag(model: StandaloneModel, mlb: Mlb, rawdata: RawData, thresh=None
             "FP": [pair[5] for pair in ability],
             "FN": [pair[6] for pair in ability],
             "TP": [pair[7] for pair in ability],
+            "AUC": aucs,
         }
     )
     performance["Training Size"] = (
         performance["Sample Size"] - performance["Testing Size"]
     )
-    performance.sort_values(
-        "F1 Score",
-        inplace=True,
-    )
-    metric_ret = {"precision": precision, "recall": recall, "f1": f1}
-    pred_tags = mlb.inverse_transform(preds)
+
+    metric_ret = {
+        "precision": precision,
+        "recall": recall,
+        "F1 Score": f1,
+        "AUC": average_auc,
+    }
     return performance, metric_ret, pred_tags
 
 

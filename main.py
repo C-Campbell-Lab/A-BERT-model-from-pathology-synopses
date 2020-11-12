@@ -133,8 +133,10 @@ def make_figures(rawdata, mlb, output_p="outputs"):
     performance, metric, pred_tags = judge_on_tag(model, mlb, rawdata, n=over)
     dump_json(f"{output_p}/{over}_overall.json", metric)
     performance.to_csv(f"{output_p}/{over}_Perf_tag.csv")
-    fig = plot_tag_performance(performance, metric)
-    fig.write_image(f"{output_p}/{over}_Perf_tag.pdf")
+    fig = plot_tag_performance(performance, metric, auc=True)
+    fig.write_image(f"{output_p}/{over}_Perf_tag_auc.pdf")
+    fig = plot_tag_performance(performance, metric, auc=False)
+    fig.write_image(f"{output_p}/{over}_Perf_tag_f1.pdf")
 
     # Summary
     example, j_count, data, df = summary(
