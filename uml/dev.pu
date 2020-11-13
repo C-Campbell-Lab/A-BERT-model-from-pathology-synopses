@@ -24,7 +24,7 @@ card test as "Test Set"
 
 card model as "Models"
 }
-card output as "The Best Model"
+card output as "The Final Model"
 
 data -r-> train : 80%
 

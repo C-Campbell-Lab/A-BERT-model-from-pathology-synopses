@@ -49,16 +49,17 @@ from tagc.visulisation import (
 random.seed(42)
 
 
-def train_main_model(rawdata):
+def train_main_model(rawdata, save=False, outdir="TagModelK"):
     params = Params(rawdata, 150, 200, 0.5, "bert-base-uncased", True, 10)
     pipeline = Pipeline(params)
     pipeline.train()
     example, judges_count, data, df = pipeline.validation_examples()
     print(judges_count)
-    pipeline.trainer.save_model("TagModelK")
-    os.system(
-        "zip modelK.zip TagModelK/config.json TagModelK/pytorch_model.bin TagModelK/training_args.bin"
-    )
+    pipeline.trainer.save_model(outdir)
+    if save:
+        os.system(
+            f"zip {outdir}.zip {outdir}/config.json {outdir}/pytorch_model.bin {outdir}/training_args.bin"
+        )
     del pipeline
     gc.collect()
     with torch.no_grad():
