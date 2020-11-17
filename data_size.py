@@ -77,7 +77,7 @@ def eval_model(model, ds, over, mlb, output_p, size):
     performance, metric, pred_tags = judge_on_tag(model, mlb, ds, n=over)
     dump_json(f"{output_p}/{size}_{over}_overall.json", metric)
     performance.to_csv(f"{output_p}/{size}_{over}_Perf_tag.csv")
-    fig = plot_tag_performance(performance, metric)
+    fig = plot_tag_performance(performance, metric, auc=False)
     fig.write_image(f"{output_p}/{size}_{over}_Perf_tag.pdf")
 
     _, _, _, df = summary(

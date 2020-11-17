@@ -7,10 +7,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+*docx
 # C extensions
 *.so
-
+review*
 # Distribution / packaging
 .Python
 build/

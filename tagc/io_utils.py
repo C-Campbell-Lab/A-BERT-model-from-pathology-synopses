@@ -61,7 +61,7 @@ def load_json(path):
 
 def dump_json(path, obj):
     with open(path, "w") as js_:
-        json.dump(obj, js_)
+        json.dump(obj, js_, indent=4)
 
 
 def load_datazip(datazip_path: str, datafile: dict = DATAFILE):

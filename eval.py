@@ -10,13 +10,15 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from tagc.validation import dimension_reduction, get_unlabelled_state
 
 
-def form_eval(model, mlb, unlabelled_p="outputsK/unlabelled.json", outdir="outputs"):
+def form_eval(
+    model, mlb, unlabelled_p="outputsK/unlabelled.json", outdir="outputs", over=5
+):
     sampled_cases = load_json(unlabelled_p)
     sampled_state = get_unlabelled_state(model, sampled_cases, mlb)
     dump_state(sampled_state, state_p=f"{outdir}/unstate.pkl")
     unstate_df = dimension_reduction(sampled_state, "TSNE", n_components=2)
     unstate_df.to_csv(f"{outdir}/unlabel_tsne.csv")
-    preds = model.over_predict(sampled_cases, n=5)
+    preds = model.over_predict(sampled_cases, n=over)
     thresh_items = label_output(preds)
     pred_prob = [list(zip(mlb.classes_, pred)) for pred in preds]
     eval_json = build_eval_json(sampled_cases, pred_prob, thresh_items)

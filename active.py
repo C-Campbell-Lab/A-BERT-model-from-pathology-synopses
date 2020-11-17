@@ -7,6 +7,9 @@ from tagc.io_utils import dump_datazip, dump_json, load_datazip, load_json
 import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
 from eval import form_eval
+from tagc.evaluation import active_eval, form_pred
+
+BEST_MODEL_P = "lab3/keepKey_200/model"
 
 
 def add_training(
@@ -34,9 +37,9 @@ def add_training(
     return ds
 
 
-def active_train(rawdata, outdir="activeL", over=5):
-    model_p = "lab4/keepKey_200/model"
-    params = Params(rawdata, 150, 200, 0.5, "bert-base-uncased", True, 5)
+def active_train(rawdata, outdir="activeL", over=5, epoch=1):
+    model_p = BEST_MODEL_P
+    params = Params(rawdata, 150, 200, 0.5, "bert-base-uncased", True, epoch)
     pipeline = Pipeline(params)
     pipeline.model = Classification.from_pretrained(model_p)
     pipeline.train()
@@ -60,9 +63,14 @@ def main(
     base_path="dataset.zip",
     unlabelled_p="outputsK/unlabelled.json",
     outdir="activeL",
+    eval_json="outputsX/eval.json",
 ):
+    eval_over = active_eval(eval_ret, form_pred(eval_json))
+    dump_json(f"{outdir}/eval_over.json", eval_over)
     ds = add_training(eval_ret, base_path=base_path, unlabelled_p=unlabelled_p)
     active_train(ds, outdir=outdir)
+    eval_over = active_eval(eval_ret, form_pred(f"{outdir}/eval.json"))
+    dump_json(f"{outdir}/eval_over_after.json", eval_over)
 
 
 if __name__ == "__main__":

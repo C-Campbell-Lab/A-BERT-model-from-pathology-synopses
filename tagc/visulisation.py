@@ -5,6 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.validators.scatter.marker import SymbolValidator
+import numpy as np
 
 import plotly.figure_factory as ff
 
@@ -48,6 +49,9 @@ def state_plot(df: pd.DataFrame, thresh=15):
                 mode="markers",
                 marker_color=tmp_df["color"],
                 marker_symbol=tmp_df["symbol"],
+                hovertemplate="<b>tag:%{text}</b><br>pred_tag:%{customdata}",
+                text=tmp_df["tag"].to_list(),
+                customdata=tmp_df["pred_tag"].to_list(),
                 showlegend=True,
                 name=sel_tag,
             )
@@ -63,6 +67,10 @@ def state_plot(df: pd.DataFrame, thresh=15):
             marker_color=no_legend_df["color"],
             marker_symbol=no_legend_df["symbol"],
             showlegend=False,
+            hovertemplate="<b>tag:%{text}</b><br>pred_tag:%{customdata}",
+            text=no_legend_df["tag"].to_list(),
+            customdata=no_legend_df["pred_tag"].to_list(),
+            name="",
         )
     )
 
@@ -139,9 +147,19 @@ def kw_plot(top_key):
         parents.extend(k for _ in range(top_n))
     kws_df = pd.DataFrame({"influence": values, "reason": labels, "tag": parents})
     heat_df = kws_df.groupby("tag").agg(list)
-    z = heat_df["influence"].values.tolist()
-    y = heat_df.index.to_list()
-    z_text = heat_df["reason"].values.tolist()
+
+    vs = heat_df["influence"].values
+    mat = np.zeros(
+        (len(vs), len(vs[0])),
+    )
+    for i, r in enumerate(vs):
+        for j, v in enumerate(r):
+            mat[i][j] = v
+
+    sort_ = mat[:, 0].argsort()
+    z = heat_df["influence"].values[sort_].tolist()
+    y = heat_df.index[sort_].to_list()
+    z_text = heat_df["reason"].values[sort_].tolist()
     fig = ff.create_annotated_heatmap(
         z,
         y=y,
@@ -232,7 +250,7 @@ def plot_summary(data):
     return fig
 
 
-def plot_tag_performance(performance: pd.DataFrame, overall, auc=True):
+def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
     y_title = "AUC" if auc else "F1 Score"
     performance.sort_values(
         y_title,

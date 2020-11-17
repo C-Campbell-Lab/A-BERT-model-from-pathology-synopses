@@ -30,7 +30,6 @@ from tagc.model import StandaloneModel, label_output
 from tagc.train import Pipeline
 from tagc.validation import (
     dimension_reduction,
-    dimension_reduction_plot,
     get_tag_states,
     get_unlabelled_state,
     judge_on_summary,
@@ -47,6 +46,8 @@ from tagc.visulisation import (
 )
 
 random.seed(42)
+
+BEST_MODEL_P = "lab3/keepKey_200/model"
 
 
 def train_main_model(rawdata, save=False, outdir="TagModelK"):
@@ -67,9 +68,7 @@ def train_main_model(rawdata, save=False, outdir="TagModelK"):
 
 
 def make_figures(rawdata, mlb, output_p="outputs"):
-    model = StandaloneModel.from_path(
-        "lab4/keepKey_200/model", keep_key=True, max_len=150
-    )
+    model = StandaloneModel.from_path(BEST_MODEL_P, keep_key=True, max_len=150)
     over = 5
     # Rawdata_stat
     fn = f"{output_p}/tag_stat.csv"
@@ -112,12 +111,13 @@ def make_figures(rawdata, mlb, output_p="outputs"):
         pred_prob = [list(zip(mlb.classes_, pred)) for pred in preds]
         eval_json = build_eval_json(sampled_cases, pred_prob, thresh_items)
         dump_json(f"{output_p}/eval.json", eval_json)
-    fig = dimension_reduction_plot(unstate_df, n_components=2)
+    fig = state_plot(unstate_df, 12)
     fig.update_layout(
         width=1280,
         height=600,
     )
     fig.write_image(f"{output_p}/unlabelled_TSNE.pdf")
+    fig.write_html(f"{output_p}/unlabel_tsne.html")
 
     # Labelled
     fn = f"{output_p}/label_tsne.csv"
@@ -129,6 +129,7 @@ def make_figures(rawdata, mlb, output_p="outputs"):
         state_df.to_csv(fn)
     fig = state_plot(state_df, 12)
     fig.write_image(f"{output_p}/fig3a_TSNE.pdf")
+    fig.write_html(f"{output_p}/label_tsne.html")
 
     # Performance
     performance, metric, pred_tags = judge_on_tag(model, mlb, rawdata, n=over)
@@ -205,7 +206,7 @@ def main(
     plot=True,
     train=False,
     run_thresh=False,
-    output_p="outputsK",
+    output_p="outputsX",
 ):
     if dataset_path.endswith(".json"):
         json_data = load_labelled_cases(dataset_path)

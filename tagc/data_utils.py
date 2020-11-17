@@ -206,9 +206,9 @@ def rawdata_stat(rawdata: RawData):
     print(f"Training Size: {len(rawdata.y_train_tags)}")
     print(f"Test Size: {len(rawdata.y_test_tags)}")
     print(f"Train Tag Number: {len(train_counter)}")
-    assert len(train_counter) == len(
-        count_tags(rawdata.y_tags)
-    ), "Splitting is not right"
+    # assert len(train_counter) == len(
+    #     count_tags(rawdata.y_tags)
+    # ), "Splitting is not right"
     print(f"Test Tag Number: {len(test_counter)}")
 
     train_tag_df = counter_to_df(train_counter)
