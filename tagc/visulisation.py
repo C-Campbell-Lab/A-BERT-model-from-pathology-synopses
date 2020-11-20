@@ -6,13 +6,19 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.validators.scatter.marker import SymbolValidator
 import numpy as np
-
 import plotly.figure_factory as ff
+
+TEMPLATE = "plotly_white"
 
 
 def plot_tag_stat(tag_df: pd.DataFrame):
     fig = px.bar(
-        tag_df, x="tag", y="count", color="for", title="Tag Stat", text="count"
+        tag_df,
+        x="tag",
+        y="count",
+        color="for",
+        title="Tag Stat",
+        text="count",
     )
 
     return fig
@@ -77,6 +83,7 @@ def state_plot(df: pd.DataFrame, thresh=15):
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
     fig.update_layout(
+        template=TEMPLATE,
         legend=dict(
             orientation="h",
         ),
@@ -126,6 +133,7 @@ def plot_judge_num(j_tag_num, mode="Correct"):
         )
     fig = go.Figure(data=data)
     fig.update_layout(
+        template=TEMPLATE,
         barmode="stack",
         xaxis_title="Tag Number",
         yaxis_title="Count",
@@ -169,6 +177,7 @@ def kw_plot(top_key):
         showscale=True,
     )
     fig.update_layout(
+        template=TEMPLATE,
         width=1280,
         height=600,
     )
@@ -244,6 +253,7 @@ def plot_summary(data):
         )
 
     fig.update_layout(
+        template=TEMPLATE,
         width=1280,
         height=600,
     )
@@ -257,21 +267,50 @@ def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
         inplace=True,
     )
     fig = go.Figure()
-    fig = px.scatter(
-        performance,
-        x="Tag",
-        y=y_title,
-        size="Training Size",
-        color="Testing Size",
-        text=[f"{v:.02f}" for v in performance[y_title]],
+    # fig = px.scatter(
+    #     performance,
+    #     x="Tag",
+    #     y=y_title,
+    #     size="Training Size",
+    #     color="Testing Size",
+    #     text=[f"{v:.02f}" for v in performance[y_title]],
+    # )
+    x = performance["Tag"]
+    marker_symbols = ["square", "cross"]
+    for idx, measure in enumerate(["Precision", "Recall"]):
+        fig.add_trace(
+            go.Scatter(
+                x=x,
+                y=performance[measure],
+                marker_color="lightgray",
+                marker_symbol=marker_symbols[idx],
+                marker_size=10,
+                mode="markers",
+                name=measure,
+            )
+        )
+
+    fig.add_trace(
+        go.Scatter(
+            x=x,
+            y=performance[y_title],
+            marker_color="crimson",
+            mode="markers+text",
+            text=[f"{v:.01f}" for v in performance[y_title]],
+            marker_size=10,
+            name=y_title,
+        )
     )
     fig.update_traces(textposition="middle right")
     perf_average = overall[y_title]
     x_loc = len(performance) - 2
     fig.update_layout(
+        template=TEMPLATE,
         width=1280,
         height=600,
-        showlegend=False,
+        xaxis_title="Semantic Label",
+        yaxis_title="Metrics",
+        showlegend=True,
         annotations=[
             dict(
                 x=x_loc,
@@ -310,7 +349,11 @@ def plot_num_performance(performance_n: pd.DataFrame):
         )
 
     fig.update_layout(
-        width=1280, height=600, uniformtext_minsize=11, uniformtext_mode="show"
+        template=TEMPLATE,
+        width=1280,
+        height=600,
+        uniformtext_minsize=11,
+        uniformtext_mode="show",
     )
     fig.update_xaxes(title_text="Tag Number")
 

@@ -72,6 +72,13 @@ def size_effect(
             torch.cuda.empty_cache()
 
 
+# def tag_based_ds(ds: RawData, min_tag_num):
+#     mapper = defaultdict(list)
+#     for idx,tags in enumerate(ds.y_train_tags):
+#         for tag  in tags:
+#             mapper[tag].append(idx)
+
+
 def eval_model(model, ds, over, mlb, output_p, size):
 
     performance, metric, pred_tags = judge_on_tag(model, mlb, ds, n=over)

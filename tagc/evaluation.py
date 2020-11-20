@@ -1,7 +1,7 @@
+from os.path import join
 import pandas as pd
 from sklearn import metrics
 from sklearn.preprocessing import MultiLabelBinarizer
-import sys
 from typing import List
 from tagc.io_utils import load_json
 
@@ -31,10 +31,10 @@ def active_eval(sheet_csv, y_pred_: List[list] = None):
 
         all_evals.append(y_true_trans)
         out[judge] = {"precision": precision, "recall": recall, "f1": f1}
-    cut = min(len(e) for e in all_evals)
-    p1 = all_evals[0][:cut]
-    p2 = all_evals[1][:cut]
-    print(p1.shape, p2.shape)
+    # cut = min(len(e) for e in all_evals)
+    # p1 = all_evals[0][:cut]
+    # p2 = all_evals[1][:cut]
+    # print(p1.shape, p2.shape)
     # reliability_data = [p1, p2]
     # print(krippendorff.alpha(reliability_data=reliability_data, level_of_measurement='nominal'))
 
@@ -52,8 +52,8 @@ def form_pred(eval_json):
 
 
 if __name__ == "__main__":
+    base = "E:/Coding/scholar/active"
+    sheet_csv = join(base, "Copy of prediction judgement - Sheet1.csv")
     print(
-        active_eval(
-            sys.argv[1],
-        ),
+        active_eval(sheet_csv, form_pred("E:\\eval.json")),
     )

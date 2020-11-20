@@ -1,3 +1,5 @@
+from os.path import join
+from data_size import size_effect
 import gc
 import os
 import random
@@ -20,6 +22,7 @@ from tagc.data_utils import (
 from tagc.domain import Params
 from tagc.io_utils import (
     build_eval_json,
+    dump_datazip,
     dump_json,
     dump_state,
     load_datazip,
@@ -112,10 +115,6 @@ def make_figures(rawdata, mlb, output_p="outputs"):
         eval_json = build_eval_json(sampled_cases, pred_prob, thresh_items)
         dump_json(f"{output_p}/eval.json", eval_json)
     fig = state_plot(unstate_df, 12)
-    fig.update_layout(
-        width=1280,
-        height=600,
-    )
     fig.write_image(f"{output_p}/unlabelled_TSNE.pdf")
     fig.write_html(f"{output_p}/unlabel_tsne.html")
 
@@ -176,28 +175,29 @@ def make_figures(rawdata, mlb, output_p="outputs"):
     fig.write_image(f"{output_p}/fig4_Kws.pdf")
 
 
-def kf_flow(ds):
+def kf_flow(ds, kf_out="kf_out"):
     kf = KFold(n_splits=5)
-    cv_result = []
-    for train, test in kf.split(ds.x_train_dict):
+    for idx, (train, test) in enumerate(kf.split(ds.x_train_dict)):
         tmp_ds = copy(ds)
         tmp_ds.x_train_dict = [ds.x_train_dict[idx] for idx in train]
         tmp_ds.y_train_tags = [ds.y_train_tags[idx] for idx in train]
         tmp_ds.x_test_dict = [ds.x_train_dict[idx] for idx in test]
         tmp_ds.y_test_tags = [ds.y_train_tags[idx] for idx in test]
-        params = Params(tmp_ds, 100, 200, 0.5, "bert-base-uncased", False, 8)
-        pipeline = Pipeline(params)
-        pipeline.train()
-        model = StandaloneModel(pipeline.model, pipeline.tokenizer)
-        probs = model.predict_prob(tmp_ds.x_test_dict, pipeline.mlb)
-        probs = [[(n, str(p)) for n, p in prob] for prob in probs]
-        cv_result.append({"prob": probs, "tag": tmp_ds.y_test_tags})
-        del model
-        del pipeline
-        gc.collect()
-        with torch.no_grad():
-            torch.cuda.empty_cache()
-    dump_json("cv_result.json", cv_result)
+        output_p = f"{kf_out}/{idx}/"
+        step = len(train)
+        os.makedirs(output_p, exist_ok=True)
+        dsp = dump_datazip(tmp_ds, join(output_p, f"ds{idx}.zip"))
+        for upsample in (200, -200):
+            for keep_key in (True, False):
+                size_effect(
+                    output_p=output_p,
+                    dataset_path=dsp,
+                    upsample=upsample,
+                    keep_key=keep_key,
+                    over=5,
+                    step=step,
+                    metrics_only=False,
+                )
 
 
 def main(

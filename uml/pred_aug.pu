@@ -1,7 +1,9 @@
 @startuml pred_aug
 skinparam linetype ortho
 skinparam Dpi 300
-
+skinparam monochrome true
+skinparam shadowing false
+skinparam classFontName Arial
 rectangle origin as "
     **Field A**: Description A.
     ---

@@ -3,7 +3,9 @@ skinparam defaultTextAlignment center
 skinparam linetype polyline
 skinparam Dpi 300
 
-
+skinparam monochrome true
+skinparam shadowing false
+skinparam classFontName Arial
 ' card lab1 as "Whether keep field"
 
 ' card lab2 as "The augmentation"

@@ -2,7 +2,9 @@
 skinparam defaultTextAlignment center
 skinparam linetype ortho
 skinparam Dpi 300
-
+skinparam monochrome true
+skinparam shadowing false
+skinparam classFontName Arial
 rectangle all_data as "
 ==Aspirate Pathology Synopses
 (11418)

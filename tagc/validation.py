@@ -104,7 +104,7 @@ def judge_on_tag(
 ):
     x = rawdata.x_test_dict
     y = rawdata.y_test_tags
-    total_y = rawdata.y_tags
+    total_y = y + rawdata.y_train_tags
     if n == -1:
         pred_prob = model.predict(x)
     else:
