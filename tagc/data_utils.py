@@ -129,7 +129,7 @@ def xy_to_labelled_cases(x, y) -> List[LabelledCase]:
 
 def split_and_dump_dataset(x, y, test_size=0.2):
     x_train_dict, x_test_dict, y_train_tags, y_test_tags = train_test_split(
-        x, y, test_size=0.2
+        x, y, test_size=test_size
     )
     rd = RawData(x, y, x_train_dict, y_train_tags, x_test_dict, y_test_tags)
     zip_name = f"dataset{get_timestamp()}.zip"

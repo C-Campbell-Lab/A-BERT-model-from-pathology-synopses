@@ -12,6 +12,13 @@ TEMPLATE = "plotly_white"
 
 
 def plot_tag_stat(tag_df: pd.DataFrame):
+    s = tag_df.groupby("tag")["count"].sum()
+    sort_idx = []
+    for i in s.sort_values(ascending=False).index:
+        sort_idx.append(i + "train")
+        sort_idx.append(i + "test")
+    tag_df["idx"] = tag_df["tag"] + tag_df["for"]
+    tag_df = tag_df.set_index("idx").loc[sort_idx]
     fig = px.bar(
         tag_df,
         x="tag",
@@ -20,7 +27,11 @@ def plot_tag_stat(tag_df: pd.DataFrame):
         title="Tag Stat",
         text="count",
     )
-
+    fig.update_layout(
+        template=TEMPLATE,
+        width=1280,
+        height=600,
+    )
     return fig
 
 

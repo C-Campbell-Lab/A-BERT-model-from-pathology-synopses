@@ -1,12 +1,13 @@
 import os
 from copy import copy
+from tagc.data_utils import rawdata_stat
 from tagc.io_utils import load_datazip, dump_json
 from tagc.domain import Params
 from tagc.validation import judge_on_tag, summary
 from tagc.model import StandaloneModel
 from tagc.train import Pipeline
 from sklearn.preprocessing import MultiLabelBinarizer
-from tagc.visulisation import plot_tag_performance
+from tagc.visulisation import plot_tag_performance, plot_tag_stat
 import gc
 import torch
 import shutil
@@ -28,7 +29,7 @@ def run_exp(output_p, metrics_only=True, over=5):
 
 def size_effect(
     output_p="up_effect",
-    dataset_path="dataset.zip",
+    dataset_path="stdDs.zip",
     upsample=200,
     keep_key=True,
     over=None,
@@ -61,7 +62,7 @@ def size_effect(
             model = StandaloneModel(
                 pipeline.model, pipeline.tokenizer, keep_key=keep_key, max_len=max_len
             )
-            eval_model(model, ds, over, mlb, output_p, size)
+            eval_model(model, part_ds, over, mlb, output_p, size)
             if size >= len(ds.x_train_dict):
                 pipeline.trainer.save_model(f"{output_p}/model")
             del pipeline
@@ -79,20 +80,27 @@ def size_effect(
 #             mapper[tag].append(idx)
 
 
-def eval_model(model, ds, over, mlb, output_p, size):
-
+def eval_model(model, ds, over, mlb, output_p, marker):
+    tag_stat = rawdata_stat(ds)
+    tag_stat.to_csv(f"{output_p}/{marker}_{over}_data_stat.csv")
+    fig = plot_tag_stat(tag_stat)
+    fig.update_layout(
+        width=1280,
+        height=600,
+    )
+    fig.write_image(f"{output_p}/{marker}_{over}_data_stat.pdf")
     performance, metric, pred_tags = judge_on_tag(model, mlb, ds, n=over)
-    dump_json(f"{output_p}/{size}_{over}_overall.json", metric)
-    performance.to_csv(f"{output_p}/{size}_{over}_Perf_tag.csv")
+    dump_json(f"{output_p}/{marker}_{over}_overall.json", metric)
+    performance.to_csv(f"{output_p}/{marker}_{over}_Perf_tag.csv")
     fig = plot_tag_performance(performance, metric, auc=False)
-    fig.write_image(f"{output_p}/{size}_{over}_Perf_tag.pdf")
+    fig.write_image(f"{output_p}/{marker}_{over}_Perf_tag.pdf")
 
     _, _, _, df = summary(
         ds.x_test_dict,
         ds.y_test_tags,
         pred_tags,
     )
-    df.to_csv(f"{output_p}/{size}_{over}_summary.csv")
+    df.to_csv(f"{output_p}/{marker}_{over}_summary.csv")
 
 
 def slice_dataset(ds, size):
@@ -105,4 +113,4 @@ def slice_dataset(ds, size):
 if __name__ == "__main__":
     import fire
 
-    fire.Fire(run_exp)
+    fire.Fire(size_effect)

@@ -19,7 +19,7 @@ from tagc.data_utils import (
     rawdata_stat,
     split_and_dump_dataset,
 )
-from tagc.domain import Params
+from tagc.domain import Params, RawData
 from tagc.io_utils import (
     build_eval_json,
     dump_datazip,
@@ -50,7 +50,7 @@ from tagc.visulisation import (
 
 random.seed(42)
 
-BEST_MODEL_P = "lab3/keepKey_200/model"
+BEST_MODEL_P = "labF/keepKey_200/model/"
 
 
 def train_main_model(rawdata, save=False, outdir="TagModelK"):
@@ -70,7 +70,7 @@ def train_main_model(rawdata, save=False, outdir="TagModelK"):
         torch.cuda.empty_cache()
 
 
-def make_figures(rawdata, mlb, output_p="outputs"):
+def make_figures(rawdata, mlb, output_p="outputsT"):
     model = StandaloneModel.from_path(BEST_MODEL_P, keep_key=True, max_len=150)
     over = 5
     # Rawdata_stat
@@ -81,10 +81,6 @@ def make_figures(rawdata, mlb, output_p="outputs"):
         tag_stat = rawdata_stat(rawdata)
         tag_stat.to_csv(fn)
     fig = plot_tag_stat(tag_stat)
-    fig.update_layout(
-        width=1280,
-        height=600,
-    )
     fig.write_image(f"{output_p}/data_stat.pdf")
 
     # Unlabelled
@@ -175,14 +171,14 @@ def make_figures(rawdata, mlb, output_p="outputs"):
     fig.write_image(f"{output_p}/fig4_Kws.pdf")
 
 
-def kf_flow(ds, kf_out="kf_out"):
+def kf_flow(ds: RawData, kf_out="kf_out"):
     kf = KFold(n_splits=5)
-    for idx, (train, test) in enumerate(kf.split(ds.x_train_dict)):
+    for idx, (train, test) in enumerate(kf.split(ds.x_dict)):
         tmp_ds = copy(ds)
-        tmp_ds.x_train_dict = [ds.x_train_dict[idx] for idx in train]
-        tmp_ds.y_train_tags = [ds.y_train_tags[idx] for idx in train]
-        tmp_ds.x_test_dict = [ds.x_train_dict[idx] for idx in test]
-        tmp_ds.y_test_tags = [ds.y_train_tags[idx] for idx in test]
+        tmp_ds.x_train_dict = [ds.x_dict[idx] for idx in train]
+        tmp_ds.y_train_tags = [ds.y_tags[idx] for idx in train]
+        tmp_ds.x_test_dict = [ds.x_dict[idx] for idx in test]
+        tmp_ds.y_test_tags = [ds.y_tags[idx] for idx in test]
         output_p = f"{kf_out}/{idx}/"
         step = len(train)
         os.makedirs(output_p, exist_ok=True)
@@ -206,7 +202,7 @@ def main(
     plot=True,
     train=False,
     run_thresh=False,
-    output_p="outputsX",
+    output_p="outputsS",
 ):
     if dataset_path.endswith(".json"):
         json_data = load_labelled_cases(dataset_path)

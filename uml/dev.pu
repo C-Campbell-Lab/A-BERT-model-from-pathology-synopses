@@ -16,13 +16,13 @@ skinparam classFontName Arial
 
 
 rectangle data as "
-Development Set
+**Current Dataset**
 //Labelled Cases//"
 
 card train as "Train Set"
 
 together {
-card test as "Test Set"
+card test as "Validation Set"
 
 card model as "Models"
 }

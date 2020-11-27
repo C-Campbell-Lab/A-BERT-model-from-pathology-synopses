@@ -9,7 +9,8 @@ from tagc.io_utils import load_json
 def active_eval(sheet_csv, y_pred_: List[list] = None):
     p_df = pd.read_csv(sheet_csv).drop_duplicates(subset=["ID", "Judge"], keep="last")
     mlb = MultiLabelBinarizer()
-    mlb.fit(p_df["eval"].map(lambda x: x.split(", ")).tolist())
+    # mlb.fit(p_df["eval"].map(lambda x: x.split(", ")).tolist())
+    mlb.fit(y_pred_)
     p_df = p_df.groupby("Judge").agg(list)
     out = {}
     all_evals = []
@@ -53,7 +54,7 @@ def form_pred(eval_json):
 
 if __name__ == "__main__":
     base = "E:/Coding/scholar/active"
-    sheet_csv = join(base, "Copy of prediction judgement - Sheet1.csv")
+    sheet_csv = join(".", "prediction judgement - Sheet1.csv")
     print(
-        active_eval(sheet_csv, form_pred("E:\\eval.json")),
+        active_eval(sheet_csv, form_pred("E:\\outputsS\\outputsS\\eval.json")),
     )
