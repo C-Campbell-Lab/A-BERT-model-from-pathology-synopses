@@ -7,6 +7,7 @@ from plotly.subplots import make_subplots
 from plotly.validators.scatter.marker import SymbolValidator
 import numpy as np
 import plotly.figure_factory as ff
+from sklearn.preprocessing import normalize
 
 TEMPLATE = "plotly_white"
 
@@ -159,10 +160,10 @@ def kw_plot(top_key):
     values = []
     parents = []
     for idx, (k, v) in enumerate(top_key.items()):
-        top = v[:top_n]
-        labels.extend(i[0] for i in top)
-        tmp_v = [i[1] for i in top]
-        values.extend(round(v, 3) for v in tmp_v)
+        labels.extend(i[0] for i in v[:top_n])
+        tmp_v = [i[1] for i in v]
+        tmp_v = normalize([tmp_v])[0]
+        values.extend(round(v, 3) for v in tmp_v[:top_n])
         parents.extend(k for _ in range(top_n))
     kws_df = pd.DataFrame({"influence": values, "reason": labels, "tag": parents})
     heat_df = kws_df.groupby("tag").agg(list)
@@ -242,7 +243,7 @@ def plot_summary(data):
     fig = make_subplots(
         cols=col_num,
         rows=row_num,
-        horizontal_spacing=0.01,
+        horizontal_spacing=0.02,
         vertical_spacing=0.05,
         specs=[[{"type": "domain"} for _ in range(col_num)] for _ in range(row_num)],
         subplot_titles=[f"{tag_num} Tag" for tag_num in tree_data.keys()],
@@ -307,7 +308,7 @@ def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
             y=performance[y_title],
             marker_color="crimson",
             mode="markers+text",
-            text=[f"{v:.01f}" for v in performance[y_title]],
+            text=[f"{v:.02f}" for v in performance[y_title]],
             marker_size=10,
             name=y_title,
         )

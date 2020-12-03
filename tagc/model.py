@@ -132,7 +132,7 @@ class StandaloneModel:
     def predict(
         self, cases: list, batch_size=8, pooled_output=False, tqdm_disable=False
     ) -> np.array:
-        """Predict the prob for 23 tags. If cases are dict, they will be
+        """Predict the prob for 21 tags. If cases are dict, they will be
         composed by their `values` without shuffle.
 
         Args:
