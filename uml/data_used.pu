@@ -17,7 +17,7 @@ rectangle dev as "
 together ret {
 
 rectangle eval as "
-==Final Test Set
+==Pathologist Evaluation Set
 (1000; 8.76%)"
 
 rectangle train as "
@@ -26,7 +26,7 @@ rectangle train as "
 "
 
 rectangle test as "
-==Validation Set
+==Validation Set (Benchmark)
 (100; 20%)
 "
 

@@ -36,6 +36,6 @@ train --> model : "10 epochs"
 
 test -u-> model : "Evaluation"
 
-model --> output : "The highest f1-score"
+model --> output : "The highest F1-score"
 
 @enduml

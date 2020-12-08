@@ -25,8 +25,9 @@ def plot_tag_stat(tag_df: pd.DataFrame):
         x="tag",
         y="count",
         color="for",
-        title="Tag Stat",
+        title="Label Summary",
         text="count",
+        color_discrete_sequence=px.colors.qualitative.Set2,
     )
     fig.update_layout(
         template=TEMPLATE,
@@ -279,16 +280,18 @@ def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
         inplace=True,
     )
     fig = go.Figure()
-    # fig = px.scatter(
-    #     performance,
-    #     x="Tag",
-    #     y=y_title,
-    #     size="Training Size",
-    #     color="Testing Size",
-    #     text=[f"{v:.02f}" for v in performance[y_title]],
-    # )
     x = performance["Tag"]
     marker_symbols = ["square", "cross"]
+    perf_average = overall[y_title]
+    fig.add_shape(
+        type="line",
+        x0=0.01,
+        y0=perf_average,
+        x1=0.99,
+        y1=perf_average,
+        xref="paper",
+        line=dict(color="lightgray", width=2, dash="dash"),
+    )
     for idx, measure in enumerate(["Precision", "Recall"]):
         fig.add_trace(
             go.Scatter(
@@ -314,7 +317,7 @@ def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
         )
     )
     fig.update_traces(textposition="middle right")
-    perf_average = overall[y_title]
+
     x_loc = len(performance) - 2
     fig.update_layout(
         template=TEMPLATE,
@@ -329,8 +332,9 @@ def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
                 y=perf_average,
                 xref="x",
                 yref="y",
-                text=f"{y_title}: {perf_average:.03f}",
+                text=f"Micro {y_title}: {perf_average:.03f}",
                 showarrow=False,
+                font=dict(size=15),
             ),
         ],
     )

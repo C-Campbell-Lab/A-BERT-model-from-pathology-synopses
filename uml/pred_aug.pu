@@ -30,33 +30,33 @@ rectangle Text {
 
 rectangle Predictions {
     card p1 as "
-    tag1 -> **0.82**
+    label1 -> **0.82**
     ---
-    tag2 -> 0.41
+    label2 -> 0.41
     ---
-    tag3 -> **0.23**
+    label3 -> **0.23**
     ---
-    tag4 -> 0.01
+    label4 -> 0.01
     "
 
     card p2 as "
-    tag1 -> 0.62
+    label1 -> 0.62
     ---
-    tag2 -> 0.51
+    label2 -> 0.51
     ---
-    tag3 -> 0.21
+    label3 -> 0.21
     ---
-    tag4 -> **0.03**
+    label4 -> **0.03**
     "
 
     card p3 as "
-    tag1 -> 0.71
+    label1 -> 0.71
     ---
-    tag2 -> **0.64**
+    label2 -> **0.64**
     ---
-    tag3 -> 0.22
+    label3 -> 0.22
     ---
-    tag4 -> 0.02
+    label4 -> 0.02
     "
 
     p1 -d[hidden]-> p2
@@ -65,13 +65,13 @@ rectangle Predictions {
 }
 
 card p as "
-tag1 -> **0.82**
+label1 -> **0.82**
 ---
-tag2 -> **0.64**
+label2 -> **0.64**
 ---
-tag3 -> **0.23**
+label3 -> **0.23**
 ---
-tag4 -> **0.03**
+label4 -> **0.03**
 "
 
 origin --> Text : "Convert to texts with augmentation"
@@ -80,5 +80,5 @@ t1 -> p1
 t2 -> p2
 t3 -> p3
 
-Predictions --> p : Combine the max value for each tag
+Predictions --> p : Combine the max value for each label
 @enduml
