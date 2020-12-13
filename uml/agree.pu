@@ -1,0 +1,40 @@
+@startuml agree
+skinparam defaultTextAlignment center
+' skinparam linetype orthos
+skinparam Dpi 300s
+skinparam monochrome true
+skinparam shadowing false
+skinparam classFontName Arial
+
+!define GCPPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-icons-GCP/master/dist
+!include GCPPuml/GCPCommon.puml
+!include GCPPuml/AI_and_Machine_Learning/AI_Platform.puml
+!include GCPPuml/Databases/Cloud_Datastore.puml
+
+/'
+The other icons will need to come from other stdlib libraries: backup, users, clients.
+'/
+!include <awslib/AWSCommon>
+!include <awslib/AWSSimplified.puml>
+!include <awslib/Compute/all.puml>
+!include <awslib/mobile/all.puml>
+!include <awslib/general/all.puml>
+
+!include <material/common>
+
+card u as "Pathologists"
+
+
+Client(UI, "", " ")
+
+u -r-> UI : independently evaluate
+
+database db as "Evaluation Results"
+
+
+u -r-> db : Record
+
+db -> db : Kappa Test for Agreement
+
+db -u-> UI : Improve
+@enduml
