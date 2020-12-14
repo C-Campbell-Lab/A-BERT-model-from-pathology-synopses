@@ -84,7 +84,7 @@ fig.add_trace(
 
 fig.update_layout(
     template=TEMPLATE,
-    width=800,
+    width=1000,
     height=600,
     xaxis_title="Evaluation Batch",
     yaxis_title="Micro F1",
