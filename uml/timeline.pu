@@ -1,0 +1,25 @@
+@startuml timeline
+scale 2
+skinparam Dpi 300
+skinparam GanttFontSize 5
+skinparam monochrome true
+skinparam shadowing false
+skinparam classFontName Arial
+' <style>
+' ganttDiagram {
+'     task {
+'         FontSize 8
+'     }
+'     milestone {
+'         FontSize 10
+'     }
+' }
+' </style>
+Project starts 2020-12-19
+[Introduction] lasts 7 days
+then [Method] lasts 10 days
+then [Findings] lasts 10 days
+then [Discussions & Limitations] lasts 7 days
+then [Editing] lasts 6 days
+[Submit Draft] happens at [Editing]'s end
+@enduml

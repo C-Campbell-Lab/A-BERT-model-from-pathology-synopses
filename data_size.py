@@ -1,16 +1,18 @@
+import gc
 import os
+import shutil
 from copy import copy
+
+import torch
+from sklearn.preprocessing import MultiLabelBinarizer
+
 from tagc.data_utils import rawdata_stat
-from tagc.io_utils import load_datazip, dump_json
 from tagc.domain import Params
-from tagc.validation import judge_on_tag, summary
+from tagc.io_utils import dump_json, load_datazip
 from tagc.model import StandaloneModel
 from tagc.train import Pipeline
-from sklearn.preprocessing import MultiLabelBinarizer
+from tagc.validation import judge_on_tag, summary
 from tagc.visulisation import plot_tag_performance, plot_tag_stat
-import gc
-import torch
-import shutil
 
 
 def run_exp(output_p, metrics_only=True, over=5):
@@ -71,13 +73,6 @@ def size_effect(
         gc.collect()
         with torch.no_grad():
             torch.cuda.empty_cache()
-
-
-# def tag_based_ds(ds: RawData, min_tag_num):
-#     mapper = defaultdict(list)
-#     for idx,tags in enumerate(ds.y_train_tags):
-#         for tag  in tags:
-#             mapper[tag].append(idx)
 
 
 def eval_model(model, ds, over, mlb, output_p, marker):

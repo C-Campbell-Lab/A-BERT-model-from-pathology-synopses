@@ -1,8 +1,10 @@
+from pathlib import Path
+
+import pandas as pd
+from sklearn.preprocessing import MultiLabelBinarizer
+
 from tagc.io_utils import load_datazip, load_json
 from tagc.model import StandaloneModel
-from sklearn.preprocessing import MultiLabelBinarizer
-import pandas as pd
-from pathlib import Path
 
 
 def prediction(case_p: str, model_p: str, ds_p: str):

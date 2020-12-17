@@ -1,18 +1,19 @@
 import gc
-from pathlib import Path
 import shutil
+from pathlib import Path
 
+import pandas as pd
 import torch
-from tagc.visulisation import plot_tag_performance
-from tagc.validation import judge_on_tag
+from eval import form_eval
+from sklearn.preprocessing import MultiLabelBinarizer
+
 from tagc.domain import Params
+from tagc.evaluation import active_eval, form_pred
+from tagc.io_utils import dump_datazip, dump_json, load_datazip, load_json
 from tagc.model import Classification, StandaloneModel
 from tagc.train import Pipeline
-from tagc.io_utils import dump_datazip, dump_json, load_datazip, load_json
-import pandas as pd
-from sklearn.preprocessing import MultiLabelBinarizer
-from eval import form_eval
-from tagc.evaluation import active_eval, form_pred
+from tagc.validation import judge_on_tag
+from tagc.visulisation import plot_tag_performance
 
 BEST_MODEL_P = "labF/keepKey_200/model/"
 
@@ -29,9 +30,6 @@ def add_training(
     indices = df["ID"].to_list()
     sampled_cases = load_json(unlabelled_p)
     add_texts = [sampled_cases[idx] for idx in indices]
-
-    mlb = MultiLabelBinarizer()
-    mlb.fit(ds.y_tags)
     y_true_ = df["eval"].map(lambda x: x.split(", ")).to_list()
 
     ds.x_train_dict = ds.x_train_dict + add_texts

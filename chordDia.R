@@ -10,6 +10,8 @@ colnames(mat) = rownames(mat)
 
 grid_col = rand_color(21, transparency = 0.5)
 
+names(grid_col) = rownames(mat)
+
 pdf(file = "e://chord.pdf", width=10, height=10)
 par(cex = 1, mar = c(0, 0, 0, 0))
 chordDiagram(t(mat), annotationTrack = "grid",symmetric = TRUE, grid.col=grid_col, row.col=grid_col,

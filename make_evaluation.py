@@ -1,5 +1,5 @@
-from tagc.visulisation import state_plot
-from tagc.model import StandaloneModel, label_output
+from sklearn.preprocessing import MultiLabelBinarizer
+
 from tagc.io_utils import (
     build_eval_json,
     dump_json,
@@ -7,8 +7,9 @@ from tagc.io_utils import (
     load_datazip,
     load_json,
 )
-from sklearn.preprocessing import MultiLabelBinarizer
+from tagc.model import StandaloneModel, label_output
 from tagc.validation import dimension_reduction, get_unlabelled_state
+from tagc.visulisation import state_plot
 
 
 def form_eval(
