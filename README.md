@@ -42,6 +42,8 @@ Python Dependencies:
     !pip -q install tagc --upgrade
     !pip -q install -U kaleido
 
+*It takes about 5-10 mins.*
+
 ## Demo
 
 > The data that support the findings of this study are available on reasonable request from the corresponding author [CJVC], pending local REB and privacy office approval. The data are not publicly available because they contain information that could compromise research participant privacy/consent.
