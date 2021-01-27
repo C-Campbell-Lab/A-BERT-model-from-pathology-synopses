@@ -31,8 +31,8 @@ fig.add_trace(
         x=xc,
         y=yc,
         mode="lines",
-        marker_color="crimson",
-        line=dict(color="green", width=2),
+        marker_color="navy",
+        line=dict(color="navy", width=2),
         textposition="bottom right",
         name="Val1",
     )
@@ -60,8 +60,8 @@ fig.add_trace(
         x=x,
         y=y,
         mode="markers+text",
-        text=[f"{v:.02f}" for v in y],
-        marker_color="green",
+        text=[f"{v:.03f}" for v in y],
+        marker_color="navy",
         textposition="middle right",
         name="Pathologist1",
     )
@@ -74,7 +74,7 @@ fig.add_trace(
         x=x,
         y=y,
         mode="markers+text",
-        text=[f"{v:.02f}" for v in y],
+        text=[f"{v:.03f}" for v in y],
         marker_color="crimson",
         textposition="middle right",
         name="Pathologist2",
@@ -84,9 +84,9 @@ fig.add_trace(
 
 fig.update_layout(
     template=TEMPLATE,
-    width=1000,
-    height=600,
-    xaxis_title="Evaluation Batch",
+    width=960,
+    height=500,
+    xaxis_title="Data consumed by model",
     yaxis_title="Micro F1",
     showlegend=True,
     legend=dict(
@@ -103,6 +103,6 @@ all_f1 = [i["Cathy"]["f1"] for i in ss] + [i["Monalisa"]["f1"] for i in mm]
 mean_all = mean(all_f1)
 std_all = stdev(all_f1)
 
-
+print(len(all_f1))
 print(f"{mean_all:.03f}±{std_all:.03f}")
-fig.write_image(str(output / "acL2.pdf"))
+fig.write_image(str(output / "review_result.pdf"))

@@ -31,6 +31,7 @@ def plot_tag_stat(tag_df: pd.DataFrame):
     )
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         width=1280,
         height=600,
     )
@@ -97,6 +98,7 @@ def state_plot(df: pd.DataFrame, thresh=15):
     fig.update_yaxes(showticklabels=False)
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         legend=dict(
             orientation="h",
         ),
@@ -147,6 +149,7 @@ def plot_judge_num(j_tag_num, mode="Correct"):
     fig = go.Figure(data=data)
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         barmode="stack",
         xaxis_title="Tag Number",
         yaxis_title="Count",
@@ -191,6 +194,7 @@ def kw_plot(top_key):
     )
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         width=1280,
         height=600,
     )
@@ -267,6 +271,7 @@ def plot_summary(data):
 
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         width=1280,
         height=600,
     )
@@ -321,6 +326,7 @@ def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
     x_loc = len(performance) - 2
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         width=1280,
         height=600,
         xaxis_title="Semantic Label",
@@ -366,6 +372,7 @@ def plot_num_performance(performance_n: pd.DataFrame):
 
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         width=1280,
         height=600,
         uniformtext_minsize=11,
