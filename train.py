@@ -123,7 +123,7 @@ def make_figures(rawdata, mlb, output_p="outputsT"):
         state_df = dimension_reduction(states, "TSNE", n_components=2)
         state_df.to_csv(fn)
     fig = state_plot(state_df, 12)
-    fig.write_image(f"{output_p}/fig3a_TSNE.pdf")
+    fig.write_image(f"{output_p}/dev_tsne.pdf")
     fig.write_html(f"{output_p}/label_tsne.html")
 
     # Performance
@@ -168,7 +168,7 @@ def make_figures(rawdata, mlb, output_p="outputsT"):
                 top_key[t] = v
         dump_json(fn, top_key)
     fig = kw_plot(top_key)
-    fig.write_image(f"{output_p}/fig4_Kws.pdf")
+    fig.write_image(f"{output_p}/knockout_result.pdf")
 
 
 def kf_flow(ds: RawData, kf_out="kf_out"):
