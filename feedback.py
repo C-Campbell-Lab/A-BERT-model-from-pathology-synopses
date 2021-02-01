@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 import torch
-from eval import form_eval
+from make_evaluation import form_eval
 from sklearn.preprocessing import MultiLabelBinarizer
 
 from tagc.domain import Params
@@ -111,7 +111,7 @@ def main(
     dataset_p="stdDs.zip",
     ori_eval_p="outputsS/eval.json",
     unlabelled_p="outputsK/unlabelled.json",
-    outdir="activeM",
+    outdir="feedbackM",
     batch_size=200,
 ):
     Path(outdir).mkdir(exist_ok=True)

@@ -57,8 +57,45 @@ Python Dependencies:
 
 ### Results
 
-You can check the results in the Colab notebook above. The running time is about 10 mins.
+You can check the results in the Colab notebook above. The running time of training a model is about 10 mins.
 
 ## Instructions for use
 
+### Colab
 We recommend you follow the instructions in the Colab notebook above.
+
+### Scripts
+
+Clone this Repo and make it as the working folder (CD).
+#### Train
+
+    python3 train.py stdDs.zip --plot True --run_thresh False --train True
+#### Active learning comparison
+
+Models trained on data sampled by active learning.
+
+    python3 data_size.py labF --dataset_path stdDs.zip
+
+To run the experiments 3 times, you need to change the stdDs.zip to stdDs1.zip or stdDs2.zip and run:
+
+    python3 data_size.py labS --dataset_path stdDs1.zip
+    python3 data_size.py labT --dataset_path stdDs2.zip
+
+Models trained on data sampled by random selection
+
+    python3 data_size.py labFR --dataset_path stdRandom0.zip
+
+To run the experiments 3 times, you need to change the stdDs.zip to stdRandom1.zip or stdRandom2.zip and run:
+
+    python3 data_size.py labSR --dataset_path stdRandom1.zip
+    python3 data_size.py labTR --dataset_path stdRandom2.zip
+
+The results are in the _lab*_ folders.
+
+#### Improvement from feedback
+
+    python3 feedback.py --eval_ret [review_result] --dataset_p stdDs.zip --ori_eval_p eval.json --unlabelled_p unlabelled.json
+
+For example,
+
+    python3 feedback.py --eval_ret mona_j.csv --dataset_p stdDs.zip --ori_eval_p eval.json --unlabelled_p unlabelled.json
