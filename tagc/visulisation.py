@@ -19,7 +19,8 @@ def plot_tag_stat(tag_df: pd.DataFrame):
         sort_idx.append(i + "train")
         sort_idx.append(i + "test")
     tag_df["idx"] = tag_df["tag"] + tag_df["for"]
-    tag_df = tag_df.set_index("idx").loc[sort_idx]
+    tag_df = tag_df.set_index("idx")
+    tag_df = tag_df.loc[tag_df.index.intersection(sort_idx)]
     fig = px.bar(
         tag_df,
         x="tag",
