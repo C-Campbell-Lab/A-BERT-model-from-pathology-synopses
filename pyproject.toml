@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tagC"
-version = "0.1.3"
+version = "0.1.6"
 description = ""
 authors = ["Kiyoshi Mu <mooyewtsing@gmail.com>"]
 
@@ -16,7 +16,6 @@ requests = "^2.24.0"
 plotly = "^4.11.0"
 wheel = "^0.35.1"
 fire = "^0.3.1"
-
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

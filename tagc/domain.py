@@ -30,12 +30,10 @@ TAG = [
     "lymphoproliferative disorder",
     "mastocytosis",
     "metastatic",
-    "monocytosis",
     "myelodysplastic syndrome",
     "myeloproliferative neoplasm",
     "normal",
     "plasma cell neoplasm",
-    "red cell aplasia",
 ]
 
 try:

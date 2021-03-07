@@ -1,3 +1,4 @@
+"""Data Transformation and Utility"""
 import random
 from collections import Counter, defaultdict
 from itertools import chain
@@ -147,12 +148,26 @@ def load_labelled_cases(path):
     return labelled_cases
 
 
-def train_test_split(x, y, test_size=0.2):
+def train_test_split(x, y, test_size=0.2, train_first=True):
+    if train_first:
+        train_idx, test_idx = _train_first_split(y, test_size)
+    else:
+        train_idx, test_idx = _test_first_split(y, test_size)
+    return (
+        [x[idx] for idx in train_idx],
+        [x[idx] for idx in test_idx],
+        [y[idx] for idx in train_idx],
+        [y[idx] for idx in test_idx],
+    )
+
+
+def _train_first_split(y, test_size):
     tag_stat = count_tags(y)
     keep_tags = get_rare_tags(tag_stat)
     train_idx = []
     test_idx = []
     left_idx = []
+    # active learning period -> train_first
     for idx, tags in enumerate(y):
         if any(tag in keep_tags for tag in tags):
             train_idx.append(idx)
@@ -162,12 +177,35 @@ def train_test_split(x, y, test_size=0.2):
     bin_point = round(test_size * len(left_idx))
     train_idx.extend(left_idx[bin_point:])
     test_idx.extend(left_idx[:bin_point])
-    return (
-        [x[idx] for idx in train_idx],
-        [x[idx] for idx in test_idx],
-        [y[idx] for idx in train_idx],
-        [y[idx] for idx in test_idx],
-    )
+    return train_idx, test_idx
+
+
+def _test_first_split(y, test_size):
+    # evaluation learning period -> test_first
+    tag_stat = count_tags(y)
+    keep_tags = get_rare_tags(tag_stat)
+    keep_tag_dict = {tag: 0 for tag in keep_tags}
+    train_idx = []
+    test_idx = []
+    left_idx = []
+    for idx, tags in enumerate(y):
+        if any(tag in keep_tag_dict for tag in tags):
+            test_idx.append(idx)
+            for tag in tags:
+                # make sure at least 3 cases are in test for each rare labels
+                try:
+                    keep_tag_dict[tag] += 1
+                    if keep_tag_dict[tag] > 3:
+                        del keep_tag_dict[tag]
+                except KeyError:
+                    pass
+        else:
+            left_idx.append(idx)
+    random.shuffle(left_idx)
+    bin_point = round(test_size * len(left_idx))
+    train_idx.extend(left_idx[bin_point:])
+    test_idx.extend(left_idx[:bin_point])
+    return train_idx, test_idx
 
 
 def get_rare_tags(tag_count: dict, thresh=1):
@@ -206,9 +244,6 @@ def rawdata_stat(rawdata: RawData):
     print(f"Training Size: {len(rawdata.y_train_tags)}")
     print(f"Test Size: {len(rawdata.y_test_tags)}")
     print(f"Train Tag Number: {len(train_counter)}")
-    # assert len(train_counter) == len(
-    #     count_tags(rawdata.y_tags)
-    # ), "Splitting is not right"
     print(f"Test Tag Number: {len(test_counter)}")
 
     train_tag_df = counter_to_df(train_counter)

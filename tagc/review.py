@@ -1,9 +1,10 @@
+"""Active learning: CRL sampling implementation"""
+
 import random
 from typing import Dict, List
 
 from . import data_utils, io_utils
 from .domain import LabelledCase, Labels, Mlb
-from .model import StandaloneModel
 
 random.seed(42)
 
@@ -25,7 +26,7 @@ def edit_review(old_cases: List[LabelledCase], reviews: List[LabelledCase]):
     return cases_copy
 
 
-def review_pipe(datazip_path: str, review_path: str):
+def review_pipe(datazip_path: str, review_path: str, return_xy=False):
     raw_data = io_utils.load_datazip(datazip_path)
     x = raw_data.x_dict
     y = raw_data.y_tags
@@ -33,12 +34,14 @@ def review_pipe(datazip_path: str, review_path: str):
     reviews = data_utils.load_labelled_cases(review_path)
     reviewed = edit_review(labelled_cases, reviews)
     new_x, new_y = data_utils.labelled_cases_to_xy(reviewed)
+    if return_xy:
+        return new_x, new_y
     zipname = data_utils.split_and_dump_dataset(new_x, new_y)
     return zipname
 
 
 def enrich(
-    model: StandaloneModel,
+    model,
     mlb: Mlb,
     all_cases,
     labelled_cases: List[LabelledCase],
