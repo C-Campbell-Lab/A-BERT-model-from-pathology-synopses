@@ -128,14 +128,15 @@ def xy_to_labelled_cases(x, y) -> List[LabelledCase]:
     return [LabelledCase(text, tag) for text, tag in zip(x, y)]
 
 
-def split_and_dump_dataset(x, y, test_size=0.2):
+def split_and_dump_dataset(x, y, test_size=0.2, train_first=True, output=None) -> str:
     x_train_dict, x_test_dict, y_train_tags, y_test_tags = train_test_split(
-        x, y, test_size=test_size
+        x, y, test_size=test_size, train_first=train_first
     )
     rd = RawData(x, y, x_train_dict, y_train_tags, x_test_dict, y_test_tags)
-    zip_name = f"dataset{get_timestamp()}.zip"
-    dump_datazip(rd, zip_name)
-    return zip_name
+    if output is None:
+        output = f"dataset{get_timestamp()}.zip"
+    dump_datazip(rd, output)
+    return output
 
 
 def load_labelled_cases(path):
@@ -168,7 +169,10 @@ def _train_first_split(y, test_size):
     test_idx = []
     left_idx = []
     # active learning period -> train_first
-    for idx, tags in enumerate(y):
+    indices = list(range(len(y)))
+    random.shuffle(indices)
+    for idx in indices:
+        tags = y[idx]
         if any(tag in keep_tags for tag in tags):
             train_idx.append(idx)
         else:
@@ -183,19 +187,23 @@ def _train_first_split(y, test_size):
 def _test_first_split(y, test_size):
     # evaluation learning period -> test_first
     tag_stat = count_tags(y)
-    keep_tags = get_rare_tags(tag_stat)
-    keep_tag_dict = {tag: 0 for tag in keep_tags}
+    keep_tag_dict = {tag: 0 for tag in tag_stat.keys()}
     train_idx = []
     test_idx = []
     left_idx = []
-    for idx, tags in enumerate(y):
+    min_test_case = round(min(tag_stat.values()) * test_size)
+    print(f"min_test_case: {min_test_case}")
+    indices = list(range(len(y)))
+    random.shuffle(indices)
+    for idx in indices:
+        tags = y[idx]
         if any(tag in keep_tag_dict for tag in tags):
             test_idx.append(idx)
             for tag in tags:
-                # make sure at least 3 cases are in test for each rare labels
+                # make sure at least test_size cases are in test for each labels
                 try:
                     keep_tag_dict[tag] += 1
-                    if keep_tag_dict[tag] > 3:
+                    if keep_tag_dict[tag] >= min_test_case:
                         del keep_tag_dict[tag]
                 except KeyError:
                     pass

@@ -9,7 +9,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from tqdm.autonotebook import tqdm
 
 from .data_utils import count_tags
-from .domain import THRESH, Case, Mask, MaskedParent, MaskRet, Trace
+from .domain import Case, Mask, MaskedParent, MaskRet, Trace, get_thresh
 from .model import StandaloneModel, label_output
 
 
@@ -37,7 +37,7 @@ class MaskExplainer:
         else:
             self.mask_maker = mask_maker
         self.mlb = mlb
-        self.thresh = THRESH if thresh is None else thresh
+        self.thresh = get_thresh() if thresh is None else thresh
 
     def explain(self, model: StandaloneModel, case: Case):
         origin_output = model.predict([case], tqdm_disable=True)

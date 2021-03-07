@@ -1,12 +1,12 @@
 from collections import Counter, defaultdict
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.figure_factory as ff
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.validators.scatter.marker import SymbolValidator
-import numpy as np
-import plotly.figure_factory as ff
 from sklearn.preprocessing import normalize
 
 TEMPLATE = "plotly_white"
@@ -20,7 +20,8 @@ def plot_tag_stat(tag_df: pd.DataFrame):
         sort_idx.append(i + "test")
     tag_df["idx"] = tag_df["tag"] + tag_df["for"]
     tag_df = tag_df.set_index("idx")
-    tag_df = tag_df.loc[tag_df.index.intersection(sort_idx)]
+    sort_idx = [idx for idx in sort_idx if idx in tag_df.index]
+    tag_df = tag_df.loc[sort_idx]
     fig = px.bar(
         tag_df,
         x="tag",

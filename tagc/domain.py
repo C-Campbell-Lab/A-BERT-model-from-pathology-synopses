@@ -36,13 +36,16 @@ TAG = [
     "plasma cell neoplasm",
 ]
 
-try:
-    with open("thresh.json") as target:
-        print("Use thresh.json")
-        THRESH = json.load(target)
-except FileNotFoundError:
-    print("Use 0.5 Threshold")
-THRESH = 0.5
+
+def get_thresh():
+    try:
+        with open("thresh.json") as target:
+            print("Use thresh.json")
+            THRESH = json.load(target)
+    except FileNotFoundError:
+        print("Use 0.5 Threshold")
+    THRESH = 0.5
+    return THRESH
 
 
 @dataclass

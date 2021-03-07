@@ -12,13 +12,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from data_size import size_effect
 from tagc import data_utils
 from tagc.cal_thresh import analysis_kf
-from tagc.data_utils import (
-    count_tags,
-    labelled_cases_to_xy,
-    load_labelled_cases,
-    rawdata_stat,
-    split_and_dump_dataset,
-)
+from tagc.data_utils import count_tags, rawdata_stat
 from tagc.domain import Params, RawData
 from tagc.io_utils import (
     build_eval_json,
@@ -204,9 +198,6 @@ def main(
     run_thresh=False,
     output_p="outputsS",
 ):
-    if dataset_path.endswith(".json"):
-        json_data = load_labelled_cases(dataset_path)
-        dataset_path = split_and_dump_dataset(*labelled_cases_to_xy(json_data))
     ds = load_datazip(dataset_path)
     mlb = MultiLabelBinarizer().fit(ds.y_tags)
     os.makedirs(f"{output_p}", exist_ok=True)
