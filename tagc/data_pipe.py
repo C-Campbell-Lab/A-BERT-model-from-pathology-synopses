@@ -93,16 +93,16 @@ def make_history_df(history, sizes):
 
 def dataset_split(final_dsp, dst="."):
     ds = load_datazip(final_dsp)
-    std_dsps = []
+    standard_dsps = []
     for i in range(3):
-        output = f"{dst}/stdDs{i}.zip"
+        output = f"{dst}/standardDs{i}.zip"
         split_and_dump_dataset(ds.x_dict, ds.y_tags, train_first=False, output=output)
-        std_dsps.append(output)
-    return std_dsps
+        standard_dsps.append(output)
+    return standard_dsps
 
 
 def form_random_ds(
-    std_dsps: List[str],
+    standard_dsps: List[str],
     eval_ret="mona_j.csv",
     unlabelled_p="unlabelled.json",
     outdir=".",
@@ -112,7 +112,8 @@ def form_random_ds(
     sampled_cases = load_json(unlabelled_p)
     add_text = [sampled_cases[idx] for idx in indices]
     y_true_ = df["eval"].map(lambda x: x.split(", ")).to_list()
-    for i, base_path in enumerate(std_dsps):
+    dsps = []
+    for i, base_path in enumerate(standard_dsps):
         ds = load_datazip(base_path)
         random_idx = random.sample(list(range(len(indices))), 400)
         x_train_dict = [add_text[idx] for idx in random_idx]
@@ -122,5 +123,7 @@ def form_random_ds(
         ds.x_dict = x_train_dict + ds.x_test_dict
         ds.y_tags = y_train_tags + ds.y_test_tags
 
-        dsp = dump_datazip(ds, f"{outdir}/stdRandom{i}.zip")
+        dsp = dump_datazip(ds, f"{outdir}/randomDs{i}.zip")
+        dsps.append(dsp)
         print(dsp)
+    return dsps

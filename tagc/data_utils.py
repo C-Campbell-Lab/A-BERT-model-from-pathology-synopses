@@ -163,13 +163,13 @@ def train_test_split(x, y, test_size=0.2, train_first=True):
 
 
 def _train_first_split(y, test_size):
+    data_size = len(y)
     tag_stat = count_tags(y)
     keep_tags = get_rare_tags(tag_stat)
     train_idx = []
-    test_idx = []
     left_idx = []
     # active learning period -> train_first
-    indices = list(range(len(y)))
+    indices = list(range(data_size))
     random.shuffle(indices)
     for idx in indices:
         tags = y[idx]
@@ -178,22 +178,22 @@ def _train_first_split(y, test_size):
         else:
             left_idx.append(idx)
     random.shuffle(left_idx)
-    bin_point = round(test_size * len(left_idx))
+    bin_point = round(test_size * data_size)
+    test_idx = left_idx[:bin_point]
     train_idx.extend(left_idx[bin_point:])
-    test_idx.extend(left_idx[:bin_point])
     return train_idx, test_idx
 
 
 def _test_first_split(y, test_size):
     # evaluation learning period -> test_first
+    data_size = len(y)
     tag_stat = count_tags(y)
     keep_tag_dict = {tag: 0 for tag in tag_stat.keys()}
-    train_idx = []
     test_idx = []
     left_idx = []
     min_test_case = round(min(tag_stat.values()) * test_size)
     print(f"min_test_case: {min_test_case}")
-    indices = list(range(len(y)))
+    indices = list(range(data_size))
     random.shuffle(indices)
     for idx in indices:
         tags = y[idx]
@@ -210,9 +210,9 @@ def _test_first_split(y, test_size):
         else:
             left_idx.append(idx)
     random.shuffle(left_idx)
-    bin_point = round(test_size * len(left_idx))
-    train_idx.extend(left_idx[bin_point:])
-    test_idx.extend(left_idx[:bin_point])
+    bin_point = round((1 - test_size) * data_size)
+    train_idx = left_idx[:bin_point]
+    test_idx.extend(left_idx[bin_point:])
     return train_idx, test_idx
 
 
