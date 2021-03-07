@@ -6,13 +6,11 @@ from copy import copy
 import torch
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from tagc.data_utils import rawdata_stat
 from tagc.domain import Params
-from tagc.io_utils import dump_json, load_datazip
+from tagc.io_utils import load_datazip
 from tagc.model import StandaloneModel
 from tagc.train import Pipeline
-from tagc.validation import judge_on_tag, summary
-from tagc.visulisation import plot_tag_performance, plot_tag_stat
+from tagc.validation import eval_model
 
 
 def run_exp(output_p, metrics_only=True, over=5):
@@ -73,29 +71,6 @@ def size_effect(
         gc.collect()
         with torch.no_grad():
             torch.cuda.empty_cache()
-
-
-def eval_model(model, ds, over, mlb, output_p, marker):
-    tag_stat = rawdata_stat(ds)
-    tag_stat.to_csv(f"{output_p}/{marker}_{over}_data_stat.csv")
-    fig = plot_tag_stat(tag_stat)
-    fig.update_layout(
-        width=1280,
-        height=600,
-    )
-    fig.write_image(f"{output_p}/{marker}_{over}_data_stat.pdf")
-    performance, metric, pred_tags = judge_on_tag(model, mlb, ds, n=over)
-    dump_json(f"{output_p}/{marker}_{over}_overall.json", metric)
-    performance.to_csv(f"{output_p}/{marker}_{over}_Perf_tag.csv")
-    fig = plot_tag_performance(performance, metric, auc=False)
-    fig.write_image(f"{output_p}/{marker}_{over}_Perf_tag.pdf")
-
-    _, _, _, df = summary(
-        ds.x_test_dict,
-        ds.y_test_tags,
-        pred_tags,
-    )
-    df.to_csv(f"{output_p}/{marker}_{over}_summary.csv")
 
 
 def slice_dataset(ds, size):

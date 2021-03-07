@@ -12,8 +12,7 @@ from tagc.evaluation import continue_eval, form_pred
 from tagc.io_utils import dump_datazip, dump_json, load_datazip, load_json
 from tagc.model import Classification, StandaloneModel
 from tagc.train import Pipeline
-from tagc.validation import judge_on_tag
-from tagc.visulisation import plot_tag_performance
+from tagc.validation import eval_model
 
 
 class ContinueTrainer:
@@ -117,16 +116,15 @@ class ContinueTrainer:
             marker=str(idx_marker),
             skip_state=True,
         )
-
-        performance, metric, _ = judge_on_tag(
-            standalone_model, pipeline.mlb, rawdata, n=over
+        eval_model(
+            standalone_model,
+            rawdata,
+            over,
+            pipeline.mlb,
+            outdir,
+            len(rawdata.x_train_dict),
         )
-        dump_json(f"{outdir}/{over}_overall{idx_marker}.json", metric)
-        performance.to_csv(f"{outdir}/{over}_Perf_tag{idx_marker}.csv")
-        fig = plot_tag_performance(performance, metric, auc=True)
-        fig.write_image(f"{outdir}/{over}_Perf_tag_auc{idx_marker}.pdf")
-        fig = plot_tag_performance(performance, metric, auc=False)
-        fig.write_image(f"{outdir}/{over}_Perf_tag_f1{idx_marker}.pdf")
+
         del pipeline
         del standalone_model
         shutil.rmtree(model_p)

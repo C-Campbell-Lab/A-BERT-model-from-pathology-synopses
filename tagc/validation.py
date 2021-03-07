@@ -7,9 +7,34 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import numpy as np
 
-from .data_utils import count_tags
+from .data_utils import count_tags, rawdata_stat
+from .io_utils import dump_json
 from .domain import Mlb, RawData, States
 from .model import StandaloneModel, label_output
+from .visulisation import plot_tag_performance, plot_tag_stat
+
+
+def eval_model(model, ds, repeat, mlb, output_p, marker):
+    tag_stat = rawdata_stat(ds)
+    tag_stat.to_csv(f"{output_p}/{marker}_{repeat}_data_stat.csv")
+    fig = plot_tag_stat(tag_stat)
+    fig.update_layout(
+        width=1280,
+        height=600,
+    )
+    fig.write_image(f"{output_p}/{marker}_{repeat}_data_stat.pdf")
+    performance, metric, pred_tags = judge_on_tag(model, mlb, ds, n=repeat)
+    dump_json(f"{output_p}/{marker}_{repeat}_overall.json", metric)
+    performance.to_csv(f"{output_p}/{marker}_{repeat}_Perf_tag.csv")
+    fig = plot_tag_performance(performance, metric, auc=False)
+    fig.write_image(f"{output_p}/{marker}_{repeat}_Perf_tag.pdf")
+
+    _, _, _, df = summary(
+        ds.x_test_dict,
+        ds.y_test_tags,
+        pred_tags,
+    )
+    df.to_csv(f"{output_p}/{marker}_{repeat}_summary.csv")
 
 
 def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb, thresh=None):
