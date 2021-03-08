@@ -31,24 +31,24 @@ together {
      Field B: Description B."
 }
 
-together {
-card text_ori_no as "Description A. Description B.
- Description C."
-card text_aug_no as "Description C. Description A.
- Description B."
-}
+' together {
+' card text_ori_no as "Description A. Description B.
+'  Description C."
+' card text_aug_no as "Description C. Description A.
+'  Description B."
+' }
 
-origin -r-> aug : "randomly shuffle the order of fields with their descriptions"
-
-
-origin -d-> text_ori : "With fields"
-
-aug -d-> text_aug : "With fields"
+origin -r-> aug : "Randomly shuffle the order of fields with their descriptions"
 
 
-origin -d-> text_ori_no : "Without field"
+origin -d-> text_ori : "Convert into a text string"
 
-aug -d-> text_aug_no : "Without field"
+aug -d-> text_aug : "Convert into a text string"
+
+
+' origin -d-> text_ori_no : "Without field"
+
+' aug -d-> text_aug_no : "Without field"
 
 ' text_ori -[hidden]-> text_ori_no
 ' text_aug -[hidden]-> text_aug_no

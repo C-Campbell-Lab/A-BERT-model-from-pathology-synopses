@@ -33,7 +33,7 @@ from tagc.validation import (
     judge_on_tag,
     summary,
 )
-from tagc.visulisation import (
+from tagc.visualization import (
     kw_plot,
     plot_num_performance,
     plot_summary,

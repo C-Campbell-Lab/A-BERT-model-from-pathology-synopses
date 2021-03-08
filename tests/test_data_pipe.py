@@ -4,10 +4,10 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from tagc.data_pipe import dataset_split, make_history_df, replay_ac, form_random_ds
+from tagc.data_pipe import dataset_split, form_random_ds, make_history_df, replay_ac
 from tagc.data_utils import rawdata_stat
 from tagc.io_utils import load_datazip
-from tagc.visulisation import plot_tag_stat
+from tagc.visualization import plot_tag_stat
 
 
 @pytest.mark.skip
@@ -42,7 +42,7 @@ def final_dsp():
     return final_dsp_
 
 
-# @pytest.mark.skip
+@pytest.mark.skip
 def test_split(final_dsp):
     dst = "out/standard"
     dsps = dataset_split(final_dsp, dst)
@@ -56,6 +56,7 @@ def test_split(final_dsp):
         assert len(rawdata.y_test_tags) == 100
 
 
+@pytest.mark.skip
 def test_random_ds():
     standard_dsps = [f"out/standard/standardDs{idx}.zip" for idx in range(3)]
     eval_ret = "data/evaluation/mona_j.csv"

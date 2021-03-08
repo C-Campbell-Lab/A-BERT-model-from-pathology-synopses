@@ -106,6 +106,7 @@ def form_random_ds(
     eval_ret="mona_j.csv",
     unlabelled_p="unlabelled.json",
     outdir=".",
+    train_size=400,
 ):
     df = pd.read_csv(eval_ret).drop_duplicates(subset=["ID", "Judge"], keep="last")
     indices = df["ID"].to_list()
@@ -115,7 +116,7 @@ def form_random_ds(
     dsps = []
     for i, base_path in enumerate(standard_dsps):
         ds = load_datazip(base_path)
-        random_idx = random.sample(list(range(len(indices))), 400)
+        random_idx = random.sample(list(range(len(indices))), train_size)
         x_train_dict = [add_text[idx] for idx in random_idx]
         y_train_tags = [y_true_[idx] for idx in random_idx]
         ds.x_train_dict = x_train_dict

@@ -1,17 +1,17 @@
 from collections import Counter, defaultdict
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 from sklearn import metrics
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
-import numpy as np
 
 from .data_utils import count_tags, rawdata_stat
-from .io_utils import dump_json
 from .domain import Mlb, RawData, States
+from .io_utils import dump_json
 from .model import StandaloneModel, label_output
-from .visulisation import plot_tag_performance, plot_tag_stat
+from .visualization import plot_tag_performance, plot_tag_stat
 
 
 def eval_model(model, ds, repeat, mlb, output_p, marker):

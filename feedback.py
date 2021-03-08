@@ -4,9 +4,9 @@ from pathlib import Path
 
 import pandas as pd
 import torch
-from make_evaluation import form_eval
 from sklearn.preprocessing import MultiLabelBinarizer
 
+from make_evaluation import form_eval
 from tagc.domain import Params
 from tagc.evaluation import continue_eval, form_pred
 from tagc.io_utils import dump_datazip, dump_json, load_datazip, load_json
@@ -32,7 +32,7 @@ class ContinueTrainer:
         self.unlabelled_p = unlabelled_p
         self.outdir = outdir
 
-        Path(self.outdir).mkdir(exist_ok=True)
+        Path(self.outdir).mkdir(exist_ok=True, parents=True)
         shutil.copyfile(self.dataset_p, f"{outdir}/dataset0.zip")
         shutil.copyfile(self.ori_eval_p, f"{outdir}/eval0.json")
         self.ds = load_datazip(self.dataset_p)
@@ -107,7 +107,6 @@ class ContinueTrainer:
         pipeline.model = Classification.from_pretrained(self.init_model_p)
         model_p = f"{outdir}/model"
         pipeline.train(output_dir=model_p)
-        pipeline.trainer.save_model(f"{outdir}/model{idx_marker}")
         standalone_model = StandaloneModel(pipeline.model, max_len=150, keep_key=True)
         form_eval(
             standalone_model,
@@ -122,7 +121,7 @@ class ContinueTrainer:
             over,
             pipeline.mlb,
             outdir,
-            len(rawdata.x_train_dict),
+            idx_marker,
         )
 
         del pipeline
@@ -138,9 +137,9 @@ def main(
     eval_ret="mona_j.csv",
     dataset_p="stdDs.zip",
     ori_eval_p="outputsS/eval.json",
-    unlabelled_p="outputsK/unlabelled.json",
+    unlabelled_p="outputsS/unlabelled.json",
     outdir="feedbackM",
-    batch_size=200,
+    batch_size=100,
 ):
     trainer = ContinueTrainer(
         init_model_p,

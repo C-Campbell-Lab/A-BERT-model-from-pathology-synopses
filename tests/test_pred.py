@@ -1,8 +1,11 @@
-from tagc.model import StandaloneModel
-from tagc.io_utils import build_eval_json, load_datazip, load_json
+import pytest
 from sklearn.preprocessing import MultiLabelBinarizer
 
+from tagc.io_utils import build_eval_json, load_datazip, load_json
+from tagc.model import StandaloneModel
 
+
+@pytest.mark.skip
 def test_prediction():
     model = StandaloneModel.from_path("TagModel", keep_key=False, max_len=100)
     cases = load_json("data/eval.json")

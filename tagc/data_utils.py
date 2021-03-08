@@ -14,7 +14,7 @@ from .io_utils import dump_datazip, get_timestamp, load_json
 random.seed(42)
 
 
-def compose(case: dict, keep_key=False, shuffle=False) -> str:
+def compose(case: dict, keep_key=True, shuffle=False) -> str:
     if keep_key:
         tmp = [f"{k}: {v}" for k, v in case.items()]
     else:
@@ -22,6 +22,35 @@ def compose(case: dict, keep_key=False, shuffle=False) -> str:
     if shuffle:
         random.shuffle(tmp)
     return " ".join(tmp)
+
+
+def upsampling(x: list, y: list, keep_key=True, target=100):
+    new_x: List[str] = []
+    new_y = []
+    group_by_idx = grouping_idx(y)
+    if target < 0:
+        shuffle = False
+        data_size = len(group_by_idx) * abs(target)
+        while len(new_x) < data_size:
+            new_x.extend(
+                map(lambda case: compose(case, keep_key=keep_key, shuffle=shuffle), x)
+            )
+            new_y.extend(y)
+        new_x = new_x[:data_size]
+        new_y = new_y[:data_size]
+    else:
+        shuffle = True
+        size = target
+        for group_idx in group_by_idx.values():
+            upsample_idx = random.choices(group_idx, k=size)
+            new_x.extend(
+                map(
+                    lambda idx: compose(x[idx], keep_key=keep_key, shuffle=shuffle),
+                    upsample_idx,
+                )
+            )
+            new_y.extend(map(lambda idx: y[idx], upsample_idx))
+    return new_x, new_y
 
 
 def grouping_idx(y) -> Dict[str, list]:

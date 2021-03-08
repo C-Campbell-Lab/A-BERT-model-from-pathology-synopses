@@ -9,7 +9,7 @@ from tagc.io_utils import (
 )
 from tagc.model import StandaloneModel, label_output
 from tagc.validation import dimension_reduction, get_unlabelled_state
-from tagc.visulisation import state_plot
+from tagc.visualization import state_plot
 
 
 def form_eval(
