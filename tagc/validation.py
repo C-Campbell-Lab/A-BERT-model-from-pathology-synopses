@@ -11,7 +11,12 @@ from .data_utils import count_tags, rawdata_stat
 from .domain import Mlb, RawData, States
 from .io_utils import dump_json
 from .model import StandaloneModel, label_output
-from .visualization import plot_tag_performance, plot_tag_stat
+from .visualization import (
+    plot_num_performance,
+    plot_summary,
+    plot_tag_performance,
+    plot_tag_stat,
+)
 
 
 def eval_model(model, ds, repeat, mlb, output_p, marker):
@@ -29,13 +34,27 @@ def eval_model(model, ds, repeat, mlb, output_p, marker):
     fig = plot_tag_performance(performance, metric, auc=False)
     fig.write_image(f"{output_p}/{marker}_{repeat}_Perf_tag.pdf")
 
-    example, judge_count, data, df = summary(
+    examples, judge_count, data, df = summary(
         ds.x_test_dict,
         ds.y_test_tags,
         pred_tags,
     )
     df.to_csv(f"{output_p}/{marker}_{repeat}_summary.csv")
-    return example, judge_count, data, df
+    return examples, judge_count, data, df
+
+
+def extra_summary_suite(examples, data, df, output_p):
+    df.to_csv(f"{output_p}/summary.csv")
+    fig = plot_summary(data)
+    fig.write_image(f"{output_p}/fig3b_Pie.pdf")
+    performance_summary = judge_on_summary(df)
+    fig = plot_num_performance(performance_summary)
+    fig.write_image(f"{output_p}/fig3c_Perf_sum.pdf")
+    review = []
+    for case, pred_tag, true_tag, judge in examples:
+        if "Label" in judge:
+            review.append({"text": case, "pred_tag": pred_tag, "tag": true_tag})
+    dump_json(f"{output_p}/review.json", review)
 
 
 def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb, thresh=None):

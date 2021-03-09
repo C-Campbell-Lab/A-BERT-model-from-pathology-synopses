@@ -1,5 +1,6 @@
 from pathlib import Path
 from collections import defaultdict
+from tagc.evaluation import expert_eval, form_pred
 from zipfile import ZipFile
 from tagc.io_utils import load_json, dump_json
 
@@ -46,6 +47,14 @@ def collect_perf():
     zip_name = "collect_perf.zip"
     with ZipFile(zip_name, "w") as zipFile:
         _copy_csv(zipFile, collector)
+
+
+def collect_expert_eval(outdir):
+    exp_eval_csvs = ()
+    pred_jsons = ()
+    for exp_eval_csv, pred_json in zip(exp_eval_csvs, pred_jsons):
+        eval_over = expert_eval(exp_eval_csv, form_pred(pred_json))
+        dump_json(f"{outdir}/eval_over.json", eval_over)
 
 
 def _copy_csv(zipFile, collector):

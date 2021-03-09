@@ -8,7 +8,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 
 from make_evaluation import form_eval
 from tagc.domain import Params
-from tagc.evaluation import continue_eval, form_pred
+from tagc.evaluation import expert_eval, form_pred
 from tagc.io_utils import dump_datazip, dump_json, load_datazip, load_json
 from tagc.model import Classification, StandaloneModel
 from tagc.train import Pipeline
@@ -56,7 +56,7 @@ class ContinueTrainer:
 
     def _step(self, batch_eval_p, base_path, eval_json, idx_marker):
         outdir = self.outdir
-        eval_over = continue_eval(batch_eval_p, form_pred(eval_json))
+        eval_over = expert_eval(batch_eval_p, form_pred(eval_json))
         dump_json(f"{outdir}/eval_over{idx_marker}.json", eval_over)
         ds = self._add_training(
             batch_eval_p,
@@ -64,7 +64,7 @@ class ContinueTrainer:
             idx_marker=idx_marker,
         )
         self._continue_train(ds, idx_marker=idx_marker)
-        eval_over = continue_eval(
+        eval_over = expert_eval(
             batch_eval_p, form_pred(f"{outdir}/eval{idx_marker}.json")
         )
         dump_json(f"{outdir}/eval_over_after{idx_marker}.json", eval_over)

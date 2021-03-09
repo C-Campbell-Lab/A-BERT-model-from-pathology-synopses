@@ -6,10 +6,9 @@ from typing import List
 from tagc.io_utils import load_json
 
 
-def continue_eval(sheet_csv, y_pred_: List[list] = None):
+def expert_eval(sheet_csv, y_pred_: List[list] = None):
     p_df = pd.read_csv(sheet_csv).drop_duplicates(subset=["ID", "Judge"], keep="last")
     mlb = MultiLabelBinarizer()
-    # mlb.fit(p_df["eval"].map(lambda x: x.split(", ")).tolist())
     mlb.fit(y_pred_)
     p_df = p_df.groupby("Judge").agg(list)
     out = {}
@@ -49,5 +48,5 @@ if __name__ == "__main__":
     base = "E:/Coding/scholar/continue"
     sheet_csv = join(".", "prediction judgement - Sheet1.csv")
     print(
-        continue_eval(sheet_csv, form_pred("E:\\outputsS\\outputsS\\eval.json")),
+        expert_eval(sheet_csv, form_pred("E:\\outputsS\\outputsS\\eval.json")),
     )
