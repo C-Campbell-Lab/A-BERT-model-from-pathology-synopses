@@ -1,15 +1,18 @@
 import random
 from itertools import accumulate
+from tagc.cleaner import Cleaner, has_content
 from typing import List
 
 import pandas as pd
 
 from tagc.data_utils import (
+    cases_minus,
     count_tags,
     labelled_cases_to_xy,
     load_labelled_cases,
     split_and_dump_dataset,
     train_test_split,
+    unwrap_labelled_cases,
 )
 from tagc.domain import RawData
 from tagc.io_utils import dump_datazip, load_datazip, load_json
@@ -18,7 +21,39 @@ from tagc.review import review_pipe
 random.seed(42)
 
 
-def clean(x_dict, y_tags):
+def xlsx_to_cases(xlsx_p):
+    raw_data = pd.read_excel(xlsx_p, engine="openpyxl")
+    need_fileted = raw_data.loc[
+        ~(raw_data["BM Aspirate Results"].isna() | raw_data["BM ASP Number"].isna())
+    ]
+    need_fileted = need_fileted.loc[
+        need_fileted["BMB Number"].str.contains("H")
+        & need_fileted["BM ASP Number"].str.strip().str.endswith("R")
+    ]
+    raw_sents = []
+    for row in need_fileted.iterrows():
+        text = row[1]["BM Aspirate Results"]
+        raw_sents.append(text)
+    cleaner = Cleaner()
+    cases = list(filter(has_content, map(cleaner.parse_aspirate_result, raw_sents)))
+    return cases
+
+
+def sample_evaluation_from_path(cases_p, dsp):
+    all_cases = load_json(cases_p)
+    dataset = load_datazip(dsp)
+    return sample_evaluation(all_cases, dataset)
+
+
+def sample_evaluation(cases, dataset):
+    known_cases, _ = unwrap_labelled_cases(dataset.to_labelled_cases())
+    unlabelled_cases = cases_minus(cases, known_cases)
+    k = 1000
+    sampled_cases = random.sample(unlabelled_cases, k)
+    return sampled_cases
+
+
+def sanity_check(x_dict, y_tags):
     content = sorted(
         (("".join(v.values()), idx) for idx, v in enumerate(x_dict)),
         key=lambda x: x[0],
@@ -56,12 +91,12 @@ def replay_ac(ac_data_ps: List[str], dst="."):
     sizes = []
     dsps = []
     start = load_labelled_cases(ac_data_ps[0])
-    ds = clean(*labelled_cases_to_xy(start))
+    ds = sanity_check(*labelled_cases_to_xy(start))
     dsp = dump_datazip(ds, f"{dst}/data0.zip")
     sizes.append(len(ds.x_dict))
     history.append(count_tags(ds.y_tags).keys())
     for idx, target in enumerate(ac_data_ps[1:], 1):
-        ds = clean(*review_pipe(dsp, target, return_xy=True))
+        ds = sanity_check(*review_pipe(dsp, target, return_xy=True))
         dsp = dump_datazip(ds, f"{dst}/data{idx}.zip")
         dsps.append(dsp)
         sizes.append(len(ds.x_dict))

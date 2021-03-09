@@ -29,12 +29,13 @@ def eval_model(model, ds, repeat, mlb, output_p, marker):
     fig = plot_tag_performance(performance, metric, auc=False)
     fig.write_image(f"{output_p}/{marker}_{repeat}_Perf_tag.pdf")
 
-    _, _, _, df = summary(
+    example, judge_count, data, df = summary(
         ds.x_test_dict,
         ds.y_test_tags,
         pred_tags,
     )
     df.to_csv(f"{output_p}/{marker}_{repeat}_summary.csv")
+    return example, judge_count, data, df
 
 
 def get_unlabelled_state(model: StandaloneModel, cases: list, mlb: Mlb, thresh=None):

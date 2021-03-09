@@ -40,9 +40,8 @@ def upsampling(x: list, y: list, keep_key=True, target=100):
         new_y = new_y[:data_size]
     else:
         shuffle = True
-        size = target
         for group_idx in group_by_idx.values():
-            upsample_idx = random.choices(group_idx, k=size)
+            upsample_idx = random.choices(group_idx, k=target)
             new_x.extend(
                 map(
                     lambda idx: compose(x[idx], keep_key=keep_key, shuffle=shuffle),

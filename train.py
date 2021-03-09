@@ -1,22 +1,17 @@
 import gc
 import os
 import random
-from copy import copy
-from os.path import join
+from tagc.data_pipe import sample_evaluation
 
 import pandas as pd
 import torch
-from sklearn.model_selection import KFold
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from data_size import size_effect
-from tagc import data_utils
 from tagc.cal_thresh import analysis_kf
 from tagc.data_utils import count_tags, rawdata_stat
-from tagc.domain import Params, RawData
+from tagc.domain import Params
 from tagc.io_utils import (
     build_eval_json,
-    dump_datazip,
     dump_json,
     dump_state,
     load_datazip,
@@ -27,17 +22,15 @@ from tagc.model import StandaloneModel, label_output
 from tagc.train import Pipeline
 from tagc.validation import (
     dimension_reduction,
+    eval_model,
     get_tag_states,
     get_unlabelled_state,
     judge_on_summary,
-    judge_on_tag,
-    summary,
 )
 from tagc.visualization import (
     kw_plot,
     plot_num_performance,
     plot_summary,
-    plot_tag_performance,
     plot_tag_stat,
     state_plot,
 )
@@ -87,12 +80,7 @@ def make_figures(rawdata, mlb, output_p="outputsT"):
             sampled_cases = load_json(unlabelled_p)
         else:
             all_cases = load_json("cases.json")
-            known_cases, known_tags = data_utils.unwrap_labelled_cases(
-                rawdata.to_labelled_cases()
-            )
-            unlabelled_cases = data_utils.cases_minus(all_cases, known_cases)
-            k = 1000
-            sampled_cases = random.sample(unlabelled_cases, k)
+            sampled_cases = sample_evaluation(all_cases, rawdata)
             dump_json(f"{output_p}/unlabelled.json", sampled_cases)
 
         sampled_state = get_unlabelled_state(model, sampled_cases, mlb)
@@ -121,21 +109,9 @@ def make_figures(rawdata, mlb, output_p="outputsT"):
     fig.write_html(f"{output_p}/label_tsne.html")
 
     # Performance
-    performance, metric, pred_tags = judge_on_tag(model, mlb, rawdata, n=over)
-    dump_json(f"{output_p}/{over}_overall.json", metric)
-    performance.to_csv(f"{output_p}/{over}_Perf_tag.csv")
-    fig = plot_tag_performance(performance, metric, auc=True)
-    fig.write_image(f"{output_p}/{over}_Perf_tag_auc.pdf")
-    fig = plot_tag_performance(performance, metric, auc=False)
-    fig.write_image(f"{output_p}/{over}_Perf_tag_f1.pdf")
+    example, judge_count, data, df = eval_model(model, rawdata, over, mlb, output_p, "")
 
     # Summary
-    example, j_count, data, df = summary(
-        rawdata.x_test_dict,
-        rawdata.y_test_tags,
-        pred_tags,
-    )
-
     df.to_csv(f"{output_p}/summary.csv")
     fig = plot_summary(data)
     fig.write_image(f"{output_p}/fig3b_Pie.pdf")
@@ -165,34 +141,8 @@ def make_figures(rawdata, mlb, output_p="outputsT"):
     fig.write_image(f"{output_p}/knockout_result.pdf")
 
 
-def kf_flow(ds: RawData, kf_out="kf_out"):
-    kf = KFold(n_splits=5)
-    for idx, (train, test) in enumerate(kf.split(ds.x_dict)):
-        tmp_ds = copy(ds)
-        tmp_ds.x_train_dict = [ds.x_dict[idx] for idx in train]
-        tmp_ds.y_train_tags = [ds.y_tags[idx] for idx in train]
-        tmp_ds.x_test_dict = [ds.x_dict[idx] for idx in test]
-        tmp_ds.y_test_tags = [ds.y_tags[idx] for idx in test]
-        output_p = f"{kf_out}/{idx}/"
-        step = len(train)
-        os.makedirs(output_p, exist_ok=True)
-        dsp = dump_datazip(tmp_ds, join(output_p, f"ds{idx}.zip"))
-        for upsample in (200, -200):
-            for keep_key in (True, False):
-                size_effect(
-                    output_p=output_p,
-                    dataset_path=dsp,
-                    upsample=upsample,
-                    keep_key=keep_key,
-                    over=5,
-                    step=step,
-                    metrics_only=False,
-                )
-
-
 def main(
     dataset_path: str,
-    run_kf=False,
     plot=True,
     train=False,
     run_thresh=False,
@@ -204,8 +154,6 @@ def main(
 
     if train:
         train_main_model(ds)
-    if run_kf:
-        kf_flow(ds)
     if run_thresh:
         rets = load_json("cv_result.json")
         analysis_kf(rets, mlb, f"{output_p}/")

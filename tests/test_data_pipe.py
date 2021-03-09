@@ -4,10 +4,44 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from tagc.data_pipe import dataset_split, form_random_ds, make_history_df, replay_ac
+from tagc.data_pipe import (
+    dataset_split,
+    form_random_ds,
+    make_history_df,
+    replay_ac,
+    sample_evaluation_from_path,
+    xlsx_to_cases,
+)
 from tagc.data_utils import rawdata_stat
-from tagc.io_utils import load_datazip
+from tagc.io_utils import load_datazip, load_json
 from tagc.visualization import plot_tag_stat
+
+CASE_NUM = 11418
+
+
+@pytest.fixture
+def all_cases():
+    _all_cases = load_json("data/cases.json")
+    assert len(_all_cases) == CASE_NUM
+    return _all_cases
+
+
+@pytest.mark.skip
+def test_xlsx_to_cases(all_cases):
+    xlsx_p = "data/report.xlsx"
+    cases = xlsx_to_cases(xlsx_p)
+    assert len(cases) == CASE_NUM
+    assert cases[0] == all_cases[0]
+    assert cases[-1] == all_cases[-1]
+
+
+def test_sample_evaluation():
+    dsp = "out/standardDs.zip"
+    cases_p = "data/cases.json"
+    sampled_cases = sample_evaluation_from_path(cases_p, dsp)
+    unlabelled = load_json("data/unlabelled.json")
+    assert len(sampled_cases) == len(unlabelled)
+    assert sampled_cases == unlabelled
 
 
 @pytest.mark.skip

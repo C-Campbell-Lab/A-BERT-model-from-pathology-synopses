@@ -94,7 +94,7 @@ class StandaloneModel:
 
     def over_predict(self, cases: List[dict], batch_size=8, n=3, tqdm_disable=True):
         preds = None
-        for i in range(n):
+        for _ in range(n):
             texts = [
                 compose(case, keep_key=self.keep_key, shuffle=True) for case in cases
             ]
