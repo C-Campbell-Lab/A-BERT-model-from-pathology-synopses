@@ -26,6 +26,18 @@ def all_cases():
     return _all_cases
 
 
+@pytest.fixture
+def final_dsp():
+    final_dsp_ = "out/standardDs.zip"
+    acs = list(Path("data/labels").glob("*.json"))
+    with TemporaryDirectory() as temp_dir:
+        _, _, ac_dsps = replay_ac(acs, temp_dir)
+        shutil.copy(ac_dsps[-1], final_dsp_)
+    rawdata = load_datazip(final_dsp_)
+    assert len(rawdata.y_test_tags) == 100
+    return final_dsp_
+
+
 @pytest.mark.skip
 def test_xlsx_to_cases(all_cases):
     xlsx_p = "data/report.xlsx"
@@ -36,9 +48,9 @@ def test_xlsx_to_cases(all_cases):
 
 
 def test_sample_evaluation():
-    dsp = "out/standardDs.zip"
+    final_dsp = "out/standardDs.zip"
     cases_p = "data/cases.json"
-    sampled_cases = sample_evaluation_from_path(cases_p, dsp)
+    sampled_cases = sample_evaluation_from_path(cases_p, final_dsp)
     unlabelled = load_json("data/unlabelled.json")
     assert len(sampled_cases) == len(unlabelled)
     assert sampled_cases == unlabelled
@@ -62,18 +74,6 @@ def test_replay_ac():
         500,
     ]
     assert hist_df["Label Count"].max() == 21
-
-
-@pytest.fixture
-def final_dsp():
-    final_dsp_ = "out/standardDs.zip"
-    acs = list(Path("data/labels").glob("*.json"))
-    with TemporaryDirectory() as temp_dir:
-        _, _, ac_dsps = replay_ac(acs, temp_dir)
-        shutil.copy(ac_dsps[-1], final_dsp_)
-    rawdata = load_datazip(final_dsp_)
-    assert len(rawdata.y_test_tags) == 100
-    return final_dsp_
 
 
 @pytest.mark.skip

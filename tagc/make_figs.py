@@ -1,4 +1,5 @@
 import os
+
 import pandas as pd
 from sklearn.preprocessing import MultiLabelBinarizer
 
@@ -10,7 +11,7 @@ from tagc.io_utils import (
     load_datazip,
     load_json,
 )
-from tagc.mask_explain import MaskExplainer, top_keywords, filter_top
+from tagc.mask_explain import MaskExplainer, filter_top, top_keywords
 from tagc.model import StandaloneModel, label_output
 from tagc.validation import (
     dimension_reduction,
@@ -18,15 +19,10 @@ from tagc.validation import (
     get_tag_states,
     get_unlabelled_state,
 )
-from tagc.visualization import (
-    kw_plot,
-    plot_tag_stat,
-    state_plot,
-)
-from tagc.data_pipe import sample_evaluation_from_path
+from tagc.visualization import kw_plot, plot_tag_stat, state_plot
 
 
-def make_figures(model_p, dsp, case_p, dst="figF"):
+def make_figures(model_p: str, dsp: str, unlabelled_p: str, dst="figF"):
     dataset = load_datazip(dsp)
     model = StandaloneModel.from_path(model_p, keep_key=True, max_len=150)
     over = 5
@@ -47,7 +43,7 @@ def make_figures(model_p, dsp, case_p, dst="figF"):
     if os.path.exists(fn):
         unstate_df = pd.read_csv(fn, index_col=0)
     else:
-        sampled_cases = sample_evaluation_from_path(dsp, case_p)
+        sampled_cases = load_json(unlabelled_p)
         sampled_state = get_unlabelled_state(model, sampled_cases, mlb)
         dump_state(sampled_state, state_p=f"{dst}/unstate.pkl")
         unstate_df = dimension_reduction(sampled_state, "TSNE", n_components=2)

@@ -55,12 +55,12 @@ def get_timestamp():
 
 
 def load_json(path):
-    with open(path, "r") as js_:
+    with open(path, "r", encoding="utf-8") as js_:
         return json.load(js_)
 
 
 def dump_json(path, obj):
-    with open(path, "w") as js_:
+    with open(path, "w", encoding="utf-8") as js_:
         json.dump(obj, js_, indent=4)
 
 

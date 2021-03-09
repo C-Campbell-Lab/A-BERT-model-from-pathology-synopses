@@ -1,10 +1,10 @@
 import random
 from itertools import accumulate
-from tagc.cleaner import Cleaner, has_content
 from typing import List
 
 import pandas as pd
 
+from tagc.cleaner import Cleaner, has_content
 from tagc.data_utils import (
     cases_minus,
     count_tags,
@@ -45,10 +45,9 @@ def sample_evaluation_from_path(cases_p, dsp):
     return sample_evaluation(all_cases, dataset)
 
 
-def sample_evaluation(cases, dataset):
+def sample_evaluation(cases, dataset, k=1000):
     known_cases, _ = unwrap_labelled_cases(dataset.to_labelled_cases())
     unlabelled_cases = cases_minus(cases, known_cases)
-    k = 1000
     sampled_cases = random.sample(unlabelled_cases, k)
     return sampled_cases
 
