@@ -54,7 +54,7 @@ def continue_exp(dry_run=True):
     experts = (f"{exp}_j.csv" for exp in ("mona", "cathy"))
     contents = (
         (
-            f"feedback.py {lab}/keepKey_200/model/ --eval_ret {expert} --dataset_p {dsp} --outdir {lab}/feedback{expert[0].title()}"
+            f"feedback.py {lab}/keepKey_200/model/ --eval_ret {expert} --dataset_p {dsp} --ori_eval_p {lab}/figs/eval.json --outdir {lab}/feedback{expert[0].title()}"
             for lab, dsp in zip(
                 (f"newLab/{name}" for name in ("labF", "labS", "labT")),
                 (f"standardDs{idx}.zip" for idx in range(3)),

@@ -35,6 +35,10 @@ def final_dsp():
         shutil.copy(ac_dsps[-1], final_dsp_)
     rawdata = load_datazip(final_dsp_)
     assert len(rawdata.y_test_tags) == 100
+    tag_stat = rawdata_stat(rawdata)
+    tag_stat.to_csv("out/standardDs.csv")
+    fig = plot_tag_stat(tag_stat)
+    fig.write_image("out/standardDs.pdf")
     return final_dsp_
 
 
@@ -76,7 +80,7 @@ def test_replay_ac():
     assert hist_df["Label Count"].max() == 21
 
 
-@pytest.mark.skip
+# @pytest.mark.skip
 def test_split(final_dsp):
     dst = "out/standard"
     dsps = dataset_split(final_dsp, dst)
