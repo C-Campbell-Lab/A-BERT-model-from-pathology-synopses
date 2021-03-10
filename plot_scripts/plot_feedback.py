@@ -14,7 +14,7 @@ def mk_fd_df(feedback: dict):
     iter_parser = re.compile(r"\d")
     experts = []
     validation = []
-    scores = []
+    f1_scores = []
     iterations = []
     labs = []
     fnames = []
@@ -37,9 +37,9 @@ def mk_fd_df(feedback: dict):
         labs.append(lab)
         record = list(v[0].values())[0]
         if isinstance(record, dict):
-            scores.append(record["f1"])
+            f1_scores.append(record["f1"])
         else:
-            scores.append(v[0]["F1 Score"])
+            f1_scores.append(v[0]["F1 Score"])
     return pd.DataFrame(
         dict(
             experts=experts,
@@ -47,7 +47,7 @@ def mk_fd_df(feedback: dict):
             labs=labs,
             fnames=fnames,
             validation=validation,
-            scores=scores,
+            f1_scores=f1_scores,
         )
     )
 
@@ -61,13 +61,13 @@ def plot_feedback(start_f1, start_err, fd_df):
     marker_color = ["navy", "crimson"]
 
     phase = []
-    f1 = []
+    f1s = []
     err = []
     sources = []
     for val in validation:
         for exp_idx, exp in enumerate(experts):
             df = fd_df.loc[(fd_df["experts"] == exp) & (fd_df["validation"] == val)]
-            plot_df = df.groupby(["iterations"])["scores"].agg(["mean", "std"])
+            plot_df = df.groupby(["iterations"])["f1_scores"].agg(["mean", "std"])
             if val:
                 y = [start_f1] + plot_df["mean"].to_list()
                 x = _mk_x(y)
@@ -114,7 +114,7 @@ def plot_feedback(start_f1, start_err, fd_df):
                     )
                 )
             phase.extend(x)
-            f1.extend(y)
+            f1s.extend(y)
             err.extend(e)
             sources.extend(source for _ in x)
 
@@ -128,7 +128,7 @@ def plot_feedback(start_f1, start_err, fd_df):
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         xaxis=dict(tickmode="linear", tick0=1, dtick=1),
     )
-    out_df = pd.DataFrame(dict(phase=phase, f1=f1, err=err, sources=sources))
+    out_df = pd.DataFrame(dict(phase=phase, f1=f1s, err=err, sources=sources))
     return fig, out_df
 
 

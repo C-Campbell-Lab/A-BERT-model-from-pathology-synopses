@@ -50,20 +50,22 @@ def datasize_exp(fix="random", dry_run=True):
     _exe_content(contents, dry_run)
 
 
-def continue_exp(dry_run=True):
+def continue_exp(dry_run=True, only_first=True):
+    labs = ["lab0", "labF", "labS", "labT"]
+    dsps = ["standardDs.zip"] + [f"standardDs{idx}.zip" for idx in range(3)]
+    if only_first:
+        labs = labs[:1]
+        dsps = dsps[:1]
     experts = (f"{exp}_j.csv" for exp in ("mona", "cathy"))
-    contents = (
-        (
+    for expert in experts:
+        contents = (
             f"feedback.py {lab}/keepKey_200/model/ --eval_ret {expert} --dataset_p {dsp} --ori_eval_p {lab}/figs/eval.json --outdir {lab}/feedback{expert[0].title()}"
             for lab, dsp in zip(
-                (f"newLab/{name}" for name in ("labF", "labS", "labT")),
-                (f"standardDs{idx}.zip" for idx in range(3)),
+                (f"newLab/{name}" for name in labs),
+                dsps,
             )
         )
-        for expert in experts
-    )
-    for content_g in contents:
-        _exe_content(content_g, dry_run)
+        _exe_content(contents, dry_run)
 
 
 def plot_exp(dry_run=True):

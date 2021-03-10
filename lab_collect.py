@@ -54,9 +54,10 @@ def collect_expert_eval():
     for lab in (f"newLab/{name}" for name in ("labF", "labS", "labT", "lab0")):
         pred_json = f"{lab}/figs/eval.json"
         for exp in ("mona", "cathy"):
-            exp_eval_csv = f"{lab}/feedback{exp[0].title()}/{exp}_j1.csv"
-            eval_over = expert_eval(exp_eval_csv, form_pred(pred_json))
-            collector[f"{lab}{exp}eval1"] = eval_over
+            for i in range(1, 9):
+                exp_eval_csv = f"{lab}/feedback{exp[0].title()}/{exp}_j{i}.csv"
+                eval_over = expert_eval(exp_eval_csv, form_pred(pred_json))
+                collector[f"{lab}_{exp}_eval_{i}"] = eval_over
     dump_json("expert_eval1.json", collector)
 
 
