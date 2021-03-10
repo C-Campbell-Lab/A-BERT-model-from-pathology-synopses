@@ -100,6 +100,7 @@ def plot_ac_compare(ac_up_df, rd_up_df):
     )
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         width=1000,
         height=600,
         xaxis_title="Training Size",

@@ -28,11 +28,11 @@ def mk_std_perf(zip_p):
         {
             "Tag": labels,
             "F1 Score": f1s_arr.mean(axis=0),
-            "F1 Score_std": f1s_arr.std(axis=0, ddof=1),
+            "F1 Score_std": f1s_arr.std(axis=0),
             "Precision": precisions_arr.mean(axis=0),
-            "Precision_std": precisions_arr.std(axis=0, ddof=1),
+            "Precision_std": precisions_arr.std(axis=0),
             "Recall": recalls_arr.mean(axis=0),
-            "Recall_std": recalls_arr.std(axis=0, ddof=1),
+            "Recall_std": recalls_arr.std(axis=0),
         }
     )
     return performance

@@ -28,9 +28,7 @@ def mk_fd_df(feedback: dict):
         lab = parts[1]
         fname = parts[-1]
         iteration = (
-            iter_parser.findall(fname)[-1]
-            if (not is_val or lab == "lab0")
-            else fname.split("_")[0]
+            iter_parser.findall(fname)[-1] if not is_val else fname.split("_")[0]
         )
         iterations.append(int(iteration))
         fnames.append(fname)
@@ -120,6 +118,7 @@ def plot_feedback(start_f1, start_err, fd_df):
 
     fig.update_layout(
         template=TEMPLATE,
+        font_family="Arial",
         width=960,
         height=500,
         xaxis_title="Data consumed by model",
