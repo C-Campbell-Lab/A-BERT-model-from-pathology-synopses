@@ -48,7 +48,7 @@ Python Dependencies:
 
 > The data that support the findings of this study are available on reasonable request from the corresponding author, pending local REB and privacy office approval. The data are not publicly available because they contain information that could compromise research participant privacy/consent.
 
-**You need first to contact the corresponding author to get the dataset "standardDs.zip" and "unlabelled.json"**
+**You need first to contact the corresponding author to get the zipfile data.zip used in for this demo**
 
 ### Colab
 
