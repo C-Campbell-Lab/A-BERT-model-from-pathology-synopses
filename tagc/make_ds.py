@@ -26,7 +26,7 @@ def mk_unlabelled(
     return outpath
 
 
-def mk_standardDs(final_dsp="standardDsTmp.zip", dst="out/standard", plot=True):
+def mk_standardDs(final_dsp="standardDsTmp.zip", dst="out/standard", plot=False):
     dsps = dataset_split(final_dsp, dst)
     if plot:
         for idx, dsp in enumerate(dsps):
@@ -43,7 +43,7 @@ def mk_randomDs(
     eval_ret="data/evaluation/mona_j.csv",
     unlabelled_p="data/unlabelled.json",
     dst="out/random",
-    plot=True,
+    plot=False,
 ):
     dsps = form_random_ds(standard_dsps, eval_ret, unlabelled_p, outdir=dst)
     if plot:

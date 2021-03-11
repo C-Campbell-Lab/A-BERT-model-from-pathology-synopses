@@ -42,7 +42,7 @@ Python Dependencies:
 
     !pip -q install tagc --upgrade
 
-*It takes about 5-10 mins.*
+*It takes about 2-5 mins.*
 
 ## Demo
 
@@ -57,7 +57,7 @@ Python Dependencies:
 
 ### Results
 
-You can check the results in the Colab notebook above. The running time of training a model is about 10 mins.
+You can check the results in the Colab notebook above. The running time of training a model is about 10-15 mins.
 
 ## Instructions for use
 
@@ -76,33 +76,37 @@ For example:
 
     python3 make_dataset.py report.xlsx standardDs.zip standardDsTmp.zip mona_j.csv
 
+Then, the outputs are in the **data** folder.
 #### Train a model
 
     python3 train.py [dataset_path] [unlabelled_path] [model_path] [output_path] [--plot True] [--train True]
 
 For example:
 
-    python3 train.py data/standardDs.zip data/unlabelled.json out/model out --plot True --train True
+    python3 train.py standardDs.zip unlabelled.json out/model out --plot True --train True
 
+Then, the model is in the **out/model** folder and its figuers are in **out** folder
 #### Active learning comparison
 
 Models trained on data sampled by active learning.
 
-    python3 make_exp.py labF --dataset_path data/standardDs.zip
+    python3 make_exp.py lab0 --dataset_path standardDs.zip
 
-To run the experiments 3 times, you need to change the standardDs.zip to standardDs1.zip or standardDs2.zip and run:
+To run the experiments 3 times more, you need to change the standardDs.zip to standardDs0.zip, standardDs1.zip or standardDs2.zip and run:
 
-    python3 make_exp.py labS --dataset_path data/standardDs1.zip
-    python3 make_exp.py labT --dataset_path data/standardDs2.zip
+    python3 make_exp.py labF --dataset_path standardDs0.zip
+    python3 make_exp.py labS --dataset_path standardDs1.zip
+    python3 make_exp.py labT --dataset_path standardDs2.zip
 
 Models trained on data sampled by random selection
 
-    python3 make_exp.py labFR --dataset_path data/randomDs0.zip
+    python3 make_exp.py lab0R --dataset_path randomDs.zip
 
-To run the experiments 3 times, you need to change the standardDs.zip to randomDs1.zip or randomDs2.zip and run:
+To run the experiments 3 times more, you need to change the randomDs.zip to randomDs0.zip, randomDs1.zip or randomDs2.zip and run:
 
-    python3 make_exp.py labSR --dataset_path data/randomDs1.zip
-    python3 make_exp.py labTR --dataset_path data/randomDs2.zip
+    python3 make_exp.py labFR --dataset_path randomDs0.zip
+    python3 make_exp.py labSR --dataset_path randomDs1.zip
+    python3 make_exp.py labTR --dataset_path randomDs2.zip
 
 The results are in the _lab*_ folders.
 

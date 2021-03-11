@@ -1,4 +1,5 @@
 from collections import Counter, defaultdict
+import os
 
 import numpy as np
 import pandas as pd
@@ -20,6 +21,7 @@ from .visualization import (
 
 
 def eval_model(model, ds, repeat, mlb, output_p, marker=""):
+    os.makedirs(output_p, exist_ok=True)
     tag_stat = rawdata_stat(ds)
     tag_stat.to_csv(f"{output_p}/{marker}_{repeat}_data_stat.csv")
     fig = plot_tag_stat(tag_stat)

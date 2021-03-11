@@ -10,9 +10,13 @@ def main(xlsx_p, final_dsp, tmp_dsp, eval_ret):
     unlabelled_p = mk_unlabelled(
         final_dsp=final_dsp, cases_p=cases_p, outpath=str(dst / "unlabelled.json")
     )
-    standard_dsps = mk_standardDs(final_dsp=tmp_dsp, dst=str(dst))
+    standard_dsps = mk_standardDs(final_dsp=tmp_dsp, dst=str(dst), plot=True)
     mk_randomDs(
-        standard_dsps, eval_ret=eval_ret, unlabelled_p=unlabelled_p, dst=str(dst)
+        standard_dsps,
+        eval_ret=eval_ret,
+        unlabelled_p=unlabelled_p,
+        dst=str(dst),
+        plot=True,
     )
 
 
