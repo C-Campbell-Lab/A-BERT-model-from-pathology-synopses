@@ -1,6 +1,6 @@
 import json
-
 import re
+
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -121,7 +121,7 @@ def plot_feedback(start_f1, start_err, fd_df):
         font_family="Arial",
         width=960,
         height=500,
-        xaxis_title="Data consumed by model",
+        xaxis_title="Models updated form reviews",
         yaxis_title="Micro F1",
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
@@ -133,6 +133,6 @@ def plot_feedback(start_f1, start_err, fd_df):
 
 def _mk_x(y):
     return [
-        f"Dev{'+' if add > 0 else ''}{add * 100 if add > 0 else ''}"
+        f"Model{'(+' if add > 0 else ''}{add * 100 if add > 0 else ''}{')' if add > 0 else ''}"
         for add in range(len(y))
     ]

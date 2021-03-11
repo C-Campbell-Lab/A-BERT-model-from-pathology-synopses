@@ -11,5 +11,9 @@ def mk_up_df(up_history: dict, do_print=True):
         labs.append(k.split("/")[1])
     df = pd.DataFrame(dict(f1_scores=f1_scores, upsample=upsample, labs=labs))
     if do_print:
-        print(df.groupby("upsample")["f1_scores"].agg(["mean", "std"]).to_latex())
+        print(
+            df.groupby("upsample")["f1_scores"]
+            .agg(["mean", "std"])
+            .to_latex(float_format=lambda x: "%.3f" % x)
+        )
     return df

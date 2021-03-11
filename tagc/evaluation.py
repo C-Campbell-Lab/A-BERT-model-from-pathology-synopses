@@ -1,8 +1,9 @@
-from os.path import join
+from typing import List
+
 import pandas as pd
 from sklearn import metrics
 from sklearn.preprocessing import MultiLabelBinarizer
-from typing import List
+
 from tagc.io_utils import load_json
 
 
@@ -44,9 +45,12 @@ def form_pred(eval_json):
     return y_pred
 
 
+def main(csv_p, eval_p="E:\\outputsS\\outputsS\\eval.json"):
+    ret = expert_eval(csv_p, form_pred(eval_p))
+    print(ret)
+
+
 if __name__ == "__main__":
-    base = "E:/Coding/scholar/continue"
-    sheet_csv = join(".", "prediction judgement - Sheet1.csv")
-    print(
-        expert_eval(sheet_csv, form_pred("E:\\outputsS\\outputsS\\eval.json")),
-    )
+    from fire import Fire
+
+    Fire(main)

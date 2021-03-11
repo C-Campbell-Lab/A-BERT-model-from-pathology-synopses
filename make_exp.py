@@ -14,7 +14,7 @@ from tagc.validation import eval_model
 
 
 def run_experiment(
-    output_p="up_effect",
+    output_p="output",
     dataset_path="stdDs.zip",
     upsample=200,
     keep_key=True,

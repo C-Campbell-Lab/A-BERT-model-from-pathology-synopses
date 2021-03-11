@@ -25,8 +25,8 @@ Python Dependencies:
 
     python = "^3.6.9"
     pandas = "^1.1.3"
-    transformers = "^3.3.1"
-    torch = "^1.6.0"
+    transformers = "3.5.1"
+    torch = "^1.7.0"
     scikit-learn = "^0.23.2"
     tqdm = "^4.50.1"
     dash = "^1.16.2"
@@ -34,13 +34,13 @@ Python Dependencies:
     plotly = "^4.11.0"
     wheel = "^0.35.1"
     fire = "^0.3.1"
-    kaleido = "^0.1.0"
-
+    toolz = "^0.11.1"
+    openpyxl = "^3.0.6"
+    kaleido = "^0.2.1"
 
 ## Installation guide
 
     !pip -q install tagc --upgrade
-    !pip -q install -U kaleido
 
 *It takes about 5-10 mins.*
 
@@ -48,7 +48,7 @@ Python Dependencies:
 
 > The data that support the findings of this study are available on reasonable request from the corresponding author, pending local REB and privacy office approval. The data are not publicly available because they contain information that could compromise research participant privacy/consent.
 
-**You need first to contact the corresponding author to get the dataset "stdDs.zip" and "unlabelled.json"**
+**You need first to contact the corresponding author to get the dataset "standardDs.zip" and "unlabelled.json"**
 
 ### Colab
 
@@ -67,35 +67,51 @@ We recommend you follow the instructions in the Colab notebook above.
 ### Scripts
 
 Clone this Repo and make it as the working folder (CD).
-#### Train
 
-    python3 train.py stdDs.zip --plot True --run_thresh False --train True
+#### Dataset Creation by MCCV
+
+    python3 make_dataset.py [xlsx_path] [final_dataset_path][tmp_dataset_path] [review_result]
+
+For example:
+
+    python3 make_dataset.py report.xlsx standardDs.zip standardDsTmp.zip mona_j.csv
+
+#### Train a model
+
+    python3 train.py [dataset_path] [unlabelled_path] [model_path] [output_path] [--plot True] [--train True]
+
+For example:
+
+    python3 train.py data/standardDs.zip data/unlabelled.json out/model out --plot True --train True
+
 #### Active learning comparison
 
 Models trained on data sampled by active learning.
 
-    python3 data_size.py labF --dataset_path stdDs.zip
+    python3 make_exp.py labF --dataset_path data/standardDs.zip
 
-To run the experiments 3 times, you need to change the stdDs.zip to stdDs1.zip or stdDs2.zip and run:
+To run the experiments 3 times, you need to change the standardDs.zip to standardDs1.zip or standardDs2.zip and run:
 
-    python3 data_size.py labS --dataset_path stdDs1.zip
-    python3 data_size.py labT --dataset_path stdDs2.zip
+    python3 make_exp.py labS --dataset_path data/standardDs1.zip
+    python3 make_exp.py labT --dataset_path data/standardDs2.zip
 
 Models trained on data sampled by random selection
 
-    python3 data_size.py labFR --dataset_path stdRandom0.zip
+    python3 make_exp.py labFR --dataset_path data/randomDs0.zip
 
-To run the experiments 3 times, you need to change the stdDs.zip to stdRandom1.zip or stdRandom2.zip and run:
+To run the experiments 3 times, you need to change the standardDs.zip to randomDs1.zip or randomDs2.zip and run:
 
-    python3 data_size.py labSR --dataset_path stdRandom1.zip
-    python3 data_size.py labTR --dataset_path stdRandom2.zip
+    python3 make_exp.py labSR --dataset_path data/randomDs1.zip
+    python3 make_exp.py labTR --dataset_path data/randomDs2.zip
 
 The results are in the _lab*_ folders.
 
 #### Improvement from feedback
 
-    python3 feedback.py --eval_ret [review_result] --dataset_p stdDs.zip --ori_eval_p eval.json --unlabelled_p unlabelled.json
+    python3 feedback.py [model_path] --eval_ret [review_result] --dataset_p [dataset_path] --ori_eval_p [eval_json_path] --unlabelled_p [unlabelled_json_path]
 
 For example,
 
-    python3 feedback.py --eval_ret mona_j.csv --dataset_p stdDs.zip --ori_eval_p eval.json --unlabelled_p unlabelled.json
+    python3 feedback.py newLab/lab0/keepKey_200/model/ --eval_ret mona_j.csv --dataset_p standardDs.zip --ori_eval_p newLab/lab0/figs/eval.json --outdir newLab/lab0/feedbackM --unlabelled_p unlabelled.json
+
+    python3 feedback.py newLab/lab0/keepKey_200/model/ --eval_ret cathy_j.csv --dataset_p standardDs.zip --ori_eval_p newLab/lab0/figs/eval.json --outdir newLab/lab0/feedbackC --unlabelled_p unlabelled.json

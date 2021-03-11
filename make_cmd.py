@@ -50,7 +50,7 @@ def datasize_exp(fix="random", dry_run=True):
     _exe_content(contents, dry_run)
 
 
-def continue_exp(dry_run=True, only_first=True):
+def continue_exp(dry_run=True, only_first=False):
     labs = ["lab0", "labF", "labS", "labT"]
     dsps = ["standardDs.zip"] + [f"standardDs{idx}.zip" for idx in range(3)]
     if only_first:

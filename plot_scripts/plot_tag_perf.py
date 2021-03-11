@@ -1,6 +1,7 @@
-import pandas as pd
-import numpy as np
 from zipfile import ZipFile
+
+import numpy as np
+import pandas as pd
 import plotly.graph_objects as go
 
 
@@ -119,3 +120,17 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
         ],
     )
     return fig
+
+
+def tag_perf_latex(dev_df):
+    print(
+        dev_df.sort_values("F1 Score", ascending=False)
+        .groupby(dev_df.columns.str[:3], axis=1)
+        .apply(lambda x: round(x, 3).astype(str).apply(" ± ".join, 1))
+        .rename(
+            {"Tag": "Label", "F1 ": "F1 Score", "Pre": "Precision", "Rec": "Recall"},
+            axis=1,
+        )
+        .loc[:, ["Label", "F1 Score", "Precision", "Recall"]]
+        .to_latex(index=False)
+    )

@@ -1,6 +1,7 @@
-import plotly.graph_objects as go
 import json
+
 import pandas as pd
+import plotly.graph_objects as go
 
 
 def ac_plot_pipe(collect_ac_p, dst="."):
@@ -69,7 +70,7 @@ def plot_ac_compare(ac_up_df, rd_up_df):
                     visible=True,
                 ),
                 mode="lines+markers+text",
-                text=[f"{v:.02f}" for v in y],
+                text=[f"{v:.03f}" for v in y],
                 marker_color=colors[idx],
                 line=dict(color=colors[idx], width=2),
                 textposition="bottom right",
@@ -91,7 +92,7 @@ def plot_ac_compare(ac_up_df, rd_up_df):
                 visible=True,
             ),
             mode="lines+markers+text",
-            text=[f"{v:.02f}" for v in y],
+            text=[f"{v:.03f}" for v in y],
             marker_color="gray",
             line=dict(color="gray", width=2, dash="dash"),
             textposition="bottom right",
