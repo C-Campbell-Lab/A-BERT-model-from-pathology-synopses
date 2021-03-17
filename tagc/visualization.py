@@ -160,20 +160,24 @@ def plot_judge_num(j_tag_num, mode="Correct"):
     return fig
 
 
-def kw_plot(top_key):
-    top_n = 5
+def make_kws_df(top_key, top_n=5):
     labels = []
     values = []
     parents = []
-    for idx, (k, v) in enumerate(top_key.items()):
+    for k, v in top_key.items():
         labels.extend(i[0] for i in v[:top_n])
         tmp_v = [i[1] for i in v]
         tmp_v = normalize([tmp_v])[0]
         values.extend(round(v, 3) for v in tmp_v[:top_n])
         parents.extend(k for _ in range(top_n))
     kws_df = pd.DataFrame({"influence": values, "reason": labels, "tag": parents})
-    heat_df = kws_df.groupby("tag").agg(list)
+    return kws_df
 
+
+def kw_plot(top_key):
+    top_n = 5
+    kws_df = make_kws_df(top_key, top_n=top_n)
+    heat_df = kws_df.groupby("tag").agg(list)
     vs = heat_df["influence"].values
     mat = np.zeros(
         (len(vs), len(vs[0])),
@@ -383,3 +387,11 @@ def plot_num_performance(performance_n: pd.DataFrame):
     fig.update_xaxes(title_text="Tag Number")
 
     return fig
+
+
+if __name__ == "__main__":
+    import sys
+    from tagc.io_utils import load_json
+
+    df = make_kws_df(load_json(sys.argv[1]))
+    df.to_csv("kws_influence.csv")

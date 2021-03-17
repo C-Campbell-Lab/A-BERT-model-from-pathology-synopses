@@ -17,7 +17,6 @@ def mk_fd_df(feedback: dict):
     f1_scores = []
     iterations = []
     labs = []
-    fnames = []
     for k, v in feedback.items():
         if "after" in k:
             continue
@@ -31,7 +30,6 @@ def mk_fd_df(feedback: dict):
             iter_parser.findall(fname)[-1] if not is_val else fname.split("_")[0]
         )
         iterations.append(int(iteration))
-        fnames.append(fname)
         labs.append(lab)
         record = list(v[0].values())[0]
         if isinstance(record, dict):
@@ -43,7 +41,6 @@ def mk_fd_df(feedback: dict):
             experts=experts,
             iterations=iterations,
             labs=labs,
-            fnames=fnames,
             validation=validation,
             f1_scores=f1_scores,
         )

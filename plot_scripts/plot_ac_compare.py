@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 
 def ac_plot_pipe(collect_ac_p, dst="."):
     ac_history = load_json(collect_ac_p)
-    ac_up_df, rd_up_df = mk_ac_df(ac_history)
+    ac_up_df, rd_up_df = mk_ac_df(ac_history, return_df=False)
     fig = plot_ac_compare(ac_up_df, rd_up_df)
     fig.write_image(f"{dst}/acl_result.pdf")
 
@@ -16,7 +16,7 @@ def load_json(path):
         return json.load(js_)
 
 
-def mk_ac_df(ac_history):
+def mk_ac_df(ac_history, return_df=False):
     sizes = []
     is_active = []
     f1_scores = []
@@ -36,7 +36,10 @@ def mk_ac_df(ac_history):
     )
     ac_up_df = df_cal(df, True)
     rd_up_df = df_cal(df, False)
-    return ac_up_df, rd_up_df
+    if return_df:
+        return ac_up_df, rd_up_df, df
+    else:
+        return ac_up_df, rd_up_df
 
 
 def df_cal(df, is_active):

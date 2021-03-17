@@ -1,0 +1,501 @@
+,tag,index,tag_num,from,pred_tag,D1,D2
+0,"iron deficiency, normal",0,2,train,"iron deficiency, normal",-16.178997,33.44314
+1,"inadequate, lymphoproliferative disorder",1,2,train,"inadequate, lymphoproliferative disorder",10.711611,4.170899
+2,"basophilia, chronic myeloid leukemia, chronic myeloid leukemia, eosinophilia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",2,7,train,"basophilia, chronic myeloid leukemia, eosinophilia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",-1.4381441,-17.467758
+3,"acute leukemia, hypercellular",3,2,train,"acute leukemia, hypercellular",5.4153686,-1.7830327
+4,"iron deficiency, normal",4,2,train,"iron deficiency, normal",-15.527323,33.199024
+5,"acute myeloid leukemia, myelodysplastic syndrome",5,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.734863,-10.708593
+6,"basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",6,4,train,"basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",-2.5679984,-15.4075365
+7,"acute myeloid leukemia, myelodysplastic syndrome",7,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.237874,-11.149793
+8,lymphoproliferative disorder,8,1,train,lymphoproliferative disorder,13.297863,6.356425
+9,"myelodysplastic syndrome, myeloproliferative neoplasm",9,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",8.053511,-14.561128
+10,"lymphoproliferative disorder, mastocytosis",10,2,train,"lymphoproliferative disorder, mastocytosis",-1.9197124,-0.7121028
+11,mastocytosis,11,1,train,mastocytosis,-3.2730174,-0.9829899
+12,acute myeloid leukemia,12,1,train,acute myeloid leukemia,19.2891,-8.765479
+13,normal,13,1,train,normal,-17.660292,12.196408
+14,"lymphoproliferative disorder, mastocytosis",14,2,train,"lymphoproliferative disorder, mastocytosis",-1.91659,-0.7660294
+15,normal,15,1,train,normal,-21.516333,8.547795
+16,myeloproliferative neoplasm,16,1,train,myeloproliferative neoplasm,2.3621294,-21.105846
+17,"acute lymphoblastic leukemia, hypocellular, lymphoproliferative disorder",17,3,train,"acute lymphoblastic leukemia, hypocellular, lymphoproliferative disorder",16.315928,5.823779
+18,"acute myeloid leukemia, hemophagocytosis, hypocellular",18,3,train,"acute myeloid leukemia, hemophagocytosis, hypocellular",20.00093,-4.126835
+19,normal,19,1,train,normal,-18.561573,11.360922
+20,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",20,5,train,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",-1.7104036,-12.0715685
+21,"acute leukemia, hypercellular",21,2,train,"acute leukemia, hypercellular",5.199367,-2.1514509
+22,plasma cell neoplasm,22,1,train,plasma cell neoplasm,-4.7262306,9.870079
+23,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular, iron deficiency",23,4,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular, iron deficiency",23.767298,-14.379299
+24,normal,24,1,train,eosinophilia,-7.1537933,-6.5864553
+25,"acute leukemia, hypercellular",25,2,train,"acute leukemia, hypercellular",5.267289,-1.8995129
+26,normal,26,1,train,normal,-20.617163,14.696818
+27,normal,27,1,train,normal,-19.41226,14.834128
+28,"granulocytic hyperplasia, hypercellular",28,2,train,"granulocytic hyperplasia, hypercellular",-9.414765,-12.445315
+29,"granulocytic hyperplasia, hypercellular",29,2,train,"granulocytic hyperplasia, hypercellular",-9.565913,-12.519316
+30,"acute lymphoblastic leukemia, lymphoproliferative disorder",30,2,train,"acute lymphoblastic leukemia, lymphoproliferative disorder",15.339989,7.2748904
+31,acute myeloid leukemia,31,1,train,acute myeloid leukemia,19.847445,-8.637624
+32,"hypercellular, metastatic",32,2,train,"hypercellular, metastatic",2.8117404,15.983464
+33,"myelodysplastic syndrome, myeloproliferative neoplasm",33,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",7.7722745,-15.458844
+34,metastatic,34,1,train,metastatic,3.8059058,15.605519
+35,normal,35,1,train,normal,-20.383482,9.296193
+36,"inadequate, myelodysplastic syndrome",36,2,train,"inadequate, myelodysplastic syndrome",10.594839,0.917394
+37,normal,37,1,train,normal,-16.946995,11.697563
+38,acute myeloid leukemia,38,1,train,acute myeloid leukemia,18.076977,-10.437135
+39,"acute leukemia, hemophagocytosis",39,2,train,"acute leukemia, hemophagocytosis",7.7824655,-2.173277
+40,eosinophilia,40,1,train,eosinophilia,-6.042924,-7.233375
+41,plasma cell neoplasm,41,1,train,plasma cell neoplasm,-4.4746976,9.328117
+42,"acute leukemia, hypercellular",42,2,train,"acute leukemia, hypercellular",5.1303797,-1.9880933
+43,"myelodysplastic syndrome, myeloproliferative neoplasm",43,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",8.050805,-15.354697
+44,"basophilia, chronic myeloid leukemia, eosinophilia, myeloproliferative neoplasm",44,4,train,"basophilia, chronic myeloid leukemia, eosinophilia, myeloproliferative neoplasm",-2.6420383,-18.10849
+45,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",45,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.412213,9.712323
+46,"basophilia, chronic myeloid leukemia, hypercellular, myeloproliferative neoplasm",46,4,train,"basophilia, chronic myeloid leukemia, hypercellular, myeloproliferative neoplasm",-1.1188875,-18.051252
+47,"chronic myeloid leukemia, myeloproliferative neoplasm",47,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.06432048,-21.496326
+48,normal,48,1,train,normal,-19.66095,11.485542
+49,"acute leukemia, basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",49,5,train,"acute leukemia, basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",-1.9927543,-15.286951
+50,erythroid hyperplasia,50,1,train,erythroid hyperplasia,-14.214317,0.15596409
+51,"acute myeloid leukemia, hemophagocytosis",51,2,train,"acute myeloid leukemia, hemophagocytosis",19.289646,-5.9339576
+52,"chronic myeloid leukemia, myeloproliferative neoplasm",52,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.23559552,-22.314814
+53,"eosinophilia, hypercellular",53,2,train,"eosinophilia, hypercellular",-5.3383474,-9.677699
+54,normal,54,1,train,normal,-18.787685,10.731838
+55,normal,55,1,train,normal,-22.328289,14.142601
+56,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",56,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",16.025877,9.754012
+57,"hemophagocytosis, hypocellular",57,2,train,"hemophagocytosis, hypocellular",20.017775,-2.331958
+58,"chronic myeloid leukemia, myeloproliferative neoplasm",58,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",1.2025853,-21.585026
+59,"eosinophilia, inadequate",59,2,train,"eosinophilia, inadequate",-5.7569594,-5.9436135
+60,"hemophagocytosis, hypocellular",60,2,train,"hemophagocytosis, hypocellular",19.76962,-2.0048003
+61,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",61,4,train,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",2.6719997,-11.559796
+62,"acute myeloid leukemia, myelodysplastic syndrome",62,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.244845,-10.57287
+63,plasma cell neoplasm,63,1,train,plasma cell neoplasm,-4.5601883,9.860435
+64,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, iron deficiency, myeloproliferative neoplasm",64,6,train,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, iron deficiency, myeloproliferative neoplasm",-2.0348725,-16.940834
+65,"iron deficiency, normal",65,2,train,"iron deficiency, normal",-15.468282,32.72686
+66,"basophilia, chronic myeloid leukemia, eosinophilia, myeloproliferative neoplasm",66,4,train,"basophilia, chronic myeloid leukemia, eosinophilia, myeloproliferative neoplasm",-2.6744766,-18.097647
+67,"inadequate, lymphoproliferative disorder",67,2,train,"inadequate, lymphoproliferative disorder",10.664776,4.0660033
+68,myelodysplastic syndrome,68,1,train,myelodysplastic syndrome,7.9143443,-8.999688
+69,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",69,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.754604,9.420821
+70,"hypocellular, myelodysplastic syndrome",70,2,train,"hypocellular, myelodysplastic syndrome",9.805687,-8.518558
+71,"erythroid hyperplasia, myelodysplastic syndrome",71,2,train,"erythroid hyperplasia, myelodysplastic syndrome",-14.070548,-1.2482544
+72,normal,72,1,train,normal,-21.139822,11.160426
+73,"hypercellular, myelodysplastic syndrome",73,2,train,"hypercellular, myelodysplastic syndrome",4.294168,-7.470257
+74,normal,74,1,train,eosinophilia,-7.102639,-6.618457
+75,"acute myeloid leukemia, acute promyelocytic leukemia",75,2,train,"acute myeloid leukemia, acute promyelocytic leukemia",22.668108,-11.443413
+76,"acute myeloid leukemia, acute promyelocytic leukemia, inadequate",76,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, inadequate",23.398497,-11.03867
+77,"hypercellular, lymphoproliferative disorder",77,2,train,"hypercellular, lymphoproliferative disorder",14.029101,9.547293
+78,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",78,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",23.049513,-13.323966
+79,"acute myeloid leukemia, myelodysplastic syndrome",79,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.427191,-11.127137
+80,"inadequate, lymphoproliferative disorder",80,2,train,"inadequate, lymphoproliferative disorder",10.600409,4.209435
+81,normal,81,1,train,normal,-19.217854,13.7244835
+82,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",82,5,train,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",-1.7141974,-12.068125
+83,"hypercellular, plasma cell neoplasm",83,2,train,"hypercellular, plasma cell neoplasm",-2.6176126,9.110328
+84,"myelodysplastic syndrome, myeloproliferative neoplasm",84,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",7.5110426,-15.034793
+85,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",85,5,train,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",-2.8004448,-15.170163
+86,normal,86,1,train,normal,-19.259514,14.876443
+87,normal,87,1,train,normal,-18.30966,12.332242
+88,normal,88,1,train,normal,-22.966938,15.303096
+89,"chronic myeloid leukemia, myeloproliferative neoplasm",89,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",1.0717756,-21.675035
+90,normal,90,1,train,normal,-17.913088,12.1264925
+91,normal,91,1,train,normal,-16.912798,11.172316
+92,normal,92,1,train,normal,-18.333635,12.727926
+93,inadequate,93,1,train,inadequate,9.723828,2.2665925
+94,"hypercellular, mastocytosis",94,2,train,"hypercellular, mastocytosis",-2.2165065,-2.5245783
+95,"erythroid hyperplasia, hypercellular",95,2,train,"erythroid hyperplasia, hypercellular",-12.970266,-0.20804827
+96,metastatic,96,1,train,metastatic,4.05774,15.3800335
+97,eosinophilia,97,1,train,eosinophilia,-6.068733,-7.0420046
+98,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",98,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.450209,9.446537
+99,"acute myeloid leukemia, myelodysplastic syndrome, myeloproliferative neoplasm",99,3,train,"acute myeloid leukemia, myelodysplastic syndrome, myeloproliferative neoplasm",9.938229,-14.338073
+100,normal,100,1,train,normal,-17.505878,10.49197
+101,"hypercellular, myelodysplastic syndrome",101,2,train,"hypercellular, myelodysplastic syndrome",4.325141,-7.385998
+102,"acute myeloid leukemia, hemophagocytosis",102,2,train,"acute myeloid leukemia, hemophagocytosis",19.306818,-5.6280894
+103,normal,103,1,train,normal,-20.79278,14.348213
+104,"chronic myeloid leukemia, myeloproliferative neoplasm",104,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.64613616,-21.692991
+105,"hemophagocytosis, myelodysplastic syndrome",105,2,train,"hemophagocytosis, myelodysplastic syndrome",8.324348,-3.989567
+106,myelodysplastic syndrome,106,1,train,"hypercellular, myelodysplastic syndrome",5.2401843,-7.782719
+107,"inadequate, metastatic",107,2,train,"inadequate, metastatic",4.82452,13.563017
+108,"hypercellular, myelodysplastic syndrome",108,2,train,"hypercellular, myelodysplastic syndrome",4.5226626,-7.4626436
+109,"myelodysplastic syndrome, myeloproliferative neoplasm",109,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",7.1584997,-14.565785
+110,"hypercellular, plasma cell neoplasm",110,2,train,"hypercellular, plasma cell neoplasm",-2.6939003,9.09042
+111,"acute myeloid leukemia, inadequate, myelodysplastic syndrome",111,3,train,"acute myeloid leukemia, inadequate, myelodysplastic syndrome",10.754782,0.6814859
+112,plasma cell neoplasm,112,1,train,plasma cell neoplasm,-4.958255,9.424869
+113,"iron deficiency, normal",113,2,train,"iron deficiency, normal",-14.978665,32.099422
+114,myelodysplastic syndrome,114,1,train,myelodysplastic syndrome,8.31783,-9.136569
+115,"inadequate, mastocytosis",115,2,train,"inadequate, mastocytosis",-3.0175967,0.13990064
+116,"eosinophilia, granulocytic hyperplasia, hypercellular",116,3,train,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.2749324,-11.872127
+117,acute leukemia,117,1,train,acute leukemia,6.8978715,-1.5765823
+118,"hypercellular, mastocytosis",118,2,train,"hypercellular, mastocytosis",-2.2450876,-2.4738913
+119,"hypercellular, myelodysplastic syndrome",119,2,train,"hypercellular, myelodysplastic syndrome",4.340313,-7.4722395
+120,normal,120,1,train,normal,-18.081858,11.3220825
+121,plasma cell neoplasm,121,1,train,plasma cell neoplasm,-4.209001,9.673413
+122,"iron deficiency, normal",122,2,train,"iron deficiency, normal",-15.098676,32.90324
+123,"granulocytic hyperplasia, hypercellular",123,2,train,"granulocytic hyperplasia, hypercellular",-9.511308,-12.416303
+124,"iron deficiency, normal",124,2,train,"iron deficiency, normal",-16.003546,33.772274
+125,"acute myeloid leukemia, hemophagocytosis, hypocellular",125,3,train,"acute myeloid leukemia, hemophagocytosis, hypocellular",19.90014,-4.270039
+126,"acute myeloid leukemia, hemophagocytosis, hypocellular",126,3,train,"acute myeloid leukemia, hemophagocytosis, hypocellular",19.91589,-4.3015943
+127,"iron deficiency, normal",127,2,train,"iron deficiency, normal",-16.15317,32.369106
+128,"hypocellular, myelodysplastic syndrome",128,2,train,"hypocellular, myelodysplastic syndrome",9.822168,-8.50485
+129,plasma cell neoplasm,129,1,train,plasma cell neoplasm,-5.127675,9.350555
+130,acute myeloid leukemia,130,1,train,acute myeloid leukemia,18.787695,-9.671261
+131,normal,131,1,train,normal,-18.605824,15.052521
+132,"acute lymphoblastic leukemia, lymphoproliferative disorder",132,2,train,"acute lymphoblastic leukemia, lymphoproliferative disorder",15.278624,7.155907
+133,normal,133,1,train,normal,-20.51763,10.64095
+134,normal,134,1,train,normal,-22.582253,15.163015
+135,lymphoproliferative disorder,135,1,train,lymphoproliferative disorder,13.529168,5.80113
+136,"acute leukemia, hypercellular, myelodysplastic syndrome",136,3,train,"acute leukemia, hypercellular, myelodysplastic syndrome",5.634132,-3.710724
+137,"hemophagocytosis, hypocellular",137,2,train,"hemophagocytosis, hypocellular",19.621193,-2.4271016
+138,lymphoproliferative disorder,138,1,train,lymphoproliferative disorder,12.861974,6.312104
+139,"iron deficiency, normal",139,2,train,"iron deficiency, normal",-16.428514,33.289383
+140,"inadequate, metastatic",140,2,train,"inadequate, metastatic",4.725398,13.595277
+141,"acute lymphoblastic leukemia, lymphoproliferative disorder",141,2,train,"acute lymphoblastic leukemia, lymphoproliferative disorder",15.375843,7.4236317
+142,"myelodysplastic syndrome, myeloproliferative neoplasm",142,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",8.120491,-15.305592
+143,"hemophagocytosis, hypocellular",143,2,train,"hemophagocytosis, hypocellular",19.993313,-2.0796328
+144,normal,144,1,train,normal,-19.265596,12.65461
+145,"acute lymphoblastic leukemia, hypocellular, lymphoproliferative disorder",145,3,train,"acute lymphoblastic leukemia, hypocellular, lymphoproliferative disorder",16.303532,5.840186
+146,acute myeloid leukemia,146,1,train,acute myeloid leukemia,19.75619,-8.548497
+147,normal,147,1,train,normal,-22.184393,14.559098
+148,normal,148,1,train,normal,-21.158594,14.789126
+149,normal,149,1,train,normal,-19.746252,11.732158
+150,myeloproliferative neoplasm,150,1,train,myeloproliferative neoplasm,2.6147208,-21.026491
+151,"hypercellular, lymphoproliferative disorder, mastocytosis",151,3,train,"hypercellular, lymphoproliferative disorder, mastocytosis",-1.6201154,-1.763958
+152,"granulocytic hyperplasia, hypercellular, mastocytosis",152,3,train,"granulocytic hyperplasia, hypercellular, mastocytosis",-10.614608,-12.023877
+153,acute leukemia,153,1,train,acute leukemia,6.861746,-1.6912993
+154,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome",154,3,train,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome",2.780569,-10.901902
+155,inadequate,155,1,train,inadequate,9.764901,2.2902336
+156,"inadequate, myelodysplastic syndrome",156,2,train,"inadequate, myelodysplastic syndrome",10.497434,1.105254
+157,"inadequate, lymphoproliferative disorder",157,2,train,"inadequate, lymphoproliferative disorder",10.525992,4.055873
+158,normal,158,1,train,"iron deficiency, normal",-19.67028,18.021458
+159,"inadequate, lymphoproliferative disorder",159,2,train,"inadequate, lymphoproliferative disorder",10.666344,4.158161
+160,"myelodysplastic syndrome, myeloproliferative neoplasm",160,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",7.658021,-14.3568535
+161,"chronic myeloid leukemia, granulocytic hyperplasia, myeloproliferative neoplasm",161,3,train,"chronic myeloid leukemia, granulocytic hyperplasia, myeloproliferative neoplasm",-1.3347,-21.35465
+162,"acute lymphoblastic leukemia, hemophagocytosis, lymphoproliferative disorder",162,3,train,"acute lymphoblastic leukemia, hemophagocytosis, lymphoproliferative disorder",16.511683,7.237273
+163,normal,163,1,train,normal,-18.54197,10.810573
+164,"acute lymphoblastic leukemia, inadequate, lymphoproliferative disorder",164,3,train,"acute lymphoblastic leukemia, inadequate, lymphoproliferative disorder",11.912438,4.3525147
+165,"iron deficiency, normal",165,2,train,"iron deficiency, normal",-16.351454,32.583164
+166,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",166,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",23.125267,-13.357674
+167,"acute myeloid leukemia, acute promyelocytic leukemia, hypocellular",167,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypocellular",22.402025,-10.185058
+168,"eosinophilia, granulocytic hyperplasia, hypercellular",168,3,train,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.4754233,-12.061841
+169,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",169,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.600037,-13.955485
+170,"acute lymphoblastic leukemia, lymphoproliferative disorder",170,2,train,"acute lymphoblastic leukemia, lymphoproliferative disorder",15.603952,7.281388
+171,"eosinophilia, hypercellular, myelodysplastic syndrome",171,3,train,"eosinophilia, hypercellular, myelodysplastic syndrome",-6.2393074,-9.564895
+172,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",172,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.434288,-13.573516
+173,"inadequate, metastatic",173,2,train,"inadequate, metastatic",4.684546,13.6361065
+174,"hypercellular, plasma cell neoplasm",174,2,train,"hypercellular, plasma cell neoplasm",-2.6003356,8.997299
+175,normal,175,1,train,normal,-24.168062,13.688618
+176,"acute lymphoblastic leukemia, hypocellular, lymphoproliferative disorder",176,3,train,"acute lymphoblastic leukemia, hypocellular, lymphoproliferative disorder",16.312887,5.8531456
+177,"eosinophilia, granulocytic hyperplasia, hypercellular",177,3,train,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.5242653,-11.831675
+178,eosinophilia,178,1,train,eosinophilia,-6.125231,-7.0227127
+179,normal,179,1,train,normal,-22.68871,10.098377
+180,myeloproliferative neoplasm,180,1,train,myeloproliferative neoplasm,2.573235,-21.030035
+181,"basophilia, chronic myeloid leukemia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",181,5,train,"basophilia, chronic myeloid leukemia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",-1.0301737,-18.090485
+182,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",182,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.998585,-13.950863
+183,"hypercellular, mastocytosis, myelodysplastic syndrome",183,3,train,"hypercellular, mastocytosis, myelodysplastic syndrome",-1.8899808,-2.7728677
+184,"chronic myeloid leukemia, myeloproliferative neoplasm",184,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.49117297,-21.755
+185,acute myeloid leukemia,185,1,train,acute myeloid leukemia,19.571306,-9.606608
+186,acute myeloid leukemia,186,1,train,acute myeloid leukemia,20.073994,-9.232977
+187,normal,187,1,train,erythroid hyperplasia,-14.282534,0.8653232
+188,"myelodysplastic syndrome, plasma cell neoplasm",188,2,train,"myelodysplastic syndrome, plasma cell neoplasm",-4.4514384,7.352159
+189,"eosinophilia, erythroid hyperplasia, hypercellular, myelodysplastic syndrome",189,4,train,"eosinophilia, erythroid hyperplasia, hypercellular, myelodysplastic syndrome",-6.770001,-9.270043
+190,"inadequate, lymphoproliferative disorder",190,2,train,"inadequate, lymphoproliferative disorder",10.805,4.1569457
+191,"acute leukemia, hypercellular, myelodysplastic syndrome",191,3,train,"acute leukemia, hypercellular, myelodysplastic syndrome",5.628149,-3.5198932
+192,mastocytosis,192,1,train,mastocytosis,-3.134871,-1.0216774
+193,normal,193,1,train,normal,-21.14187,15.925327
+194,erythroid hyperplasia,194,1,train,erythroid hyperplasia,-14.709104,0.5283486
+195,myelodysplastic syndrome,195,1,train,myelodysplastic syndrome,7.0066447,-9.338541
+196,"eosinophilia, hypercellular",196,2,train,"eosinophilia, hypercellular",-5.274933,-9.579562
+197,"chronic myeloid leukemia, myeloproliferative neoplasm",197,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.69341195,-20.981186
+198,normal,198,1,train,normal,-20.1802,12.7935705
+199,acute myeloid leukemia,199,1,train,acute myeloid leukemia,19.418198,-9.3124695
+200,"myelodysplastic syndrome, myeloproliferative neoplasm",200,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",8.1862335,-14.1259575
+201,"hypercellular, myelodysplastic syndrome, plasma cell neoplasm",201,3,train,"hypercellular, myelodysplastic syndrome, plasma cell neoplasm",-2.9590497,7.9788656
+202,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",202,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.854715,9.913803
+203,normal,203,1,train,normal,-18.373657,12.294326
+204,"chronic myeloid leukemia, myeloproliferative neoplasm",204,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.9196993,-21.074348
+205,plasma cell neoplasm,205,1,train,plasma cell neoplasm,-4.8942146,9.664268
+206,normal,206,1,train,normal,-21.544834,11.490465
+207,normal,207,1,train,normal,-20.775913,13.560521
+208,normal,208,1,train,normal,-21.701694,12.659323
+209,normal,209,1,train,normal,-19.920374,14.106345
+210,"acute lymphoblastic leukemia, inadequate, lymphoproliferative disorder",210,3,train,"acute lymphoblastic leukemia, inadequate, lymphoproliferative disorder",11.901233,4.3550744
+211,normal,211,1,train,normal,-21.00089,15.779474
+212,"inadequate, metastatic, myelodysplastic syndrome",212,3,train,"inadequate, metastatic, myelodysplastic syndrome",5.461346,13.264762
+213,normal,213,1,train,normal,-23.90244,11.493558
+214,mastocytosis,214,1,train,mastocytosis,-3.0969658,-1.2076342
+215,"acute myeloid leukemia, myelodysplastic syndrome",215,2,train,"acute myeloid leukemia, myelodysplastic syndrome",14.279597,-11.183608
+216,normal,216,1,train,normal,-22.041578,13.418781
+217,"eosinophilia, inadequate, lymphoproliferative disorder",217,3,train,"eosinophilia, inadequate, lymphoproliferative disorder",7.955827,4.539691
+218,normal,218,1,train,normal,-24.060047,13.501011
+219,"eosinophilia, hypercellular, mastocytosis, myelodysplastic syndrome, myeloproliferative neoplasm",219,5,train,"eosinophilia, hypercellular, mastocytosis, myelodysplastic syndrome, myeloproliferative neoplasm",-2.124874,-6.746784
+220,normal,220,1,train,normal,-19.930487,17.090519
+221,normal,221,1,train,normal,-23.318367,10.754389
+222,normal,222,1,train,normal,-20.053802,10.458549
+223,acute myeloid leukemia,223,1,train,acute myeloid leukemia,18.953552,-9.312238
+224,"chronic myeloid leukemia, myeloproliferative neoplasm",224,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.9723428,-22.317019
+225,"iron deficiency, normal",225,2,train,"iron deficiency, normal",-15.219091,33.99934
+226,"granulocytic hyperplasia, hypercellular",226,2,train,"granulocytic hyperplasia, hypercellular",-9.489878,-12.4616375
+227,lymphoproliferative disorder,227,1,train,lymphoproliferative disorder,13.452883,6.4165077
+228,"acute myeloid leukemia, acute promyelocytic leukemia",228,2,train,"acute myeloid leukemia, acute promyelocytic leukemia",22.61791,-11.5597
+229,normal,229,1,train,lymphoproliferative disorder,14.675099,5.5263047
+230,"inadequate, metastatic",230,2,train,"inadequate, metastatic",4.8922324,13.945718
+231,"acute myeloid leukemia, myelodysplastic syndrome",231,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.311256,-11.088743
+232,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",232,3,train,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",6.1364326,-13.495941
+233,"hemophagocytosis, hypocellular",233,2,train,"hemophagocytosis, hypocellular",19.662937,-2.2352488
+234,"chronic myeloid leukemia, myeloproliferative neoplasm",234,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.26174653,-21.252432
+235,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",235,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.505416,9.959115
+236,myelodysplastic syndrome,236,1,train,myelodysplastic syndrome,7.9167356,-9.641582
+237,normal,237,1,train,normal,-21.266867,9.412957
+238,"eosinophilia, hypercellular, mastocytosis",238,3,train,"eosinophilia, hypercellular, mastocytosis",-3.0016859,-4.86621
+239,normal,239,1,train,normal,-20.479092,11.62268
+240,"iron deficiency, normal",240,2,train,"iron deficiency, normal",-14.439406,33.11484
+241,normal,241,1,train,normal,-20.985704,12.393096
+242,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",242,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.395107,-13.529103
+243,lymphoproliferative disorder,243,1,train,lymphoproliferative disorder,13.4888115,6.7926235
+244,"erythroid hyperplasia, myelodysplastic syndrome",244,2,train,"erythroid hyperplasia, myelodysplastic syndrome",-14.087018,-1.264788
+245,metastatic,245,1,train,metastatic,3.331482,15.180405
+246,"iron deficiency, normal",246,2,train,"iron deficiency, normal",-15.723072,33.9795
+247,normal,247,1,train,normal,-21.422968,16.888506
+248,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",248,3,train,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",-12.665536,-1.1496254
+249,"hemophagocytosis, hypocellular",249,2,train,"hemophagocytosis, hypocellular",19.806047,-2.0972886
+250,normal,250,1,train,normal,-17.292273,8.524243
+251,metastatic,251,1,train,metastatic,3.272232,15.08635
+252,normal,252,1,train,normal,-19.655993,11.103114
+253,lymphoproliferative disorder,253,1,train,lymphoproliferative disorder,13.15726,6.1170244
+254,eosinophilia,254,1,train,eosinophilia,-6.2364764,-7.074722
+255,normal,255,1,train,normal,-21.214764,14.57411
+256,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",256,3,train,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",-12.400183,-1.3278319
+257,"erythroid hyperplasia, hemophagocytosis, hypercellular, myelodysplastic syndrome",257,4,train,"erythroid hyperplasia, hemophagocytosis, hypercellular, myelodysplastic syndrome",-12.079704,-1.5721012
+258,normal,258,1,train,"acute myeloid leukemia, hemophagocytosis, hypocellular",19.913279,-3.7144632
+259,"iron deficiency, normal",259,2,train,"iron deficiency, normal",-14.962601,32.653877
+260,"eosinophilia, hypercellular",260,2,train,"eosinophilia, hypercellular",-5.399626,-9.514113
+261,myelodysplastic syndrome,261,1,train,myelodysplastic syndrome,8.685288,-9.20162
+262,"acute leukemia, hemophagocytosis, myelodysplastic syndrome",262,3,train,"acute leukemia, hemophagocytosis, myelodysplastic syndrome",7.940012,-3.6261647
+263,metastatic,263,1,train,metastatic,3.4793677,14.884403
+264,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",264,3,train,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",16.788088,-12.204051
+265,"acute myeloid leukemia, hemophagocytosis",265,2,train,"acute myeloid leukemia, hemophagocytosis",19.197754,-7.361231
+266,eosinophilia,266,1,train,eosinophilia,-6.175788,-7.140255
+267,"hypercellular, myelodysplastic syndrome",267,2,train,"hypercellular, myelodysplastic syndrome",4.3689685,-7.4641385
+268,"eosinophilia, lymphoproliferative disorder",268,2,train,"eosinophilia, lymphoproliferative disorder",7.6988597,4.659297
+269,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",269,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.998387,9.547013
+270,"iron deficiency, normal",270,2,train,"iron deficiency, normal",-14.54861,33.230213
+271,normal,271,1,train,normal,-20.01329,14.33976
+272,erythroid hyperplasia,272,1,train,erythroid hyperplasia,-14.813806,0.24870545
+273,"acute myeloid leukemia, myelodysplastic syndrome",273,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.030751,-11.103621
+274,mastocytosis,274,1,train,mastocytosis,-3.242541,-1.0601414
+275,erythroid hyperplasia,275,1,train,erythroid hyperplasia,-14.714033,0.09058881
+276,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",276,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.688604,-13.986387
+277,"acute leukemia, myelodysplastic syndrome",277,2,train,"acute leukemia, myelodysplastic syndrome",6.883111,-3.2324371
+278,"hypercellular, myelodysplastic syndrome",278,2,train,"hypercellular, myelodysplastic syndrome",4.0703464,-7.4967213
+279,"acute leukemia, inadequate",279,2,train,"acute leukemia, inadequate",8.026176,0.460945
+280,metastatic,280,1,train,metastatic,3.5239782,15.435564
+281,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",281,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.65669,-13.338537
+282,"iron deficiency, normal",282,2,train,"iron deficiency, normal",-14.448579,32.67749
+283,normal,283,1,train,normal,-20.454927,12.30786
+284,"eosinophilia, hypercellular",284,2,train,"eosinophilia, hypercellular",-5.428428,-9.600451
+285,"iron deficiency, normal",285,2,train,"iron deficiency, normal",-15.492145,33.636543
+286,"iron deficiency, normal",286,2,train,"iron deficiency, normal",-15.847232,32.120346
+287,"hypercellular, lymphoproliferative disorder",287,2,train,"hypercellular, lymphoproliferative disorder",14.042231,9.502799
+288,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",288,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.614065,10.008873
+289,normal,289,1,train,normal,-22.19395,15.618957
+290,metastatic,290,1,train,metastatic,3.3868396,14.930608
+291,acute myeloid leukemia,291,1,train,acute myeloid leukemia,19.296824,-8.935106
+292,"myelodysplastic syndrome, myeloproliferative neoplasm",292,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",8.274631,-14.967881
+293,"chronic myeloid leukemia, myeloproliferative neoplasm",293,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",-0.10847099,-21.9111
+294,normal,294,1,train,normal,-23.461967,16.192465
+295,"chronic myeloid leukemia, myeloproliferative neoplasm",295,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.35095426,-22.395756
+296,normal,296,1,train,normal,-19.648361,8.517771
+297,normal,297,1,train,normal,-18.487864,9.36367
+298,"iron deficiency, normal",298,2,train,"iron deficiency, normal",-15.52314,32.16459
+299,"myelodysplastic syndrome, myeloproliferative neoplasm",299,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",7.739835,-14.6012335
+300,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",300,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",23.156315,-13.57668
+301,"acute myeloid leukemia, hemophagocytosis, hypocellular",301,3,train,"acute myeloid leukemia, hemophagocytosis, hypocellular",19.85435,-4.144495
+302,"myelodysplastic syndrome, myeloproliferative neoplasm",302,2,train,myelodysplastic syndrome,7.3833485,-8.654433
+303,"chronic myeloid leukemia, myeloproliferative neoplasm",303,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",-0.047130167,-21.642914
+304,"myelodysplastic syndrome, myeloproliferative neoplasm",304,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",8.275552,-15.032493
+305,"eosinophilia, granulocytic hyperplasia, hypercellular",305,3,train,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.273739,-11.865923
+306,normal,306,1,train,normal,-21.556887,9.842427
+307,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",307,3,train,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",6.428154,-13.7034
+308,myeloproliferative neoplasm,308,1,train,myeloproliferative neoplasm,2.2140265,-21.16364
+309,normal,309,1,train,normal,-20.196539,16.640776
+310,myelodysplastic syndrome,310,1,train,myelodysplastic syndrome,8.021299,-9.208165
+311,normal,311,1,train,normal,-21.676226,13.760037
+312,"chronic myeloid leukemia, myeloproliferative neoplasm",312,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",-0.09166278,-22.10092
+313,metastatic,313,1,train,metastatic,3.5116994,15.535848
+314,myelodysplastic syndrome,314,1,train,myelodysplastic syndrome,8.201573,-8.669925
+315,normal,315,1,train,normal,-19.52561,15.843832
+316,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",316,4,train,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",9.758671,-13.7654705
+317,"acute leukemia, hypercellular",317,2,train,"acute leukemia, hypercellular",5.1499786,-1.8850905
+318,"myelodysplastic syndrome, myeloproliferative neoplasm",318,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",7.4509773,-14.626304
+319,"eosinophilia, plasma cell neoplasm",319,2,train,"eosinophilia, plasma cell neoplasm",-5.2792683,-7.1545405
+320,acute myeloid leukemia,320,1,train,acute myeloid leukemia,20.000896,-8.946662
+321,"acute myeloid leukemia, hypocellular",321,2,train,"acute myeloid leukemia, hypocellular",21.35054,-7.1745486
+322,plasma cell neoplasm,322,1,train,plasma cell neoplasm,-4.508389,9.773845
+323,erythroid hyperplasia,323,1,train,erythroid hyperplasia,-14.627172,0.5290178
+324,"acute leukemia, myelodysplastic syndrome",324,2,train,"acute leukemia, myelodysplastic syndrome",6.937944,-3.2970772
+325,normal,325,1,train,normal,-20.48536,11.809858
+326,metastatic,326,1,train,metastatic,4.0486994,15.488226
+327,granulocytic hyperplasia,327,1,train,granulocytic hyperplasia,-9.5067835,-13.622201
+328,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",328,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.39576,9.910592
+329,"hypocellular, lymphoproliferative disorder",329,2,train,"hypocellular, lymphoproliferative disorder",16.042078,4.829104
+330,erythroid hyperplasia,330,1,train,erythroid hyperplasia,-14.75338,0.43142197
+331,"iron deficiency, normal",331,2,train,"iron deficiency, normal",-15.79478,32.686142
+332,"acute myeloid leukemia, hemophagocytosis",332,2,train,"acute myeloid leukemia, hemophagocytosis",19.201075,-5.9064193
+333,granulocytic hyperplasia,333,1,train,granulocytic hyperplasia,-9.501463,-13.707642
+334,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",334,5,train,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",-1.7148033,-12.078981
+335,normal,335,1,train,normal,-16.896307,12.937989
+336,mastocytosis,336,1,train,mastocytosis,-3.405155,-1.1464355
+337,normal,337,1,train,normal,-21.426798,15.445275
+338,"acute myeloid leukemia, hemophagocytosis, hypocellular",338,3,train,"acute myeloid leukemia, hemophagocytosis, hypocellular",19.957653,-4.1547213
+339,eosinophilia,339,1,train,eosinophilia,-5.909085,-7.3559194
+340,"chronic myeloid leukemia, myeloproliferative neoplasm",340,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.6683986,-22.384954
+341,normal,341,1,train,normal,-19.244066,10.031171
+342,"acute myeloid leukemia, acute promyelocytic leukemia",342,2,train,"acute myeloid leukemia, acute promyelocytic leukemia",22.615503,-11.6550255
+343,lymphoproliferative disorder,343,1,train,lymphoproliferative disorder,12.972182,5.956422
+344,"myelodysplastic syndrome, plasma cell neoplasm",344,2,train,"myelodysplastic syndrome, plasma cell neoplasm",-4.441755,7.2439933
+345,normal,345,1,train,normal,-17.930893,13.626675
+346,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder, metastatic",346,4,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder, metastatic",16.371069,10.613822
+347,"erythroid hyperplasia, hypercellular",347,2,train,"erythroid hyperplasia, hypercellular",-12.950433,-0.2531014
+348,"hypercellular, plasma cell neoplasm",348,2,train,"hypercellular, plasma cell neoplasm",-2.748858,9.096955
+349,"basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",349,4,train,"basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",-2.592944,-15.502873
+350,acute leukemia,350,1,train,acute leukemia,6.984291,-1.5167197
+351,normal,351,1,train,normal,-21.95771,9.555195
+352,acute myeloid leukemia,352,1,train,acute myeloid leukemia,19.125502,-8.352563
+353,myelodysplastic syndrome,353,1,train,myelodysplastic syndrome,8.496545,-9.459065
+354,"acute myeloid leukemia, acute promyelocytic leukemia",354,2,train,"acute myeloid leukemia, acute promyelocytic leukemia",22.391619,-11.465916
+355,"basophilia, eosinophilia, hypercellular, mastocytosis",355,4,train,"basophilia, eosinophilia, hypercellular, mastocytosis",-2.6101499,-5.5857935
+356,"basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",356,4,train,"basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",24.79147,3.058599
+357,"acute myeloid leukemia, myelodysplastic syndrome",357,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.717817,-10.545326
+358,"hypercellular, iron deficiency, myelodysplastic syndrome",358,3,train,"hypercellular, myelodysplastic syndrome",3.7900198,-7.0070505
+359,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",359,3,train,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.780687,9.3263645
+360,"granulocytic hyperplasia, hypercellular",360,2,train,"granulocytic hyperplasia, hypercellular",-9.425044,-12.458013
+361,"acute myeloid leukemia, myelodysplastic syndrome, myeloproliferative neoplasm",361,3,train,"acute myeloid leukemia, myelodysplastic syndrome, myeloproliferative neoplasm",10.006736,-14.328643
+362,normal,362,1,train,normal,-20.264124,15.223907
+363,"myelodysplastic syndrome, myeloproliferative neoplasm",363,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",8.273145,-14.579939
+364,myelodysplastic syndrome,364,1,train,myelodysplastic syndrome,8.317395,-10.098196
+365,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",365,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",23.230808,-13.706157
+366,erythroid hyperplasia,366,1,train,erythroid hyperplasia,-14.312212,0.18179905
+367,"acute leukemia, inadequate",367,2,train,"acute leukemia, inadequate",8.05691,0.50731546
+368,"eosinophilia, hypercellular, mastocytosis",368,3,train,"eosinophilia, hypercellular, mastocytosis",-2.8647902,-4.896562
+369,normal,369,1,train,"granulocytic hyperplasia, hypercellular, mastocytosis",-10.4114485,-12.136329
+370,normal,370,1,train,normal,-20.351284,13.11478
+371,"acute leukemia, hypercellular",371,2,train,"acute leukemia, hypercellular",5.215319,-1.9432683
+372,"lymphoproliferative disorder, plasma cell neoplasm",372,2,train,"lymphoproliferative disorder, plasma cell neoplasm",-4.3126097,10.654811
+373,"eosinophilia, hypercellular, myeloproliferative neoplasm",373,3,train,"eosinophilia, hypercellular, myeloproliferative neoplasm",-3.3520277,-15.035204
+374,"myelodysplastic syndrome, myeloproliferative neoplasm",374,2,train,"myelodysplastic syndrome, myeloproliferative neoplasm",7.4394493,-15.164513
+375,plasma cell neoplasm,375,1,train,plasma cell neoplasm,-4.4580894,9.301145
+376,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, myeloproliferative neoplasm",376,5,train,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, myeloproliferative neoplasm",-2.211742,-17.108618
+377,lymphoproliferative disorder,377,1,train,lymphoproliferative disorder,13.688358,6.4373565
+378,"granulocytic hyperplasia, hypercellular, mastocytosis",378,3,train,"granulocytic hyperplasia, hypercellular, mastocytosis",-10.673528,-11.974701
+379,"chronic myeloid leukemia, myeloproliferative neoplasm",379,2,train,"chronic myeloid leukemia, myeloproliferative neoplasm",0.8381242,-21.190037
+380,erythroid hyperplasia,380,1,train,erythroid hyperplasia,-14.66067,0.08551239
+381,"eosinophilia, granulocytic hyperplasia, hypercellular",381,3,train,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.32919,-12.058009
+382,"iron deficiency, normal",382,2,train,"iron deficiency, normal",-15.20804,32.06439
+383,myelodysplastic syndrome,383,1,train,myelodysplastic syndrome,8.50228,-9.401443
+384,"eosinophilia, mastocytosis",384,2,train,"eosinophilia, mastocytosis",-3.0758111,-4.8225446
+385,"acute myeloid leukemia, eosinophilia, hypercellular",385,3,train,"acute myeloid leukemia, eosinophilia, hypercellular",-4.5218334,-10.13847
+386,"iron deficiency, normal",386,2,train,"iron deficiency, normal",-14.907015,33.81416
+387,"hemophagocytosis, hypocellular",387,2,train,"hemophagocytosis, hypocellular",19.980766,-2.1073816
+388,"acute myeloid leukemia, myelodysplastic syndrome",388,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.376362,-10.697544
+389,normal,389,1,train,"iron deficiency, normal",-15.965664,31.391502
+390,acute myeloid leukemia,390,1,train,acute myeloid leukemia,19.478254,-8.377649
+391,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",391,3,train,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.376879,-13.649938
+392,"iron deficiency, normal",392,2,train,"iron deficiency, normal",-15.175347,33.36077
+393,lymphoproliferative disorder,393,1,train,lymphoproliferative disorder,13.783189,6.1339893
+394,"acute myeloid leukemia, hypocellular",394,2,train,"acute myeloid leukemia, hypocellular",21.345442,-7.1974344
+395,"acute myeloid leukemia, myelodysplastic syndrome",395,2,train,"acute myeloid leukemia, myelodysplastic syndrome",15.68418,-11.1405735
+396,lymphoproliferative disorder,396,1,train,lymphoproliferative disorder,13.711365,5.8278766
+397,myelodysplastic syndrome,397,1,train,myelodysplastic syndrome,8.409294,-9.90616
+398,"eosinophilia, granulocytic hyperplasia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",398,5,train,"eosinophilia, granulocytic hyperplasia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",2.4445155,-11.771965
+399,"acute leukemia, hypercellular, myelodysplastic syndrome",399,3,train,"acute leukemia, hypercellular, myelodysplastic syndrome",5.662199,-3.505488
+400,plasma cell neoplasm,0,1,test,plasma cell neoplasm,-4.760972,8.918333
+401,"acute lymphoblastic leukemia, lymphoproliferative disorder",1,2,test,lymphoproliferative disorder,13.634646,7.2012744
+402,plasma cell neoplasm,2,1,test,plasma cell neoplasm,-3.5366278,9.506752
+403,plasma cell neoplasm,3,1,test,plasma cell neoplasm,-3.629192,9.282497
+404,plasma cell neoplasm,4,1,test,"hypercellular, plasma cell neoplasm",-2.9359844,9.110911
+405,"acute lymphoblastic leukemia, lymphoproliferative disorder, myelodysplastic syndrome",5,3,test,"hypercellular, lymphoproliferative disorder",14.005999,9.52259
+406,inadequate,6,1,test,normal,-16.041847,11.189218
+407,"acute lymphoblastic leukemia, lymphoproliferative disorder, myelodysplastic syndrome",7,3,test,"inadequate, lymphoproliferative disorder",10.452863,3.6418748
+408,"acute lymphoblastic leukemia, lymphoproliferative disorder, myelodysplastic syndrome",8,3,test,lymphoproliferative disorder,14.070836,6.7665315
+409,inadequate,9,1,test,normal,-22.849783,16.365288
+410,metastatic,10,1,test,"inadequate, metastatic",4.507785,13.826153
+411,erythroid hyperplasia,11,1,test,erythroid hyperplasia,-14.369413,-0.604104
+412,"inadequate, metastatic",12,2,test,"inadequate, metastatic",4.900491,14.060649
+413,inadequate,13,1,test,inadequate,9.981691,1.9715183
+414,"basophilia, chronic myeloid leukemia, eosinophilia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",14,6,test,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, myeloproliferative neoplasm",-1.4280696,-17.730856
+415,"basophilia, chronic myeloid leukemia, eosinophilia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",15,6,test,"chronic myeloid leukemia, myeloproliferative neoplasm",-0.34184527,-20.780401
+416,"chronic myeloid leukemia, granulocytic hyperplasia, myeloproliferative neoplasm",16,3,test,"chronic myeloid leukemia, myeloproliferative neoplasm",0.20742856,-20.848063
+417,"acute myeloid leukemia, acute promyelocytic leukemia",17,2,test,"acute myeloid leukemia, acute promyelocytic leukemia",21.755348,-12.054614
+418,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",18,4,test,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",2.6841636,-11.524651
+419,metastatic,19,1,test,metastatic,4.0832124,14.857535
+420,metastatic,20,1,test,metastatic,4.222569,15.166157
+421,mastocytosis,21,1,test,mastocytosis,-3.636757,-1.414456
+422,mastocytosis,22,1,test,mastocytosis,-3.1529663,-1.6309096
+423,mastocytosis,23,1,test,mastocytosis,-3.6300716,-0.44096646
+424,mastocytosis,24,1,test,mastocytosis,-3.3523626,-0.914025
+425,"acute myeloid leukemia, hemophagocytosis, hypocellular",25,3,test,"hypocellular, lymphoproliferative disorder",16.606663,4.0067143
+426,"acute myeloid leukemia, hemophagocytosis, hypocellular",26,3,test,"hemophagocytosis, hypocellular",19.832651,-2.8288958
+427,"acute myeloid leukemia, hemophagocytosis, hypocellular",27,3,test,"acute myeloid leukemia, hemophagocytosis, inadequate",18.045374,-6.1866155
+428,"basophilia, eosinophilia, hypercellular, mastocytosis, myeloproliferative neoplasm",28,5,test,"basophilia, eosinophilia, hypercellular, mastocytosis, myeloproliferative neoplasm",-2.5029604,-6.1043024
+429,acute leukemia,29,1,test,"acute leukemia, inadequate",8.311786,0.87217253
+430,acute leukemia,30,1,test,"acute leukemia, hypercellular",5.6732993,-1.139964
+431,acute leukemia,31,1,test,"acute leukemia, hypercellular",5.6091156,-1.8290253
+432,"hypocellular, inadequate",32,2,test,inadequate,9.999428,2.9563956
+433,"hemophagocytosis, hypocellular",33,2,test,hemophagocytosis,19.290913,-1.419764
+434,"erythroid hyperplasia, hypercellular, metastatic",34,3,test,metastatic,3.8276849,16.180622
+435,"erythroid hyperplasia, iron deficiency, normal",35,3,test,erythroid hyperplasia,-14.064295,0.46193865
+436,"acute leukemia, hypocellular",36,2,test,"acute leukemia, hypercellular",5.8823323,-2.1457057
+437,"acute leukemia, basophilia, eosinophilia, myelodysplastic syndrome",37,4,test,"basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",24.787409,3.0568774
+438,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",38,3,test,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",22.76472,-12.422461
+439,"erythroid hyperplasia, hypercellular",39,2,test,erythroid hyperplasia,-14.084588,0.8603184
+440,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",40,3,test,"acute myeloid leukemia, acute promyelocytic leukemia",22.456087,-12.267459
+441,"acute myeloid leukemia, acute promyelocytic leukemia, myelodysplastic syndrome",41,3,test,acute myeloid leukemia,20.157475,-10.152824
+442,normal,42,1,test,normal,-17.529613,15.394786
+443,plasma cell neoplasm,43,1,test,plasma cell neoplasm,-6.174301,9.741607
+444,"hemophagocytosis, hypocellular",44,2,test,hemophagocytosis,18.915665,-0.8570046
+445,normal,45,1,test,myelodysplastic syndrome,9.551687,-8.638773
+446,plasma cell neoplasm,46,1,test,plasma cell neoplasm,-4.514212,8.929385
+447,"inadequate, metastatic",47,2,test,"inadequate, metastatic",4.8366466,14.124029
+448,myelodysplastic syndrome,48,1,test,myelodysplastic syndrome,8.164391,-12.812399
+449,"eosinophilia, granulocytic hyperplasia, hypercellular",49,3,test,"eosinophilia, granulocytic hyperplasia, hypercellular",-8.126414,-12.206217
+450,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",50,3,test,"acute leukemia, hypercellular, myelodysplastic syndrome",5.5307508,-4.06605
+451,"iron deficiency, normal",51,2,test,"iron deficiency, normal",-16.44006,32.875526
+452,"chronic myeloid leukemia, myeloproliferative neoplasm",52,2,test,"chronic myeloid leukemia, myeloproliferative neoplasm",1.0011727,-22.239384
+453,"acute myeloid leukemia, myelodysplastic syndrome",53,2,test,acute myeloid leukemia,20.772703,-7.6068993
+454,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",54,3,test,"acute lymphoblastic leukemia, lymphoproliferative disorder",15.571878,7.3900695
+455,"myelodysplastic syndrome, myeloproliferative neoplasm",55,2,test,"myelodysplastic syndrome, myeloproliferative neoplasm",7.160547,-15.088733
+456,"basophilia, eosinophilia, hypercellular",56,3,test,"basophilia, eosinophilia, hypercellular, myeloproliferative neoplasm",-2.2482898,-15.445708
+457,"acute myeloid leukemia, hypercellular",57,2,test,"acute myeloid leukemia, myelodysplastic syndrome",16.866089,-11.374006
+458,"acute myeloid leukemia, acute promyelocytic leukemia, hypocellular",58,3,test,"acute myeloid leukemia, hemophagocytosis",19.032198,-5.73483
+459,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",59,3,test,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",3.87989,-8.996661
+460,normal,60,1,test,normal,-19.59907,11.956676
+461,normal,61,1,test,"myelodysplastic syndrome, myeloproliferative neoplasm",7.441796,-15.633951
+462,metastatic,62,1,test,metastatic,3.7923677,14.68581
+463,"basophilia, eosinophilia, hypercellular, iron deficiency",63,4,test,"basophilia, eosinophilia, hypercellular",-2.2954159,-14.906824
+464,normal,64,1,test,normal,-18.517027,12.85828
+465,"acute myeloid leukemia, acute promyelocytic leukemia, hemophagocytosis",65,3,test,"acute myeloid leukemia, acute promyelocytic leukemia",22.38367,-11.303858
+466,myelodysplastic syndrome,66,1,test,normal,-17.620657,8.81537
+467,normal,67,1,test,normal,-16.116604,14.52251
+468,"hypercellular, mastocytosis",68,2,test,"eosinophilia, hypercellular, mastocytosis, myeloproliferative neoplasm",-2.209352,-6.604344
+469,"iron deficiency, normal",69,2,test,"iron deficiency, normal",-15.88499,33.122154
+470,normal,70,1,test,normal,-18.970812,16.173246
+471,normal,71,1,test,normal,-24.205679,13.048276
+472,"acute myeloid leukemia, hypercellular",72,2,test,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",16.8852,-12.148238
+473,acute myeloid leukemia,73,1,test,acute myeloid leukemia,19.004028,-8.785571
+474,"acute leukemia, eosinophilia, myelodysplastic syndrome",74,3,test,"lymphoproliferative disorder, myelodysplastic syndrome",10.833217,6.332432
+475,normal,75,1,test,"hemophagocytosis, hypocellular",19.100853,-1.9922411
+476,plasma cell neoplasm,76,1,test,mastocytosis,-3.8842652,-0.4968357
+477,"eosinophilia, granulocytic hyperplasia, hypercellular",77,3,test,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.1056175,-11.362653
+478,"granulocytic hyperplasia, hypercellular",78,2,test,"granulocytic hyperplasia, hypercellular",-9.481592,-12.996159
+479,"hypercellular, mastocytosis",79,2,test,mastocytosis,-2.6908135,-1.9481372
+480,"acute myeloid leukemia, hypercellular",80,2,test,"acute myeloid leukemia, hypercellular",17.70976,-12.543465
+481,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, myeloproliferative neoplasm",81,5,test,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, myeloproliferative neoplasm",-1.9256085,-17.24057
+482,myelodysplastic syndrome,82,1,test,myelodysplastic syndrome,7.997932,-9.374045
+483,normal,83,1,test,lymphoproliferative disorder,11.568797,5.546724
+484,acute myeloid leukemia,84,1,test,acute myeloid leukemia,18.288467,-9.711074
+485,"chronic myeloid leukemia, myeloproliferative neoplasm",85,2,test,"chronic myeloid leukemia, myeloproliferative neoplasm",1.409583,-22.025135
+486,erythroid hyperplasia,86,1,test,erythroid hyperplasia,-15.340864,1.3018172
+487,hypocellular,87,1,test,plasma cell neoplasm,-6.7055116,9.809738
+488,"hypercellular, myelodysplastic syndrome",88,2,test,"hypercellular, myelodysplastic syndrome",3.8469164,-8.273696
+489,"eosinophilia, hypercellular",89,2,test,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.9150977,-11.817321
+490,"iron deficiency, normal",90,2,test,"iron deficiency, normal",-14.626505,33.645123
+491,"eosinophilia, granulocytic hyperplasia, hypercellular",91,3,test,"eosinophilia, granulocytic hyperplasia, hypercellular",-8.56948,-11.551252
+492,normal,92,1,test,normal,-20.4376,11.289066
+493,normal,93,1,test,eosinophilia,-6.2361193,-7.530456
+494,normal,94,1,test,normal,-24.37966,12.826611
+495,"iron deficiency, normal",95,2,test,"iron deficiency, normal",-14.607101,32.325348
+496,"eosinophilia, granulocytic hyperplasia, hypercellular",96,3,test,"eosinophilia, granulocytic hyperplasia, hypercellular",-7.4845204,-12.244864
+497,"acute myeloid leukemia, myelodysplastic syndrome",97,2,test,"acute myeloid leukemia, myelodysplastic syndrome",14.906882,-10.663594
+498,myelodysplastic syndrome,98,1,test,myelodysplastic syndrome,8.622733,-10.595104
+499,"hypercellular, metastatic, plasma cell neoplasm",99,3,test,hypercellular,-1.964241,8.713837

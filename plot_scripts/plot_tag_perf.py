@@ -1,6 +1,5 @@
 from zipfile import ZipFile
 
-import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -12,31 +11,37 @@ def mk_std_perf(zip_p):
     precisions = []
     recalls = []
     f1s = []
-
+    labs = []
+    labels = []
     for fn in namelist:
         if "Perf" in fn:
             with zip_f.open(fn) as csv_r:
                 df = pd.read_csv(csv_r, index_col=0)
-                precisions.append(df["Precision"].to_list())
-                recalls.append(df["Recall"].to_list())
-                f1s.append(df["F1 Score"].to_list())
-    labels = df["Tag"].to_list()
+                precisions.extend(df["Precision"].to_list())
+                recalls.extend(df["Recall"].to_list())
+                f1s.extend(df["F1 Score"].to_list())
+                labels.extend(df["Tag"].to_list())
+                lab = fn.split("/")[1]
+                labs.extend(lab for _ in range(len(df)))
 
-    f1s_arr = np.array(f1s)
-    precisions_arr = np.array(precisions)
-    recalls_arr = np.array(recalls)
     performance = pd.DataFrame(
         {
-            "Tag": labels,
-            "F1 Score": f1s_arr.mean(axis=0),
-            "F1 Score_std": f1s_arr.std(axis=0),
-            "Precision": precisions_arr.mean(axis=0),
-            "Precision_std": precisions_arr.std(axis=0),
-            "Recall": recalls_arr.mean(axis=0),
-            "Recall_std": recalls_arr.std(axis=0),
+            "Lab": labs,
+            "Label": labels,
+            "F1 Score": f1s,
+            "Precision": precisions,
+            "Recall": recalls,
         }
     )
-    return performance
+    aggs = ["mean", "std"]
+    perf_agg = performance.groupby("Label").agg(aggs).droplevel(0, axis=1)
+    perf_agg.columns = [
+        f"{metric}_{agg}"
+        for metric in ["F1 Score", "Precision", "Recall"]
+        for agg in aggs
+    ]
+    perf_agg.reset_index(inplace=True)
+    return performance, perf_agg
 
 
 def plot_tag_perf_with_std(performance, perf_average, perf_err):
@@ -44,11 +49,11 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
 
     y_title = "F1 Score"
     performance.sort_values(
-        y_title,
+        f"{y_title}_mean",
         inplace=True,
     )
     fig = go.Figure()
-    x = performance["Tag"]
+    x = performance["Label"]
     marker_symbols = ["square", "x"]
     fig.add_shape(
         type="line",
@@ -63,7 +68,7 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
         fig.add_trace(
             go.Scatter(
                 x=x,
-                y=performance[measure],
+                y=performance[f"{measure}_mean"],
                 error_y=dict(
                     color="lightgray",
                     type="data",
@@ -81,7 +86,7 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
     fig.add_trace(
         go.Scatter(
             x=x,
-            y=performance[y_title],
+            y=performance[f"{y_title}_mean"],
             error_y=dict(
                 color="lightgray",
                 type="data",
@@ -90,7 +95,7 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
             ),
             marker_color="crimson",
             mode="markers+text",
-            text=[f"{v:.02f}" for v in performance[y_title]],
+            text=[f"{v:.02f}" for v in performance[f"{y_title}_mean"]],
             marker_size=10,
             name=y_title,
         )
@@ -124,13 +129,23 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
 
 def tag_perf_latex(dev_df):
     print(
-        dev_df.sort_values("F1 Score", ascending=False)
+        dev_df.sort_values("F1 Score_mean", ascending=False)
         .groupby(dev_df.columns.str[:3], axis=1)
         .apply(lambda x: round(x, 3).astype(str).apply(" ± ".join, 1))
         .rename(
-            {"Tag": "Label", "F1 ": "F1 Score", "Pre": "Precision", "Rec": "Recall"},
+            {"Lab": "Label", "F1 ": "F1 Score", "Pre": "Precision", "Rec": "Recall"},
             axis=1,
         )
         .loc[:, ["Label", "F1 Score", "Precision", "Recall"]]
         .to_latex(index=False)
     )
+
+
+if __name__ == "__main__":
+    import sys
+
+    df, df_agg = mk_std_perf(sys.argv[1])
+    df.to_csv("perf.csv")
+    # df_agg.droplevel(0, axis=1).to_csv("perf_agg.csv")
+    tag_perf_latex(df_agg)
+    df_agg.to_csv("perf_agg.csv")

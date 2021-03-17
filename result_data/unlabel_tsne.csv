@@ -1,0 +1,1001 @@
+,tag,index,tag_num,from,pred_tag,D1,D2
+0,myelodysplastic syndrome,0,1,unlabelled,myelodysplastic syndrome,-31.413088,-9.469517
+1,normal,1,1,unlabelled,normal,-5.854782,-2.9205139
+2,acute leukemia,2,1,unlabelled,acute leukemia,-23.189909,-1.773665
+3,plasma cell neoplasm,3,1,unlabelled,plasma cell neoplasm,-12.762455,-40.803535
+4,lymphoproliferative disorder,4,1,unlabelled,lymphoproliferative disorder,13.3746605,35.15969
+5,"eosinophilia, hypercellular",5,2,unlabelled,"eosinophilia, hypercellular",-15.895396,18.717615
+6,lymphoproliferative disorder,6,1,unlabelled,lymphoproliferative disorder,14.898162,34.640404
+7,normal,7,1,unlabelled,normal,7.429878,1.4609355
+8,normal,8,1,unlabelled,normal,19.513288,0.86368257
+9,myelodysplastic syndrome,9,1,unlabelled,myelodysplastic syndrome,-32.92607,-15.346317
+10,"acute myeloid leukemia, myelodysplastic syndrome",10,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-29.440746,2.510044
+11,myelodysplastic syndrome,11,1,unlabelled,myelodysplastic syndrome,-29.173445,-8.040625
+12,eosinophilia,12,1,unlabelled,eosinophilia,-13.752768,19.140436
+13,inadequate,13,1,unlabelled,inadequate,-4.1778736,28.963945
+14,eosinophilia,14,1,unlabelled,eosinophilia,-12.868819,17.759026
+15,myelodysplastic syndrome,15,1,unlabelled,myelodysplastic syndrome,-27.992819,-7.6630616
+16,myelodysplastic syndrome,16,1,unlabelled,myelodysplastic syndrome,-25.920279,-9.837556
+17,normal,17,1,unlabelled,normal,3.3170981,-4.5760837
+18,normal,18,1,unlabelled,normal,-2.962131,3.888694
+19,normal,19,1,unlabelled,normal,10.0909395,-10.161706
+20,myelodysplastic syndrome,20,1,unlabelled,myelodysplastic syndrome,-26.413206,-8.316783
+21,normal,21,1,unlabelled,normal,6.2365394,-9.561823
+22,lymphoproliferative disorder,22,1,unlabelled,lymphoproliferative disorder,11.751306,44.53074
+23,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",23,3,unlabelled,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",-30.571617,3.9774344
+24,normal,24,1,unlabelled,normal,3.8611805,0.3298236
+25,"inadequate, lymphoproliferative disorder",25,2,unlabelled,"inadequate, lymphoproliferative disorder",-1.1093831,32.725292
+26,lymphoproliferative disorder,26,1,unlabelled,lymphoproliferative disorder,17.118036,38.082176
+27,normal,27,1,unlabelled,normal,11.989235,6.842571
+28,normal,28,1,unlabelled,normal,15.675778,-9.081433
+29,normal,29,1,unlabelled,normal,24.085148,-5.361516
+30,acute myeloid leukemia,30,1,unlabelled,acute myeloid leukemia,-27.549908,8.1749935
+31,normal,31,1,unlabelled,normal,15.310939,-1.0206152
+32,"acute myeloid leukemia, myelodysplastic syndrome",32,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-26.623356,3.8403628
+33,plasma cell neoplasm,33,1,unlabelled,plasma cell neoplasm,-17.69614,-40.696968
+34,"acute myeloid leukemia, acute promyelocytic leukemia",34,2,unlabelled,"acute myeloid leukemia, acute promyelocytic leukemia",-29.103601,10.434798
+35,normal,35,1,unlabelled,normal,19.79562,0.094665356
+36,eosinophilia,36,1,unlabelled,eosinophilia,-13.1250725,20.496504
+37,normal,37,1,unlabelled,normal,19.316841,1.7994514
+38,eosinophilia,38,1,unlabelled,eosinophilia,-11.002045,17.937254
+39,plasma cell neoplasm,39,1,unlabelled,plasma cell neoplasm,-21.256245,-40.297325
+40,"lymphoproliferative disorder, plasma cell neoplasm",40,2,unlabelled,"lymphoproliferative disorder, plasma cell neoplasm",8.392128,34.712635
+41,normal,41,1,unlabelled,normal,5.428543,-8.923148
+42,"acute myeloid leukemia, hemophagocytosis, hypocellular",42,3,unlabelled,"acute myeloid leukemia, hemophagocytosis, hypocellular",-20.91564,4.308298
+43,plasma cell neoplasm,43,1,unlabelled,plasma cell neoplasm,-23.693924,-40.8491
+44,normal,44,1,unlabelled,normal,-6.5582547,-2.551112
+45,normal,45,1,unlabelled,normal,25.77588,-7.9228363
+46,lymphoproliferative disorder,46,1,unlabelled,lymphoproliferative disorder,13.0919485,41.25931
+47,"inadequate, lymphoproliferative disorder",47,2,unlabelled,"inadequate, lymphoproliferative disorder",-3.1976588,31.961914
+48,"iron deficiency, normal",48,2,unlabelled,"iron deficiency, normal",32.24032,4.4728174
+49,"hypercellular, lymphoproliferative disorder",49,2,unlabelled,"hypercellular, lymphoproliferative disorder",12.205162,44.87137
+50,normal,50,1,unlabelled,normal,27.90867,3.0634043
+51,normal,51,1,unlabelled,normal,3.0378795,-20.497421
+52,myelodysplastic syndrome,52,1,unlabelled,myelodysplastic syndrome,-29.994944,-11.4823885
+53,myelodysplastic syndrome,53,1,unlabelled,myelodysplastic syndrome,-32.684658,-11.028404
+54,myelodysplastic syndrome,54,1,unlabelled,myelodysplastic syndrome,-30.233784,-13.036498
+55,myelodysplastic syndrome,55,1,unlabelled,myelodysplastic syndrome,-36.222504,-7.4920664
+56,eosinophilia,56,1,unlabelled,eosinophilia,-11.686303,18.04993
+57,plasma cell neoplasm,57,1,unlabelled,plasma cell neoplasm,-18.829725,-44.24832
+58,normal,58,1,unlabelled,normal,7.876935,-7.653691
+59,normal,59,1,unlabelled,normal,25.466726,-16.810356
+60,normal,60,1,unlabelled,normal,0.17476536,19.33556
+61,myelodysplastic syndrome,61,1,unlabelled,myelodysplastic syndrome,-24.5397,-3.8719234
+62,myelodysplastic syndrome,62,1,unlabelled,myelodysplastic syndrome,-26.752296,-4.4144335
+63,lymphoproliferative disorder,63,1,unlabelled,lymphoproliferative disorder,14.095884,35.01902
+64,normal,64,1,unlabelled,normal,9.052202,-9.537413
+65,normal,65,1,unlabelled,normal,24.677505,-4.379801
+66,plasma cell neoplasm,66,1,unlabelled,plasma cell neoplasm,-23.536734,-41.576393
+67,normal,67,1,unlabelled,normal,10.150481,-7.479597
+68,eosinophilia,68,1,unlabelled,eosinophilia,-12.090956,18.738783
+69,lymphoproliferative disorder,69,1,unlabelled,lymphoproliferative disorder,12.706904,34.590538
+70,"acute myeloid leukemia, hypocellular",70,2,unlabelled,"acute myeloid leukemia, hypocellular",-20.368284,4.214464
+71,myelodysplastic syndrome,71,1,unlabelled,myelodysplastic syndrome,-31.033997,-8.912405
+72,normal,72,1,unlabelled,normal,13.714706,-17.648424
+73,normal,73,1,unlabelled,normal,6.5499043,3.6269183
+74,normal,74,1,unlabelled,normal,-2.3647027,2.615516
+75,normal,75,1,unlabelled,normal,16.822834,-18.754133
+76,"acute leukemia, hypercellular, myelodysplastic syndrome",76,3,unlabelled,"acute leukemia, hypercellular, myelodysplastic syndrome",-38.798557,-5.3736053
+77,lymphoproliferative disorder,77,1,unlabelled,lymphoproliferative disorder,14.182254,36.8887
+78,normal,78,1,unlabelled,normal,10.609001,-6.140045
+79,inadequate,79,1,unlabelled,inadequate,-1.868528,24.954063
+80,normal,80,1,unlabelled,normal,9.269446,-7.992362
+81,normal,81,1,unlabelled,normal,16.053825,-17.906448
+82,normal,82,1,unlabelled,normal,5.499792,2.3597708
+83,myelodysplastic syndrome,83,1,unlabelled,myelodysplastic syndrome,-30.42133,-9.173822
+84,lymphoproliferative disorder,84,1,unlabelled,lymphoproliferative disorder,0.2997609,34.365253
+85,plasma cell neoplasm,85,1,unlabelled,plasma cell neoplasm,-16.730263,-43.633842
+86,"acute leukemia, hypercellular",86,2,unlabelled,"acute leukemia, hypercellular",-40.24987,-1.3265979
+87,"basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",87,4,unlabelled,"basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",-35.736717,2.6256578
+88,lymphoproliferative disorder,88,1,unlabelled,lymphoproliferative disorder,15.466996,35.78838
+89,eosinophilia,89,1,unlabelled,eosinophilia,-14.622832,18.045187
+90,"acute leukemia, hypercellular",90,2,unlabelled,"acute leukemia, hypercellular",-40.461884,-1.1053076
+91,normal,91,1,unlabelled,normal,28.276869,-16.828793
+92,normal,92,1,unlabelled,normal,21.826105,-14.788757
+93,normal,93,1,unlabelled,normal,22.978785,-2.2443695
+94,myelodysplastic syndrome,94,1,unlabelled,myelodysplastic syndrome,-31.624357,-9.757882
+95,lymphoproliferative disorder,95,1,unlabelled,lymphoproliferative disorder,12.796793,33.762165
+96,lymphoproliferative disorder,96,1,unlabelled,lymphoproliferative disorder,9.120022,34.99662
+97,"iron deficiency, normal",97,2,unlabelled,"iron deficiency, normal",34.9397,5.173356
+98,lymphoproliferative disorder,98,1,unlabelled,lymphoproliferative disorder,12.156545,40.77034
+99,"eosinophilia, hypercellular, lymphoproliferative disorder",99,3,unlabelled,"eosinophilia, hypercellular, lymphoproliferative disorder",6.6492815,44.226982
+100,normal,100,1,unlabelled,normal,23.93579,-21.33594
+101,normal,101,1,unlabelled,normal,18.718145,2.9366505
+102,"hemophagocytosis, hypocellular",102,2,unlabelled,"hemophagocytosis, hypocellular",-14.46391,0.76473534
+103,normal,103,1,unlabelled,normal,-6.1905036,-0.9561512
+104,"acute myeloid leukemia, hemophagocytosis, hypocellular",104,3,unlabelled,"acute myeloid leukemia, hemophagocytosis, hypocellular",-21.261585,3.8000805
+105,normal,105,1,unlabelled,normal,15.076367,-18.123945
+106,myelodysplastic syndrome,106,1,unlabelled,myelodysplastic syndrome,-31.821096,-7.7442546
+107,plasma cell neoplasm,107,1,unlabelled,plasma cell neoplasm,-16.612122,-45.63662
+108,normal,108,1,unlabelled,normal,17.800858,-19.133945
+109,plasma cell neoplasm,109,1,unlabelled,plasma cell neoplasm,-17.308474,-43.325207
+110,normal,110,1,unlabelled,normal,-0.59461856,8.826092
+111,normal,111,1,unlabelled,normal,16.095894,1.838826
+112,lymphoproliferative disorder,112,1,unlabelled,lymphoproliferative disorder,13.898697,37.817955
+113,hypercellular,113,1,unlabelled,hypercellular,-40.106083,-0.437462
+114,inadequate,114,1,unlabelled,inadequate,-7.633327,29.231884
+115,"inadequate, myelodysplastic syndrome",115,2,unlabelled,"inadequate, myelodysplastic syndrome",-23.038242,11.507298
+116,normal,116,1,unlabelled,normal,22.53214,-16.616013
+117,"inadequate, lymphoproliferative disorder",117,2,unlabelled,"inadequate, lymphoproliferative disorder",-1.4704473,33.71641
+118,myeloproliferative neoplasm,118,1,unlabelled,myeloproliferative neoplasm,10.775813,32.115532
+119,normal,119,1,unlabelled,normal,15.111685,2.8287778
+120,lymphoproliferative disorder,120,1,unlabelled,lymphoproliferative disorder,16.994059,33.953346
+121,acute myeloid leukemia,121,1,unlabelled,acute myeloid leukemia,-26.988117,7.620295
+122,"acute myeloid leukemia, hemophagocytosis, hypocellular",122,3,unlabelled,"acute myeloid leukemia, hemophagocytosis, hypocellular",-18.134327,2.5104768
+123,lymphoproliferative disorder,123,1,unlabelled,lymphoproliferative disorder,13.9002695,35.996937
+124,normal,124,1,unlabelled,normal,-9.32982,-39.29984
+125,plasma cell neoplasm,125,1,unlabelled,plasma cell neoplasm,-17.00544,-37.531754
+126,normal,126,1,unlabelled,normal,2.8009074,-20.637907
+127,"hypercellular, myelodysplastic syndrome",127,2,unlabelled,"hypercellular, myelodysplastic syndrome",-37.679604,-5.9082823
+128,normal,128,1,unlabelled,normal,22.697245,-0.654191
+129,"hypercellular, myelodysplastic syndrome",129,2,unlabelled,"hypercellular, myelodysplastic syndrome",-38.347614,-7.034708
+130,"chronic myeloid leukemia, myeloproliferative neoplasm",130,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-23.68085,22.046844
+131,normal,131,1,unlabelled,normal,28.026993,-13.4796505
+132,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome",132,3,unlabelled,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome",-3.3629837,-21.792791
+133,normal,133,1,unlabelled,normal,29.239906,3.0056014
+134,myelodysplastic syndrome,134,1,unlabelled,myelodysplastic syndrome,-30.085506,-3.6726437
+135,"hypercellular, myelodysplastic syndrome, plasma cell neoplasm",135,3,unlabelled,"hypercellular, myelodysplastic syndrome, plasma cell neoplasm",-35.286686,-15.144715
+136,normal,136,1,unlabelled,normal,3.4140675,-20.270147
+137,"hypercellular, plasma cell neoplasm",137,2,unlabelled,"hypercellular, plasma cell neoplasm",-25.857597,-39.1884
+138,normal,138,1,unlabelled,normal,13.798113,-17.147564
+139,normal,139,1,unlabelled,normal,21.428186,-2.6731374
+140,myelodysplastic syndrome,140,1,unlabelled,myelodysplastic syndrome,-30.324188,-5.9088445
+141,lymphoproliferative disorder,141,1,unlabelled,lymphoproliferative disorder,13.801202,40.958885
+142,lymphoproliferative disorder,142,1,unlabelled,lymphoproliferative disorder,12.081763,38.98741
+143,normal,143,1,unlabelled,normal,23.53634,-11.719399
+144,normal,144,1,unlabelled,normal,10.690224,9.220492
+145,normal,145,1,unlabelled,normal,27.339508,-12.947584
+146,normal,146,1,unlabelled,normal,10.78966,-1.6754409
+147,normal,147,1,unlabelled,normal,17.337025,-3.3922114
+148,normal,148,1,unlabelled,normal,21.974627,-3.8460279
+149,normal,149,1,unlabelled,normal,14.142073,0.78667647
+150,normal,150,1,unlabelled,normal,26.647076,-1.0800779
+151,plasma cell neoplasm,151,1,unlabelled,plasma cell neoplasm,-20.197535,-42.587746
+152,normal,152,1,unlabelled,normal,11.12846,8.122172
+153,granulocytic hyperplasia,153,1,unlabelled,granulocytic hyperplasia,2.4235427,-20.63924
+154,normal,154,1,unlabelled,normal,15.770813,0.025188949
+155,normal,155,1,unlabelled,normal,17.876585,2.4545915
+156,inadequate,156,1,unlabelled,inadequate,-7.4230504,28.294432
+157,myelodysplastic syndrome,157,1,unlabelled,myelodysplastic syndrome,-24.991814,-5.6143713
+158,acute myeloid leukemia,158,1,unlabelled,acute myeloid leukemia,-28.846983,7.587645
+159,inadequate,159,1,unlabelled,inadequate,-5.2945766,27.150263
+160,"inadequate, lymphoproliferative disorder",160,2,unlabelled,"inadequate, lymphoproliferative disorder",-2.616164,32.971138
+161,myelodysplastic syndrome,161,1,unlabelled,myelodysplastic syndrome,-30.694445,-7.111599
+162,"inadequate, lymphoproliferative disorder",162,2,unlabelled,"inadequate, lymphoproliferative disorder",-2.1091125,32.65901
+163,"acute myeloid leukemia, inadequate, myelodysplastic syndrome",163,3,unlabelled,"acute myeloid leukemia, inadequate, myelodysplastic syndrome",-23.257063,11.239081
+164,normal,164,1,unlabelled,normal,17.314186,4.794234
+165,inadequate,165,1,unlabelled,inadequate,-2.4990296,25.320133
+166,lymphoproliferative disorder,166,1,unlabelled,lymphoproliferative disorder,12.595141,35.63293
+167,normal,167,1,unlabelled,normal,18.733902,-16.246452
+168,normal,168,1,unlabelled,normal,4.6654277,7.0569077
+169,normal,169,1,unlabelled,normal,13.738524,2.089944
+170,acute myeloid leukemia,170,1,unlabelled,acute myeloid leukemia,-24.375523,5.3258214
+171,"eosinophilia, hypercellular",171,2,unlabelled,"eosinophilia, hypercellular",-15.9385805,18.92384
+172,lymphoproliferative disorder,172,1,unlabelled,lymphoproliferative disorder,14.978527,36.27872
+173,hemophagocytosis,173,1,unlabelled,hemophagocytosis,-15.373061,6.059367
+174,plasma cell neoplasm,174,1,unlabelled,plasma cell neoplasm,-17.952923,-42.065884
+175,lymphoproliferative disorder,175,1,unlabelled,lymphoproliferative disorder,13.584351,40.367165
+176,normal,176,1,unlabelled,normal,21.29679,-19.971132
+177,eosinophilia,177,1,unlabelled,eosinophilia,-14.128756,19.6444
+178,normal,178,1,unlabelled,normal,26.664026,-15.335171
+179,inadequate,179,1,unlabelled,inadequate,-3.9547598,27.932476
+180,"iron deficiency, normal",180,2,unlabelled,"iron deficiency, normal",35.192444,5.5448585
+181,plasma cell neoplasm,181,1,unlabelled,plasma cell neoplasm,-24.061073,-41.84128
+182,inadequate,182,1,unlabelled,inadequate,-6.435722,28.743637
+183,normal,183,1,unlabelled,normal,24.711111,-20.960743
+184,normal,184,1,unlabelled,normal,-1.2464252,0.5993103
+185,lymphoproliferative disorder,185,1,unlabelled,lymphoproliferative disorder,14.700873,37.811497
+186,normal,186,1,unlabelled,normal,2.6429179,-1.0973223
+187,"acute myeloid leukemia, myelodysplastic syndrome",187,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-30.061344,3.7020009
+188,normal,188,1,unlabelled,normal,-1.0753502,8.842592
+189,acute myeloid leukemia,189,1,unlabelled,acute myeloid leukemia,-26.154087,8.222562
+190,"acute myeloid leukemia, myelodysplastic syndrome",190,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-30.114553,2.9785304
+191,inadequate,191,1,unlabelled,inadequate,-5.971583,30.142366
+192,plasma cell neoplasm,192,1,unlabelled,plasma cell neoplasm,-19.373384,-37.58808
+193,normal,193,1,unlabelled,normal,31.006964,-13.305969
+194,plasma cell neoplasm,194,1,unlabelled,plasma cell neoplasm,-19.421343,-42.34036
+195,normal,195,1,unlabelled,normal,14.673503,-15.69408
+196,"hypercellular, plasma cell neoplasm",196,2,unlabelled,"hypercellular, plasma cell neoplasm",-25.471333,-41.13407
+197,inadequate,197,1,unlabelled,inadequate,-4.9381104,28.91318
+198,"hypercellular, plasma cell neoplasm",198,2,unlabelled,"hypercellular, plasma cell neoplasm",-24.448927,-40.092953
+199,normal,199,1,unlabelled,normal,6.2915316,-8.607611
+200,normal,200,1,unlabelled,normal,14.096306,-15.520184
+201,normal,201,1,unlabelled,normal,21.524857,-19.226322
+202,plasma cell neoplasm,202,1,unlabelled,plasma cell neoplasm,-21.135502,-41.841904
+203,normal,203,1,unlabelled,normal,8.894913,-13.84454
+204,normal,204,1,unlabelled,normal,23.867987,-8.042504
+205,lymphoproliferative disorder,205,1,unlabelled,lymphoproliferative disorder,18.92598,37.89898
+206,normal,206,1,unlabelled,normal,5.295338,8.630859
+207,inadequate,207,1,unlabelled,inadequate,-0.98134714,22.123455
+208,myelodysplastic syndrome,208,1,unlabelled,myelodysplastic syndrome,-24.526522,-8.318921
+209,normal,209,1,unlabelled,normal,21.436583,-5.5879827
+210,myelodysplastic syndrome,210,1,unlabelled,myelodysplastic syndrome,-30.73482,-10.729915
+211,normal,211,1,unlabelled,normal,5.7586627,0.860495
+212,normal,212,1,unlabelled,normal,23.16278,-8.160165
+213,acute myeloid leukemia,213,1,unlabelled,acute myeloid leukemia,-23.793007,5.7479672
+214,"acute myeloid leukemia, inadequate",214,2,unlabelled,"acute myeloid leukemia, inadequate",-24.86852,11.849919
+215,normal,215,1,unlabelled,normal,5.08296,9.46712
+216,normal,216,1,unlabelled,normal,3.3595016,4.7209444
+217,acute myeloid leukemia,217,1,unlabelled,acute myeloid leukemia,-23.524317,5.676834
+218,myelodysplastic syndrome,218,1,unlabelled,myelodysplastic syndrome,-28.48845,-7.9849334
+219,normal,219,1,unlabelled,normal,25.453356,-2.9310184
+220,normal,220,1,unlabelled,normal,22.173937,-18.499346
+221,normal,221,1,unlabelled,normal,3.8794165,-8.803797
+222,acute leukemia,222,1,unlabelled,acute leukemia,-3.8352513,20.79745
+223,"eosinophilia, lymphoproliferative disorder",223,2,unlabelled,"eosinophilia, lymphoproliferative disorder",6.347187,44.42484
+224,normal,224,1,unlabelled,normal,-3.2837899,-3.5398374
+225,"granulocytic hyperplasia, hypercellular",225,2,unlabelled,"granulocytic hyperplasia, hypercellular",-2.395732,-21.864002
+226,myelodysplastic syndrome,226,1,unlabelled,myelodysplastic syndrome,-23.703747,-8.781714
+227,normal,227,1,unlabelled,normal,10.70246,-8.82223
+228,normal,228,1,unlabelled,normal,23.978561,-11.540922
+229,myelodysplastic syndrome,229,1,unlabelled,myelodysplastic syndrome,-32.286537,0.64017195
+230,"inadequate, lymphoproliferative disorder",230,2,unlabelled,"inadequate, lymphoproliferative disorder",-1.7301068,32.83456
+231,lymphoproliferative disorder,231,1,unlabelled,lymphoproliferative disorder,8.124181,40.57758
+232,"acute leukemia, basophilia, eosinophilia, hypercellular",232,4,unlabelled,"acute leukemia, basophilia, eosinophilia, hypercellular",-39.818104,0.2884307
+233,"acute myeloid leukemia, hypercellular",233,2,unlabelled,"acute myeloid leukemia, hypercellular",-29.684866,8.359558
+234,lymphoproliferative disorder,234,1,unlabelled,lymphoproliferative disorder,14.448649,33.678
+235,normal,235,1,unlabelled,normal,27.993116,-16.349813
+236,normal,236,1,unlabelled,normal,23.17733,-10.393544
+237,normal,237,1,unlabelled,normal,29.812063,5.9968524
+238,inadequate,238,1,unlabelled,inadequate,-4.9390903,27.518936
+239,normal,239,1,unlabelled,normal,19.066784,-19.465069
+240,normal,240,1,unlabelled,normal,13.253973,-23.118393
+241,"myelodysplastic syndrome, myeloproliferative neoplasm",241,2,unlabelled,"myelodysplastic syndrome, myeloproliferative neoplasm",-32.671803,-2.811282
+242,"basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",242,4,unlabelled,"basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",-35.751144,2.4577928
+243,normal,243,1,unlabelled,normal,13.008807,4.8653183
+244,"chronic myeloid leukemia, myeloproliferative neoplasm",244,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-24.360073,22.311375
+245,lymphoproliferative disorder,245,1,unlabelled,lymphoproliferative disorder,15.529393,40.439228
+246,normal,246,1,unlabelled,normal,16.59516,23.99904
+247,"chronic myeloid leukemia, myeloproliferative neoplasm",247,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-22.518896,22.760834
+248,"inadequate, lymphoproliferative disorder",248,2,unlabelled,"inadequate, lymphoproliferative disorder",0.35807046,31.643826
+249,myelodysplastic syndrome,249,1,unlabelled,myelodysplastic syndrome,-2.5428817,1.8627294
+250,normal,250,1,unlabelled,normal,27.505466,-13.523031
+251,normal,251,1,unlabelled,normal,17.967068,0.8103992
+252,myelodysplastic syndrome,252,1,unlabelled,myelodysplastic syndrome,-36.372543,-9.219801
+253,normal,253,1,unlabelled,normal,8.300716,-12.64976
+254,normal,254,1,unlabelled,normal,5.4037113,-10.895493
+255,normal,255,1,unlabelled,normal,16.0848,-16.989737
+256,normal,256,1,unlabelled,normal,28.45687,-13.840643
+257,normal,257,1,unlabelled,normal,22.602865,-16.534075
+258,"hypercellular, myelodysplastic syndrome",258,2,unlabelled,"hypercellular, myelodysplastic syndrome",-39.182762,-7.6344347
+259,lymphoproliferative disorder,259,1,unlabelled,lymphoproliferative disorder,15.498128,37.22828
+260,normal,260,1,unlabelled,normal,22.509144,-6.1982603
+261,eosinophilia,261,1,unlabelled,eosinophilia,-13.552136,17.735096
+262,myelodysplastic syndrome,262,1,unlabelled,myelodysplastic syndrome,-30.85586,-6.944884
+263,"granulocytic hyperplasia, hypercellular",263,2,unlabelled,"granulocytic hyperplasia, hypercellular",0.8878525,-21.806957
+264,lymphoproliferative disorder,264,1,unlabelled,lymphoproliferative disorder,12.793585,36.49706
+265,"granulocytic hyperplasia, hypercellular",265,2,unlabelled,"granulocytic hyperplasia, hypercellular",-0.9025096,-22.163736
+266,myelodysplastic syndrome,266,1,unlabelled,myelodysplastic syndrome,-29.716986,-11.241646
+267,"iron deficiency, normal",267,2,unlabelled,"iron deficiency, normal",33.726963,5.729072
+268,eosinophilia,268,1,unlabelled,eosinophilia,-12.86637,18.153143
+269,normal,269,1,unlabelled,normal,17.848312,4.08751
+270,"hypercellular, plasma cell neoplasm",270,2,unlabelled,"hypercellular, plasma cell neoplasm",-24.69279,-39.932663
+271,normal,271,1,unlabelled,normal,21.130306,-3.6640193
+272,normal,272,1,unlabelled,normal,29.818584,-16.793325
+273,normal,273,1,unlabelled,normal,15.296234,-17.7707
+274,inadequate,274,1,unlabelled,inadequate,-10.738121,23.591105
+275,normal,275,1,unlabelled,normal,16.462814,-4.211493
+276,myelodysplastic syndrome,276,1,unlabelled,myelodysplastic syndrome,-24.518024,-6.435971
+277,normal,277,1,unlabelled,normal,16.99413,2.913772
+278,normal,278,1,unlabelled,normal,18.556913,-15.157297
+279,inadequate,279,1,unlabelled,inadequate,-5.393629,25.44633
+280,normal,280,1,unlabelled,normal,5.265663,8.410064
+281,myelodysplastic syndrome,281,1,unlabelled,myelodysplastic syndrome,-24.070606,-2.6209571
+282,"acute myeloid leukemia, acute promyelocytic leukemia",282,2,unlabelled,"acute myeloid leukemia, acute promyelocytic leukemia",-28.205524,9.845149
+283,"hypercellular, myelodysplastic syndrome",283,2,unlabelled,"hypercellular, myelodysplastic syndrome",-33.315598,-0.78920245
+284,"chronic myeloid leukemia, myeloproliferative neoplasm",284,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-23.520529,23.086987
+285,inadequate,285,1,unlabelled,inadequate,-6.500872,29.551079
+286,lymphoproliferative disorder,286,1,unlabelled,lymphoproliferative disorder,12.919179,42.728333
+287,normal,287,1,unlabelled,normal,0.07246221,-7.857224
+288,normal,288,1,unlabelled,normal,-0.04355266,-8.343283
+289,"iron deficiency, normal",289,2,unlabelled,"iron deficiency, normal",30.341698,2.7420065
+290,lymphoproliferative disorder,290,1,unlabelled,lymphoproliferative disorder,12.428575,41.900917
+291,normal,291,1,unlabelled,normal,11.099943,-5.749543
+292,plasma cell neoplasm,292,1,unlabelled,plasma cell neoplasm,-17.371708,-40.755894
+293,normal,293,1,unlabelled,normal,19.929646,-21.025648
+294,"hemophagocytosis, hypocellular",294,2,unlabelled,"hemophagocytosis, hypocellular",-15.976266,2.3231359
+295,normal,295,1,unlabelled,normal,15.535288,-0.38833943
+296,lymphoproliferative disorder,296,1,unlabelled,lymphoproliferative disorder,16.269318,32.75504
+297,plasma cell neoplasm,297,1,unlabelled,plasma cell neoplasm,-11.441055,-41.843258
+298,myelodysplastic syndrome,298,1,unlabelled,myelodysplastic syndrome,-30.605526,-10.299944
+299,"iron deficiency, normal",299,2,unlabelled,"iron deficiency, normal",34.478832,6.384233
+300,normal,300,1,unlabelled,normal,12.123333,-12.700641
+301,inadequate,301,1,unlabelled,inadequate,-5.23585,25.525677
+302,normal,302,1,unlabelled,normal,-4.2307944,1.4223337
+303,"hypocellular, lymphoproliferative disorder",303,2,unlabelled,"hypocellular, lymphoproliferative disorder",19.879084,37.61016
+304,"inadequate, metastatic",304,2,unlabelled,"inadequate, metastatic",-0.43811518,27.367178
+305,normal,305,1,unlabelled,normal,4.544848,9.936326
+306,myelodysplastic syndrome,306,1,unlabelled,myelodysplastic syndrome,-26.110949,-8.149377
+307,normal,307,1,unlabelled,normal,9.611941,-7.937569
+308,plasma cell neoplasm,308,1,unlabelled,plasma cell neoplasm,-21.951405,-43.009712
+309,lymphoproliferative disorder,309,1,unlabelled,lymphoproliferative disorder,14.322181,35.45557
+310,eosinophilia,310,1,unlabelled,eosinophilia,-15.028888,17.671816
+311,normal,311,1,unlabelled,normal,7.269664,1.5803573
+312,normal,312,1,unlabelled,normal,16.715166,-2.7047873
+313,myelodysplastic syndrome,313,1,unlabelled,myelodysplastic syndrome,-35.358753,-10.741165
+314,normal,314,1,unlabelled,normal,27.508917,-15.971519
+315,normal,315,1,unlabelled,normal,21.436623,-9.933579
+316,hypercellular,316,1,unlabelled,hypercellular,1.7680999,-21.161572
+317,normal,317,1,unlabelled,normal,2.506327,1.5567051
+318,lymphoproliferative disorder,318,1,unlabelled,lymphoproliferative disorder,13.815055,31.621683
+319,normal,319,1,unlabelled,normal,5.946789,-10.494894
+320,normal,320,1,unlabelled,normal,9.649514,-5.4564214
+321,"iron deficiency, normal",321,2,unlabelled,"iron deficiency, normal",32.37298,5.6716375
+322,"acute myeloid leukemia, acute promyelocytic leukemia, hypocellular",322,3,unlabelled,"acute myeloid leukemia, acute promyelocytic leukemia, hypocellular",-28.988865,10.904844
+323,myelodysplastic syndrome,323,1,unlabelled,myelodysplastic syndrome,-31.518324,-6.5828943
+324,normal,324,1,unlabelled,normal,0.3818062,-1.7486501
+325,normal,325,1,unlabelled,normal,0.015482184,-6.0141563
+326,"acute myeloid leukemia, myelodysplastic syndrome",326,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-24.88437,-6.9948087
+327,normal,327,1,unlabelled,normal,15.924659,-18.512932
+328,hypocellular,328,1,unlabelled,hypocellular,-11.778564,-0.5358568
+329,"iron deficiency, normal",329,2,unlabelled,"iron deficiency, normal",33.30837,5.4394116
+330,"acute myeloid leukemia, myelodysplastic syndrome",330,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-29.170088,4.7621546
+331,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",331,3,unlabelled,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",-32.191162,2.8067734
+332,normal,332,1,unlabelled,normal,-0.21560165,1.6333678
+333,inadequate,333,1,unlabelled,inadequate,-4.228687,28.219215
+334,hemophagocytosis,334,1,unlabelled,hemophagocytosis,-16.054506,2.8435798
+335,"eosinophilia, lymphoproliferative disorder",335,2,unlabelled,"eosinophilia, lymphoproliferative disorder",6.625492,44.215546
+336,normal,336,1,unlabelled,normal,2.1526606,-7.4662447
+337,normal,337,1,unlabelled,normal,7.2618766,-9.367798
+338,inadequate,338,1,unlabelled,inadequate,-0.27827907,22.980148
+339,normal,339,1,unlabelled,normal,26.11287,-14.3524885
+340,lymphoproliferative disorder,340,1,unlabelled,lymphoproliferative disorder,13.180658,37.140625
+341,"acute leukemia, hypercellular",341,2,unlabelled,"acute leukemia, hypercellular",-40.478878,-1.2828053
+342,myelodysplastic syndrome,342,1,unlabelled,myelodysplastic syndrome,-30.027994,-1.0421838
+343,"granulocytic hyperplasia, hypercellular",343,2,unlabelled,"granulocytic hyperplasia, hypercellular",-1.2757027,-21.962885
+344,inadequate,344,1,unlabelled,inadequate,-3.496828,23.614307
+345,plasma cell neoplasm,345,1,unlabelled,plasma cell neoplasm,-22.442951,-40.979206
+346,normal,346,1,unlabelled,normal,17.1876,-20.915318
+347,"hypercellular, myelodysplastic syndrome",347,2,unlabelled,"hypercellular, myelodysplastic syndrome",-34.97845,-6.1990275
+348,"eosinophilia, inadequate",348,2,unlabelled,"eosinophilia, inadequate",-11.9572735,21.828611
+349,normal,349,1,unlabelled,normal,29.64523,-10.324628
+350,acute myeloid leukemia,350,1,unlabelled,acute myeloid leukemia,-27.731756,7.1583986
+351,normal,351,1,unlabelled,normal,4.3259444,-10.631343
+352,acute myeloid leukemia,352,1,unlabelled,acute myeloid leukemia,-26.233887,7.270636
+353,lymphoproliferative disorder,353,1,unlabelled,lymphoproliferative disorder,15.409507,31.168325
+354,hemophagocytosis,354,1,unlabelled,hemophagocytosis,-15.561411,6.358516
+355,plasma cell neoplasm,355,1,unlabelled,plasma cell neoplasm,-17.970667,-38.76671
+356,lymphoproliferative disorder,356,1,unlabelled,lymphoproliferative disorder,16.77534,38.492065
+357,normal,357,1,unlabelled,normal,0.54198426,19.077541
+358,plasma cell neoplasm,358,1,unlabelled,plasma cell neoplasm,-21.729843,-43.88804
+359,plasma cell neoplasm,359,1,unlabelled,plasma cell neoplasm,-21.056465,-38.87853
+360,lymphoproliferative disorder,360,1,unlabelled,lymphoproliferative disorder,15.810977,35.225098
+361,myelodysplastic syndrome,361,1,unlabelled,myelodysplastic syndrome,-25.00532,-7.286346
+362,plasma cell neoplasm,362,1,unlabelled,plasma cell neoplasm,-18.737791,-42.758343
+363,"granulocytic hyperplasia, hypercellular",363,2,unlabelled,"granulocytic hyperplasia, hypercellular",-1.2778267,-21.503784
+364,normal,364,1,unlabelled,normal,28.37939,-0.38340935
+365,normal,365,1,unlabelled,normal,24.329708,-14.173345
+366,normal,366,1,unlabelled,normal,18.779818,-10.676068
+367,"iron deficiency, normal",367,2,unlabelled,"iron deficiency, normal",33.958344,6.1395426
+368,normal,368,1,unlabelled,normal,6.8649087,-6.851986
+369,normal,369,1,unlabelled,normal,27.386368,-4.6729884
+370,inadequate,370,1,unlabelled,inadequate,-3.2212632,22.039425
+371,"acute leukemia, hypercellular, myelodysplastic syndrome",371,3,unlabelled,"acute leukemia, hypercellular, myelodysplastic syndrome",-39.426838,-5.8013177
+372,lymphoproliferative disorder,372,1,unlabelled,lymphoproliferative disorder,14.814845,36.6607
+373,hypocellular,373,1,unlabelled,hypocellular,-6.707579,0.585622
+374,normal,374,1,unlabelled,normal,25.722136,-10.818416
+375,plasma cell neoplasm,375,1,unlabelled,plasma cell neoplasm,-17.797968,-41.63876
+376,normal,376,1,unlabelled,normal,30.58853,6.749192
+377,"hemophagocytosis, myelodysplastic syndrome",377,2,unlabelled,"hemophagocytosis, myelodysplastic syndrome",-23.789467,-6.0144587
+378,plasma cell neoplasm,378,1,unlabelled,plasma cell neoplasm,-12.619467,-39.349373
+379,myelodysplastic syndrome,379,1,unlabelled,myelodysplastic syndrome,-1.7108902,0.27533618
+380,"hemophagocytosis, hypocellular",380,2,unlabelled,"hemophagocytosis, hypocellular",-17.170225,1.5195156
+381,normal,381,1,unlabelled,normal,14.528909,5.448195
+382,normal,382,1,unlabelled,normal,22.891674,-6.1742425
+383,eosinophilia,383,1,unlabelled,eosinophilia,-13.01441,19.34122
+384,"inadequate, lymphoproliferative disorder",384,2,unlabelled,"inadequate, lymphoproliferative disorder",-1.0034835,33.046898
+385,acute myeloid leukemia,385,1,unlabelled,acute myeloid leukemia,-27.041086,7.3636837
+386,normal,386,1,unlabelled,normal,26.894335,-19.762081
+387,"hypercellular, plasma cell neoplasm",387,2,unlabelled,"hypercellular, plasma cell neoplasm",-25.707611,-39.780807
+388,normal,388,1,unlabelled,normal,14.155718,-16.751476
+389,normal,389,1,unlabelled,normal,-12.036893,7.3672795
+390,normal,390,1,unlabelled,normal,8.575069,-15.776936
+391,"iron deficiency, normal",391,2,unlabelled,"iron deficiency, normal",34.444187,4.7391343
+392,normal,392,1,unlabelled,normal,26.799984,-11.496872
+393,"acute leukemia, hemophagocytosis",393,2,unlabelled,"acute leukemia, hemophagocytosis",-21.999855,-1.1365541
+394,inadequate,394,1,unlabelled,inadequate,-2.9457016,24.02773
+395,"myelodysplastic syndrome, plasma cell neoplasm",395,2,unlabelled,"myelodysplastic syndrome, plasma cell neoplasm",-35.148643,-15.359938
+396,normal,396,1,unlabelled,normal,16.148584,5.5308967
+397,normal,397,1,unlabelled,normal,8.912219,6.174075
+398,eosinophilia,398,1,unlabelled,eosinophilia,-12.338125,19.293613
+399,lymphoproliferative disorder,399,1,unlabelled,lymphoproliferative disorder,15.592514,29.493763
+400,normal,400,1,unlabelled,normal,15.390732,-0.8681512
+401,plasma cell neoplasm,401,1,unlabelled,plasma cell neoplasm,-15.003092,-41.057438
+402,normal,402,1,unlabelled,normal,13.842988,-1.4214468
+403,normal,403,1,unlabelled,normal,8.57749,-11.178819
+404,normal,404,1,unlabelled,normal,10.369436,-13.514643
+405,normal,405,1,unlabelled,normal,27.938011,-13.817326
+406,normal,406,1,unlabelled,normal,-0.81422263,2.437892
+407,lymphoproliferative disorder,407,1,unlabelled,lymphoproliferative disorder,15.276398,32.73325
+408,normal,408,1,unlabelled,normal,23.653154,-7.728679
+409,normal,409,1,unlabelled,normal,7.73315,-0.7694942
+410,normal,410,1,unlabelled,normal,4.5421114,2.7553859
+411,normal,411,1,unlabelled,normal,6.461925,-10.380548
+412,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",412,3,unlabelled,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",-31.980347,3.363698
+413,normal,413,1,unlabelled,normal,-0.62463695,-8.102339
+414,"hypercellular, myelodysplastic syndrome",414,2,unlabelled,"hypercellular, myelodysplastic syndrome",-38.373074,-6.368685
+415,eosinophilia,415,1,unlabelled,eosinophilia,-12.451469,20.3331
+416,"eosinophilia, granulocytic hyperplasia, hypercellular",416,3,unlabelled,"eosinophilia, granulocytic hyperplasia, hypercellular",-17.054577,18.960932
+417,normal,417,1,unlabelled,normal,17.978731,-1.382801
+418,normal,418,1,unlabelled,normal,-2.9775681,21.026026
+419,lymphoproliferative disorder,419,1,unlabelled,lymphoproliferative disorder,13.170584,34.77945
+420,normal,420,1,unlabelled,normal,19.26452,-14.6831255
+421,normal,421,1,unlabelled,normal,26.516642,-12.314039
+422,lymphoproliferative disorder,422,1,unlabelled,lymphoproliferative disorder,14.964633,33.41595
+423,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",423,3,unlabelled,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",-32.056355,3.2525923
+424,"inadequate, lymphoproliferative disorder",424,2,unlabelled,"inadequate, lymphoproliferative disorder",-1.7702283,31.777792
+425,lymphoproliferative disorder,425,1,unlabelled,lymphoproliferative disorder,8.489849,34.95012
+426,"eosinophilia, hypercellular, myelodysplastic syndrome",426,3,unlabelled,"eosinophilia, hypercellular, myelodysplastic syndrome",-36.11071,-0.18859503
+427,lymphoproliferative disorder,427,1,unlabelled,lymphoproliferative disorder,13.1785555,44.065544
+428,lymphoproliferative disorder,428,1,unlabelled,lymphoproliferative disorder,16.884842,37.023468
+429,normal,429,1,unlabelled,normal,3.6514244,2.111047
+430,normal,430,1,unlabelled,normal,20.891363,-9.328518
+431,"eosinophilia, hypercellular",431,2,unlabelled,"eosinophilia, hypercellular",-16.591715,19.033335
+432,myelodysplastic syndrome,432,1,unlabelled,myelodysplastic syndrome,-28.924622,-6.8685255
+433,normal,433,1,unlabelled,normal,-9.293295,-40.222813
+434,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",434,3,unlabelled,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",-38.968777,-12.089971
+435,normal,435,1,unlabelled,normal,26.0473,-8.591096
+436,normal,436,1,unlabelled,normal,25.240685,-16.652582
+437,myelodysplastic syndrome,437,1,unlabelled,myelodysplastic syndrome,-29.426157,-10.036794
+438,normal,438,1,unlabelled,normal,0.6979758,1.9382486
+439,lymphoproliferative disorder,439,1,unlabelled,lymphoproliferative disorder,11.008669,32.364227
+440,normal,440,1,unlabelled,normal,28.29039,0.35090223
+441,myelodysplastic syndrome,441,1,unlabelled,myelodysplastic syndrome,-29.473372,-9.100808
+442,hypercellular,442,1,unlabelled,hypercellular,1.5648274,-21.90371
+443,"eosinophilia, inadequate",443,2,unlabelled,"eosinophilia, inadequate",-12.090672,22.483023
+444,"inadequate, metastatic",444,2,unlabelled,"inadequate, metastatic",-0.4352442,27.378412
+445,"hemophagocytosis, hypocellular",445,2,unlabelled,"hemophagocytosis, hypocellular",-14.620503,0.2642813
+446,plasma cell neoplasm,446,1,unlabelled,plasma cell neoplasm,-14.754916,-45.85282
+447,eosinophilia,447,1,unlabelled,eosinophilia,-12.959137,18.432835
+448,eosinophilia,448,1,unlabelled,eosinophilia,-12.080941,18.41389
+449,hypercellular,449,1,unlabelled,hypercellular,-31.16591,9.106981
+450,myelodysplastic syndrome,450,1,unlabelled,myelodysplastic syndrome,-26.875711,-1.3103626
+451,normal,451,1,unlabelled,normal,15.786881,0.28497025
+452,myelodysplastic syndrome,452,1,unlabelled,myelodysplastic syndrome,-30.971909,-4.7383385
+453,"hypocellular, myelodysplastic syndrome",453,2,unlabelled,"hypocellular, myelodysplastic syndrome",-22.911995,-8.02294
+454,hypercellular,454,1,unlabelled,hypercellular,-25.907793,-38.269688
+455,myeloproliferative neoplasm,455,1,unlabelled,myeloproliferative neoplasm,-1.7750281,8.879844
+456,myelodysplastic syndrome,456,1,unlabelled,myelodysplastic syndrome,-28.51865,-7.605367
+457,"eosinophilia, granulocytic hyperplasia, hypercellular",457,3,unlabelled,"eosinophilia, granulocytic hyperplasia, hypercellular",-16.992502,18.83372
+458,normal,458,1,unlabelled,normal,13.752254,-6.081591
+459,plasma cell neoplasm,459,1,unlabelled,plasma cell neoplasm,-12.987468,-39.16686
+460,normal,460,1,unlabelled,normal,19.587372,-5.561169
+461,plasma cell neoplasm,461,1,unlabelled,plasma cell neoplasm,-17.17352,-44.275177
+462,myelodysplastic syndrome,462,1,unlabelled,myelodysplastic syndrome,-23.950459,-7.959061
+463,lymphoproliferative disorder,463,1,unlabelled,lymphoproliferative disorder,11.624441,42.1192
+464,"hypercellular, myelodysplastic syndrome",464,2,unlabelled,"hypercellular, myelodysplastic syndrome",-37.64954,-6.72519
+465,plasma cell neoplasm,465,1,unlabelled,plasma cell neoplasm,-16.058933,-38.518276
+466,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",466,3,unlabelled,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",-33.20929,-2.7749228
+467,myelodysplastic syndrome,467,1,unlabelled,myelodysplastic syndrome,-1.0038683,2.172448
+468,normal,468,1,unlabelled,normal,-5.6297727,-0.9126406
+469,inadequate,469,1,unlabelled,inadequate,-5.7504563,28.484995
+470,myelodysplastic syndrome,470,1,unlabelled,myelodysplastic syndrome,-29.224379,-3.4456291
+471,normal,471,1,unlabelled,normal,16.889303,-19.636719
+472,normal,472,1,unlabelled,normal,20.630602,1.0135635
+473,normal,473,1,unlabelled,normal,16.385382,-1.8461316
+474,normal,474,1,unlabelled,normal,2.7043118,-10.085304
+475,lymphoproliferative disorder,475,1,unlabelled,lymphoproliferative disorder,12.846278,41.412617
+476,normal,476,1,unlabelled,normal,5.002956,9.081684
+477,"iron deficiency, normal",477,2,unlabelled,"iron deficiency, normal",35.01286,6.161774
+478,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",478,3,unlabelled,"acute myeloid leukemia, hypercellular, myelodysplastic syndrome",-31.077059,2.280324
+479,normal,479,1,unlabelled,normal,7.602793,-8.794957
+480,normal,480,1,unlabelled,normal,6.892798,-17.202623
+481,"acute myeloid leukemia, myelodysplastic syndrome",481,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-28.809305,1.8343585
+482,myeloproliferative neoplasm,482,1,unlabelled,myeloproliferative neoplasm,-24.374388,23.250038
+483,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome",483,3,unlabelled,"granulocytic hyperplasia, hypercellular, myelodysplastic syndrome",-3.4750748,-21.789753
+484,lymphoproliferative disorder,484,1,unlabelled,lymphoproliferative disorder,11.88763,41.540176
+485,normal,485,1,unlabelled,normal,7.1663923,-17.25949
+486,"acute myeloid leukemia, hypercellular",486,2,unlabelled,"acute myeloid leukemia, hypercellular",-30.090338,7.895403
+487,"eosinophilia, hypercellular, myelodysplastic syndrome",487,3,unlabelled,"eosinophilia, hypercellular, myelodysplastic syndrome",-15.393871,20.729471
+488,normal,488,1,unlabelled,normal,22.800087,-10.825321
+489,normal,489,1,unlabelled,normal,8.652674,-8.790257
+490,hemophagocytosis,490,1,unlabelled,hemophagocytosis,-16.829052,4.2940044
+491,eosinophilia,491,1,unlabelled,eosinophilia,-13.956049,20.557201
+492,"inadequate, lymphoproliferative disorder",492,2,unlabelled,"inadequate, lymphoproliferative disorder",-2.385809,33.320343
+493,normal,493,1,unlabelled,normal,5.7505836,-4.5482507
+494,"hypercellular, myeloproliferative neoplasm",494,2,unlabelled,"hypercellular, myeloproliferative neoplasm",-23.950405,21.298035
+495,normal,495,1,unlabelled,normal,19.205273,-3.050901
+496,normal,496,1,unlabelled,normal,16.519741,27.385069
+497,"acute myeloid leukemia, hemophagocytosis, hypocellular",497,3,unlabelled,"acute myeloid leukemia, hemophagocytosis, hypocellular",-17.644222,2.7696438
+498,acute myeloid leukemia,498,1,unlabelled,acute myeloid leukemia,-25.488333,9.508884
+499,normal,499,1,unlabelled,normal,18.088608,-17.52946
+500,"hemophagocytosis, hypocellular",500,2,unlabelled,"hemophagocytosis, hypocellular",-17.7746,1.0652937
+501,normal,501,1,unlabelled,normal,5.8665376,-20.088966
+502,inadequate,502,1,unlabelled,inadequate,-6.239673,28.029276
+503,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, myeloproliferative neoplasm",503,5,unlabelled,"basophilia, chronic myeloid leukemia, eosinophilia, hypercellular, myeloproliferative neoplasm",-20.611113,20.56743
+504,inadequate,504,1,unlabelled,inadequate,-7.206448,29.447973
+505,normal,505,1,unlabelled,normal,1.6243758,-7.4492803
+506,normal,506,1,unlabelled,normal,11.145813,2.5240762
+507,lymphoproliferative disorder,507,1,unlabelled,lymphoproliferative disorder,13.6380625,37.28872
+508,normal,508,1,unlabelled,normal,22.642744,-14.670859
+509,normal,509,1,unlabelled,normal,19.594805,-17.362066
+510,normal,510,1,unlabelled,normal,30.923632,-12.771222
+511,"iron deficiency, normal",511,2,unlabelled,"iron deficiency, normal",33.135098,4.443214
+512,inadequate,512,1,unlabelled,inadequate,-6.408826,30.042309
+513,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",513,3,unlabelled,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",13.887123,43.112095
+514,plasma cell neoplasm,514,1,unlabelled,plasma cell neoplasm,-11.26198,-39.872498
+515,acute leukemia,515,1,unlabelled,acute leukemia,-22.835163,-1.2166958
+516,normal,516,1,unlabelled,normal,16.737574,-17.624084
+517,normal,517,1,unlabelled,normal,22.930729,-11.794311
+518,normal,518,1,unlabelled,normal,21.121832,-6.888774
+519,normal,519,1,unlabelled,normal,27.65845,-12.81377
+520,normal,520,1,unlabelled,normal,3.355859,-4.576336
+521,normal,521,1,unlabelled,normal,16.834908,20.445528
+522,normal,522,1,unlabelled,normal,27.82294,-8.614811
+523,normal,523,1,unlabelled,normal,5.209422,-10.505737
+524,normal,524,1,unlabelled,normal,20.366104,0.10159883
+525,"hemophagocytosis, hypocellular",525,2,unlabelled,"hemophagocytosis, hypocellular",-16.970018,1.9262928
+526,normal,526,1,unlabelled,normal,10.339487,-13.298736
+527,plasma cell neoplasm,527,1,unlabelled,plasma cell neoplasm,-14.569967,-38.218784
+528,myeloproliferative neoplasm,528,1,unlabelled,myeloproliferative neoplasm,-23.96136,21.79036
+529,myelodysplastic syndrome,529,1,unlabelled,myelodysplastic syndrome,-31.461813,-10.674063
+530,acute myeloid leukemia,530,1,unlabelled,acute myeloid leukemia,-22.408995,4.6112995
+531,"lymphoproliferative disorder, mastocytosis",531,2,unlabelled,"lymphoproliferative disorder, mastocytosis",7.8119497,39.927
+532,normal,532,1,unlabelled,normal,5.8969703,-12.729315
+533,hemophagocytosis,533,1,unlabelled,hemophagocytosis,-16.736834,4.400699
+534,normal,534,1,unlabelled,normal,7.371957,-19.756529
+535,normal,535,1,unlabelled,normal,-1.7558074,4.2755227
+536,normal,536,1,unlabelled,normal,20.54545,-0.24817422
+537,normal,537,1,unlabelled,normal,25.490828,-11.579906
+538,plasma cell neoplasm,538,1,unlabelled,plasma cell neoplasm,-16.12646,-41.652752
+539,"iron deficiency, normal",539,2,unlabelled,"iron deficiency, normal",32.277695,3.3231747
+540,"acute myeloid leukemia, myelodysplastic syndrome",540,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-29.6967,1.9539472
+541,normal,541,1,unlabelled,normal,-8.606122,-38.727695
+542,lymphoproliferative disorder,542,1,unlabelled,lymphoproliferative disorder,17.586197,36.85143
+543,normal,543,1,unlabelled,normal,6.2561417,-8.279018
+544,normal,544,1,unlabelled,normal,5.3387685,-5.4297442
+545,plasma cell neoplasm,545,1,unlabelled,plasma cell neoplasm,-14.511031,-43.047306
+546,acute myeloid leukemia,546,1,unlabelled,acute myeloid leukemia,-25.750933,8.234886
+547,inadequate,547,1,unlabelled,inadequate,-5.289936,28.70514
+548,"acute lymphoblastic leukemia, lymphoproliferative disorder",548,2,unlabelled,"acute lymphoblastic leukemia, lymphoproliferative disorder",15.548781,42.1845
+549,normal,549,1,unlabelled,normal,6.565967,-18.136333
+550,"hemophagocytosis, hypocellular",550,2,unlabelled,"hemophagocytosis, hypocellular",-16.282251,1.260232
+551,normal,551,1,unlabelled,normal,22.050762,3.223682
+552,normal,552,1,unlabelled,normal,28.707895,1.5323585
+553,normal,553,1,unlabelled,normal,12.625493,-11.756769
+554,"hemophagocytosis, hypocellular",554,2,unlabelled,"hemophagocytosis, hypocellular",-16.538353,1.0130422
+555,normal,555,1,unlabelled,normal,24.07065,-5.1548758
+556,myelodysplastic syndrome,556,1,unlabelled,myelodysplastic syndrome,-35.89349,-10.209519
+557,normal,557,1,unlabelled,normal,20.282217,-16.699514
+558,acute myeloid leukemia,558,1,unlabelled,acute myeloid leukemia,-28.206766,5.143559
+559,eosinophilia,559,1,unlabelled,eosinophilia,-14.446599,20.229813
+560,"inadequate, lymphoproliferative disorder",560,2,unlabelled,"inadequate, lymphoproliferative disorder",-2.545346,32.68798
+561,myelodysplastic syndrome,561,1,unlabelled,myelodysplastic syndrome,-32.111332,0.2539543
+562,normal,562,1,unlabelled,normal,18.353695,-0.68150944
+563,"inadequate, lymphoproliferative disorder",563,2,unlabelled,"inadequate, lymphoproliferative disorder",-2.6642609,30.59578
+564,normal,564,1,unlabelled,normal,13.892882,4.253306
+565,"chronic myeloid leukemia, myeloproliferative neoplasm",565,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-22.947039,23.002615
+566,plasma cell neoplasm,566,1,unlabelled,plasma cell neoplasm,-17.101215,-45.91711
+567,"acute leukemia, inadequate",567,2,unlabelled,"acute leukemia, inadequate",-8.139045,27.403639
+568,normal,568,1,unlabelled,normal,4.65066,-8.280874
+569,normal,569,1,unlabelled,normal,10.451976,9.099011
+570,normal,570,1,unlabelled,normal,16.549583,22.497482
+571,myelodysplastic syndrome,571,1,unlabelled,myelodysplastic syndrome,-27.878502,-13.180845
+572,lymphoproliferative disorder,572,1,unlabelled,lymphoproliferative disorder,14.896461,39.468178
+573,plasma cell neoplasm,573,1,unlabelled,plasma cell neoplasm,-19.030851,-41.843224
+574,plasma cell neoplasm,574,1,unlabelled,plasma cell neoplasm,-21.798092,-41.10308
+575,normal,575,1,unlabelled,normal,13.963655,-15.31045
+576,"lymphoproliferative disorder, mastocytosis",576,2,unlabelled,"lymphoproliferative disorder, mastocytosis",7.2773046,40.73269
+577,normal,577,1,unlabelled,normal,8.184618,-9.9773035
+578,plasma cell neoplasm,578,1,unlabelled,plasma cell neoplasm,-18.310074,-40.971203
+579,myelodysplastic syndrome,579,1,unlabelled,myelodysplastic syndrome,-29.132029,-12.126565
+580,normal,580,1,unlabelled,normal,16.260202,-17.959175
+581,lymphoproliferative disorder,581,1,unlabelled,lymphoproliferative disorder,16.00858,36.986515
+582,normal,582,1,unlabelled,normal,19.178545,0.36739185
+583,hypocellular,583,1,unlabelled,hypocellular,-7.0416856,-0.8646872
+584,plasma cell neoplasm,584,1,unlabelled,plasma cell neoplasm,-14.818636,-42.82579
+585,"hypercellular, myelodysplastic syndrome",585,2,unlabelled,"hypercellular, myelodysplastic syndrome",-38.97421,-6.6588583
+586,myelodysplastic syndrome,586,1,unlabelled,myelodysplastic syndrome,-30.434185,-5.4676113
+587,"acute myeloid leukemia, hypocellular",587,2,unlabelled,"acute myeloid leukemia, hypocellular",-22.692865,3.7590907
+588,"acute lymphoblastic leukemia, lymphoproliferative disorder",588,2,unlabelled,"acute lymphoblastic leukemia, lymphoproliferative disorder",16.866034,42.36563
+589,normal,589,1,unlabelled,normal,2.1595721,0.38326752
+590,normal,590,1,unlabelled,normal,-2.7665484,19.149698
+591,plasma cell neoplasm,591,1,unlabelled,plasma cell neoplasm,-11.96333,-40.03537
+592,normal,592,1,unlabelled,normal,6.110477,-3.8674798
+593,normal,593,1,unlabelled,normal,21.994919,-3.3440468
+594,plasma cell neoplasm,594,1,unlabelled,plasma cell neoplasm,-14.624898,-40.239975
+595,"acute myeloid leukemia, myelodysplastic syndrome",595,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-29.508419,3.8264625
+596,normal,596,1,unlabelled,normal,15.902069,-17.600899
+597,inadequate,597,1,unlabelled,inadequate,-2.224225,24.15857
+598,normal,598,1,unlabelled,normal,-14.330213,6.5830097
+599,normal,599,1,unlabelled,normal,28.36492,-13.213744
+600,"iron deficiency, normal",600,2,unlabelled,"iron deficiency, normal",34.099854,5.3576055
+601,plasma cell neoplasm,601,1,unlabelled,plasma cell neoplasm,-16.896101,-40.471794
+602,"acute myeloid leukemia, myelodysplastic syndrome, myeloproliferative neoplasm",602,3,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome, myeloproliferative neoplasm",-31.734388,-2.1380804
+603,inadequate,603,1,unlabelled,inadequate,-0.93251586,25.115763
+604,inadequate,604,1,unlabelled,inadequate,-2.1726704,21.303122
+605,"basophilia, eosinophilia, myeloproliferative neoplasm",605,3,unlabelled,"basophilia, eosinophilia, myeloproliferative neoplasm",-20.626535,22.065456
+606,plasma cell neoplasm,606,1,unlabelled,plasma cell neoplasm,-12.672887,-37.691353
+607,"acute myeloid leukemia, hypercellular",607,2,unlabelled,"acute myeloid leukemia, hypercellular",-29.294762,6.054965
+608,lymphoproliferative disorder,608,1,unlabelled,lymphoproliferative disorder,15.478112,25.950356
+609,lymphoproliferative disorder,609,1,unlabelled,lymphoproliferative disorder,16.825697,38.54406
+610,"acute myeloid leukemia, myelodysplastic syndrome",610,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-30.116573,0.9161902
+611,hemophagocytosis,611,1,unlabelled,hemophagocytosis,-17.58464,4.116219
+612,normal,612,1,unlabelled,normal,23.123323,-1.9656243
+613,normal,613,1,unlabelled,normal,9.764102,-15.057702
+614,normal,614,1,unlabelled,normal,16.582441,-7.181573
+615,plasma cell neoplasm,615,1,unlabelled,plasma cell neoplasm,-20.900537,-40.359364
+616,"hypercellular, myelodysplastic syndrome",616,2,unlabelled,"hypercellular, myelodysplastic syndrome",-35.560677,-6.859009
+617,normal,617,1,unlabelled,normal,23.660454,-9.629228
+618,lymphoproliferative disorder,618,1,unlabelled,lymphoproliferative disorder,16.956379,27.766483
+619,"hypercellular, mastocytosis",619,2,unlabelled,"hypercellular, mastocytosis",5.237529,40.511402
+620,eosinophilia,620,1,unlabelled,eosinophilia,-11.894072,17.282734
+621,normal,621,1,unlabelled,normal,29.337702,2.162179
+622,plasma cell neoplasm,622,1,unlabelled,plasma cell neoplasm,-18.102137,-40.32315
+623,normal,623,1,unlabelled,normal,26.515747,1.7109543
+624,acute myeloid leukemia,624,1,unlabelled,acute myeloid leukemia,-25.848146,5.5247207
+625,myelodysplastic syndrome,625,1,unlabelled,myelodysplastic syndrome,-31.064995,-5.963183
+626,normal,626,1,unlabelled,normal,16.576445,-17.326117
+627,normal,627,1,unlabelled,normal,0.49064583,0.4456406
+628,normal,628,1,unlabelled,normal,23.55171,-1.4712905
+629,plasma cell neoplasm,629,1,unlabelled,plasma cell neoplasm,-13.351056,-39.793045
+630,"acute myeloid leukemia, eosinophilia",630,2,unlabelled,"acute myeloid leukemia, eosinophilia",-22.725645,7.7277894
+631,normal,631,1,unlabelled,normal,1.6576613,-2.4468129
+632,inadequate,632,1,unlabelled,inadequate,-2.64478,23.729399
+633,myelodysplastic syndrome,633,1,unlabelled,myelodysplastic syndrome,-24.669525,-2.4552777
+634,"chronic myeloid leukemia, myeloproliferative neoplasm",634,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-22.61511,23.974142
+635,plasma cell neoplasm,635,1,unlabelled,plasma cell neoplasm,-14.7092905,-44.18063
+636,myelodysplastic syndrome,636,1,unlabelled,myelodysplastic syndrome,-26.58419,-9.887894
+637,normal,637,1,unlabelled,normal,24.122583,0.60875094
+638,normal,638,1,unlabelled,normal,1.7481506,1.4100178
+639,myelodysplastic syndrome,639,1,unlabelled,myelodysplastic syndrome,-26.907269,-4.217109
+640,normal,640,1,unlabelled,normal,26.544222,-6.023281
+641,plasma cell neoplasm,641,1,unlabelled,plasma cell neoplasm,-19.319849,-39.987022
+642,normal,642,1,unlabelled,normal,-1.7974944,19.071804
+643,"hypercellular, myelodysplastic syndrome",643,2,unlabelled,"hypercellular, myelodysplastic syndrome",-36.212326,-5.098318
+644,plasma cell neoplasm,644,1,unlabelled,plasma cell neoplasm,-15.598774,-43.917465
+645,normal,645,1,unlabelled,normal,16.312143,-17.184608
+646,normal,646,1,unlabelled,normal,18.469519,1.5294778
+647,"hemophagocytosis, hypocellular",647,2,unlabelled,"hemophagocytosis, hypocellular",-16.609995,2.1139143
+648,normal,648,1,unlabelled,normal,20.418718,-2.471257
+649,normal,649,1,unlabelled,normal,-3.1653297,-3.6748178
+650,"acute leukemia, hypercellular, myelodysplastic syndrome",650,3,unlabelled,"acute leukemia, hypercellular, myelodysplastic syndrome",-39.621136,-3.754513
+651,normal,651,1,unlabelled,normal,15.786776,-16.023705
+652,plasma cell neoplasm,652,1,unlabelled,plasma cell neoplasm,-10.839491,-39.44412
+653,plasma cell neoplasm,653,1,unlabelled,plasma cell neoplasm,-15.033914,-44.532364
+654,"hemophagocytosis, hypocellular",654,2,unlabelled,"hemophagocytosis, hypocellular",-14.027308,0.49794608
+655,"hypercellular, myelodysplastic syndrome",655,2,unlabelled,"hypercellular, myelodysplastic syndrome",-36.548946,-7.5560064
+656,"iron deficiency, normal",656,2,unlabelled,"iron deficiency, normal",33.081257,4.7757463
+657,normal,657,1,unlabelled,normal,15.811905,25.236206
+658,normal,658,1,unlabelled,normal,16.388742,-0.24343455
+659,"hypercellular, myeloproliferative neoplasm",659,2,unlabelled,"hypercellular, myeloproliferative neoplasm",-24.400002,20.772108
+660,inadequate,660,1,unlabelled,inadequate,-5.7317877,29.346415
+661,normal,661,1,unlabelled,normal,18.451918,-13.794785
+662,"lymphoproliferative disorder, plasma cell neoplasm",662,2,unlabelled,"lymphoproliferative disorder, plasma cell neoplasm",7.2422676,35.2761
+663,plasma cell neoplasm,663,1,unlabelled,plasma cell neoplasm,-15.665923,-40.108025
+664,acute myeloid leukemia,664,1,unlabelled,acute myeloid leukemia,-23.155289,7.1430264
+665,normal,665,1,unlabelled,normal,10.694363,5.106036
+666,normal,666,1,unlabelled,normal,5.924635,-0.21801329
+667,normal,667,1,unlabelled,normal,5.767067,-20.174341
+668,"myelodysplastic syndrome, plasma cell neoplasm",668,2,unlabelled,"myelodysplastic syndrome, plasma cell neoplasm",-33.29447,-16.122663
+669,"hypercellular, lymphoproliferative disorder, mastocytosis",669,3,unlabelled,"hypercellular, lymphoproliferative disorder, mastocytosis",8.613832,41.48214
+670,lymphoproliferative disorder,670,1,unlabelled,lymphoproliferative disorder,1.0448807,32.94642
+671,plasma cell neoplasm,671,1,unlabelled,plasma cell neoplasm,-14.393603,-39.2333
+672,myelodysplastic syndrome,672,1,unlabelled,myelodysplastic syndrome,-28.393095,-6.6101384
+673,"basophilia, chronic myeloid leukemia, eosinophilia, myeloproliferative neoplasm",673,4,unlabelled,"basophilia, chronic myeloid leukemia, eosinophilia, myeloproliferative neoplasm",-21.238997,22.434824
+674,"hypercellular, plasma cell neoplasm",674,2,unlabelled,"hypercellular, plasma cell neoplasm",-25.49718,-40.03824
+675,normal,675,1,unlabelled,normal,1.5714039,-1.7503097
+676,normal,676,1,unlabelled,normal,8.1275,-12.314948
+677,"inadequate, lymphoproliferative disorder",677,2,unlabelled,"inadequate, lymphoproliferative disorder",0.22274794,33.24989
+678,myelodysplastic syndrome,678,1,unlabelled,myelodysplastic syndrome,-30.640812,-8.094537
+679,normal,679,1,unlabelled,normal,10.022714,-4.6907773
+680,plasma cell neoplasm,680,1,unlabelled,plasma cell neoplasm,-15.531044,-41.648155
+681,normal,681,1,unlabelled,normal,-6.248325,-0.31289813
+682,lymphoproliferative disorder,682,1,unlabelled,lymphoproliferative disorder,13.853964,42.108166
+683,normal,683,1,unlabelled,normal,16.719791,21.61832
+684,normal,684,1,unlabelled,normal,23.948673,-13.13716
+685,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",685,3,unlabelled,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",-39.246876,-11.648109
+686,lymphoproliferative disorder,686,1,unlabelled,lymphoproliferative disorder,14.8237915,35.568092
+687,myelodysplastic syndrome,687,1,unlabelled,myelodysplastic syndrome,-25.529642,-3.5607934
+688,normal,688,1,unlabelled,normal,13.237123,-23.129725
+689,normal,689,1,unlabelled,normal,26.035276,-14.469984
+690,"inadequate, lymphoproliferative disorder",690,2,unlabelled,"inadequate, lymphoproliferative disorder",-1.8458961,33.70898
+691,normal,691,1,unlabelled,normal,9.478661,-7.653332
+692,normal,692,1,unlabelled,normal,18.089159,7.76193
+693,"eosinophilia, lymphoproliferative disorder, mastocytosis",693,3,unlabelled,"eosinophilia, lymphoproliferative disorder, mastocytosis",6.882876,43.291378
+694,myelodysplastic syndrome,694,1,unlabelled,myelodysplastic syndrome,-24.542267,-3.359203
+695,normal,695,1,unlabelled,normal,23.593328,-8.342737
+696,normal,696,1,unlabelled,normal,20.141905,-13.742156
+697,myelodysplastic syndrome,697,1,unlabelled,myelodysplastic syndrome,-30.326733,-12.650849
+698,myelodysplastic syndrome,698,1,unlabelled,myelodysplastic syndrome,-28.764317,-12.358518
+699,myelodysplastic syndrome,699,1,unlabelled,myelodysplastic syndrome,-36.23506,-9.554596
+700,plasma cell neoplasm,700,1,unlabelled,plasma cell neoplasm,-16.250704,-42.150684
+701,myeloproliferative neoplasm,701,1,unlabelled,myeloproliferative neoplasm,-24.12392,22.458427
+702,normal,702,1,unlabelled,normal,8.765796,-4.313665
+703,"hypercellular, myelodysplastic syndrome",703,2,unlabelled,"hypercellular, myelodysplastic syndrome",-36.878696,-8.002575
+704,normal,704,1,unlabelled,normal,7.7055473,-16.649942
+705,plasma cell neoplasm,705,1,unlabelled,plasma cell neoplasm,-16.292408,-40.895267
+706,normal,706,1,unlabelled,normal,4.0466366,0.3754277
+707,plasma cell neoplasm,707,1,unlabelled,plasma cell neoplasm,-18.96197,-40.531303
+708,normal,708,1,unlabelled,normal,16.436125,24.24541
+709,normal,709,1,unlabelled,normal,24.11315,-13.163496
+710,mastocytosis,710,1,unlabelled,mastocytosis,5.5187883,40.112823
+711,lymphoproliferative disorder,711,1,unlabelled,lymphoproliferative disorder,14.6883545,41.612938
+712,"basophilia, eosinophilia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",712,5,unlabelled,"basophilia, eosinophilia, granulocytic hyperplasia, hypercellular, myeloproliferative neoplasm",-19.607096,19.747713
+713,"granulocytic hyperplasia, hypercellular",713,2,unlabelled,"granulocytic hyperplasia, hypercellular",-0.8247509,-21.542707
+714,"hypercellular, myelodysplastic syndrome",714,2,unlabelled,"hypercellular, myelodysplastic syndrome",-37.853836,-8.446912
+715,mastocytosis,715,1,unlabelled,mastocytosis,5.922216,40.420265
+716,"iron deficiency, normal",716,2,unlabelled,"iron deficiency, normal",34.765762,5.7291985
+717,"acute myeloid leukemia, myelodysplastic syndrome",717,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-30.560379,2.3653889
+718,plasma cell neoplasm,718,1,unlabelled,plasma cell neoplasm,-9.557259,-41.566612
+719,normal,719,1,unlabelled,normal,29.44301,-15.485752
+720,normal,720,1,unlabelled,normal,21.52584,0.57190526
+721,normal,721,1,unlabelled,normal,6.699399,-18.575354
+722,normal,722,1,unlabelled,normal,30.36423,8.11002
+723,acute myeloid leukemia,723,1,unlabelled,acute myeloid leukemia,-25.61629,8.801628
+724,acute myeloid leukemia,724,1,unlabelled,acute myeloid leukemia,-28.227695,7.8463216
+725,normal,725,1,unlabelled,normal,19.97789,3.1443973
+726,metastatic,726,1,unlabelled,metastatic,-7.467978,-2.939689
+727,plasma cell neoplasm,727,1,unlabelled,plasma cell neoplasm,-20.09602,-41.339447
+728,normal,728,1,unlabelled,normal,15.306905,3.613828
+729,normal,729,1,unlabelled,normal,26.140366,-0.38760388
+730,normal,730,1,unlabelled,normal,26.426495,-13.516215
+731,"inadequate, lymphoproliferative disorder",731,2,unlabelled,"inadequate, lymphoproliferative disorder",-3.6611927,31.481821
+732,myelodysplastic syndrome,732,1,unlabelled,myelodysplastic syndrome,-24.543554,-8.546934
+733,normal,733,1,unlabelled,normal,18.46439,-14.675844
+734,inadequate,734,1,unlabelled,inadequate,-4.612913,29.467236
+735,"acute leukemia, hypercellular, myelodysplastic syndrome",735,3,unlabelled,"acute leukemia, hypercellular, myelodysplastic syndrome",-39.274338,-5.719231
+736,normal,736,1,unlabelled,normal,-2.6494856,3.7755866
+737,"acute leukemia, myelodysplastic syndrome",737,2,unlabelled,"acute leukemia, myelodysplastic syndrome",-23.59754,-2.6802077
+738,inadequate,738,1,unlabelled,inadequate,-5.935167,29.638338
+739,mastocytosis,739,1,unlabelled,mastocytosis,5.1750636,40.432106
+740,acute myeloid leukemia,740,1,unlabelled,acute myeloid leukemia,-25.998434,6.305629
+741,normal,741,1,unlabelled,normal,4.580132,-1.4667133
+742,normal,742,1,unlabelled,normal,16.040817,2.5464292
+743,plasma cell neoplasm,743,1,unlabelled,plasma cell neoplasm,-16.374136,-44.963047
+744,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",744,3,unlabelled,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",-38.88141,-11.984357
+745,"acute leukemia, myelodysplastic syndrome",745,2,unlabelled,"acute leukemia, myelodysplastic syndrome",-39.584915,-2.3662472
+746,plasma cell neoplasm,746,1,unlabelled,plasma cell neoplasm,-19.071215,-41.399647
+747,"iron deficiency, normal",747,2,unlabelled,"iron deficiency, normal",35.787724,4.527998
+748,"lymphoproliferative disorder, plasma cell neoplasm",748,2,unlabelled,"lymphoproliferative disorder, plasma cell neoplasm",7.1773095,35.2771
+749,"acute myeloid leukemia, eosinophilia, myelodysplastic syndrome",749,3,unlabelled,"acute myeloid leukemia, eosinophilia, myelodysplastic syndrome",-28.69702,2.5909626
+750,normal,750,1,unlabelled,normal,14.155241,-16.751253
+751,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",751,3,unlabelled,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",-29.973122,9.429251
+752,myelodysplastic syndrome,752,1,unlabelled,myelodysplastic syndrome,-4.868167,2.9544208
+753,"hemophagocytosis, hypocellular",753,2,unlabelled,"hemophagocytosis, hypocellular",-15.584727,0.56689394
+754,"granulocytic hyperplasia, hypercellular",754,2,unlabelled,"granulocytic hyperplasia, hypercellular",0.025149768,-21.93766
+755,normal,755,1,unlabelled,normal,17.218704,0.06334947
+756,normal,756,1,unlabelled,normal,14.504172,4.274844
+757,"granulocytic hyperplasia, hypercellular",757,2,unlabelled,"granulocytic hyperplasia, hypercellular",-1.2063489,-22.14284
+758,lymphoproliferative disorder,758,1,unlabelled,lymphoproliferative disorder,14.453354,39.871075
+759,acute myeloid leukemia,759,1,unlabelled,acute myeloid leukemia,-22.280483,5.6386447
+760,normal,760,1,unlabelled,normal,-0.0944976,-7.7740135
+761,lymphoproliferative disorder,761,1,unlabelled,lymphoproliferative disorder,13.282235,41.860535
+762,lymphoproliferative disorder,762,1,unlabelled,lymphoproliferative disorder,11.721429,33.2524
+763,myelodysplastic syndrome,763,1,unlabelled,myelodysplastic syndrome,-27.422895,-5.512261
+764,normal,764,1,unlabelled,normal,18.581137,-10.244602
+765,normal,765,1,unlabelled,normal,5.5854344,1.3338408
+766,plasma cell neoplasm,766,1,unlabelled,plasma cell neoplasm,-20.73203,-41.29875
+767,normal,767,1,unlabelled,normal,3.1147883,-10.921963
+768,normal,768,1,unlabelled,normal,9.73411,-8.592993
+769,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",769,3,unlabelled,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.158186,44.569748
+770,normal,770,1,unlabelled,normal,17.79453,-19.846931
+771,"acute myeloid leukemia, inadequate",771,2,unlabelled,"acute myeloid leukemia, inadequate",-25.173958,10.653824
+772,normal,772,1,unlabelled,normal,16.397047,1.2829669
+773,"acute myeloid leukemia, hemophagocytosis, hypocellular",773,3,unlabelled,"acute myeloid leukemia, hemophagocytosis, hypocellular",-19.870396,3.712597
+774,normal,774,1,unlabelled,normal,5.842822,-9.2322445
+775,"hemophagocytosis, hypocellular",775,2,unlabelled,"hemophagocytosis, hypocellular",-15.336887,0.26947504
+776,normal,776,1,unlabelled,normal,24.849588,-7.4541903
+777,normal,777,1,unlabelled,normal,23.098732,-10.733328
+778,normal,778,1,unlabelled,normal,10.478909,-9.460043
+779,plasma cell neoplasm,779,1,unlabelled,plasma cell neoplasm,-22.226963,-40.389053
+780,normal,780,1,unlabelled,normal,22.598986,-12.507234
+781,lymphoproliferative disorder,781,1,unlabelled,lymphoproliferative disorder,15.388741,28.008675
+782,"hypercellular, plasma cell neoplasm",782,2,unlabelled,"hypercellular, plasma cell neoplasm",-23.94901,-40.51852
+783,mastocytosis,783,1,unlabelled,mastocytosis,5.223263,39.92726
+784,myelodysplastic syndrome,784,1,unlabelled,myelodysplastic syndrome,-32.877113,-15.674877
+785,normal,785,1,unlabelled,normal,6.3895097,-1.676224
+786,normal,786,1,unlabelled,normal,21.312273,2.4779375
+787,"iron deficiency, normal",787,2,unlabelled,"iron deficiency, normal",33.866558,4.146365
+788,"chronic myeloid leukemia, myeloproliferative neoplasm",788,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-22.406324,22.592161
+789,lymphoproliferative disorder,789,1,unlabelled,lymphoproliferative disorder,9.009058,34.563663
+790,"myelodysplastic syndrome, myeloproliferative neoplasm",790,2,unlabelled,"myelodysplastic syndrome, myeloproliferative neoplasm",-32.210587,-2.5391145
+791,lymphoproliferative disorder,791,1,unlabelled,lymphoproliferative disorder,15.608655,28.808207
+792,"hypercellular, myelodysplastic syndrome",792,2,unlabelled,"hypercellular, myelodysplastic syndrome",-36.50785,-5.489252
+793,normal,793,1,unlabelled,normal,-1.3367658,19.394108
+794,normal,794,1,unlabelled,normal,15.799,24.955687
+795,normal,795,1,unlabelled,normal,10.631594,-1.3898226
+796,myelodysplastic syndrome,796,1,unlabelled,myelodysplastic syndrome,-5.775966,0.70004046
+797,acute myeloid leukemia,797,1,unlabelled,acute myeloid leukemia,-14.482485,6.4768615
+798,lymphoproliferative disorder,798,1,unlabelled,lymphoproliferative disorder,16.584908,36.19611
+799,"acute myeloid leukemia, inadequate",799,2,unlabelled,"acute myeloid leukemia, inadequate",-24.95089,11.472607
+800,"hypercellular, plasma cell neoplasm",800,2,unlabelled,"hypercellular, plasma cell neoplasm",-25.17411,-40.38379
+801,normal,801,1,unlabelled,normal,11.038871,2.6612825
+802,normal,802,1,unlabelled,normal,29.518894,-14.728882
+803,normal,803,1,unlabelled,normal,22.825884,-10.805704
+804,"granulocytic hyperplasia, hypercellular",804,2,unlabelled,"granulocytic hyperplasia, hypercellular",1.1578777,-21.178858
+805,hypocellular,805,1,unlabelled,hypocellular,-12.435894,-0.14531289
+806,normal,806,1,unlabelled,normal,15.30998,0.5008777
+807,plasma cell neoplasm,807,1,unlabelled,plasma cell neoplasm,-10.751456,-42.268665
+808,normal,808,1,unlabelled,normal,15.3211775,6.368039
+809,lymphoproliferative disorder,809,1,unlabelled,lymphoproliferative disorder,15.735586,29.367302
+810,normal,810,1,unlabelled,normal,12.253292,-11.881394
+811,"hypercellular, myelodysplastic syndrome",811,2,unlabelled,"hypercellular, myelodysplastic syndrome",-35.567883,-5.4702177
+812,"iron deficiency, normal",812,2,unlabelled,"iron deficiency, normal",31.938803,5.5757136
+813,normal,813,1,unlabelled,normal,18.46406,-17.046577
+814,normal,814,1,unlabelled,normal,21.070755,-12.136226
+815,lymphoproliferative disorder,815,1,unlabelled,lymphoproliferative disorder,9.83961,35.424126
+816,normal,816,1,unlabelled,normal,14.433094,-16.225407
+817,normal,817,1,unlabelled,normal,16.881182,-13.965539
+818,plasma cell neoplasm,818,1,unlabelled,plasma cell neoplasm,-18.53476,-39.48802
+819,plasma cell neoplasm,819,1,unlabelled,plasma cell neoplasm,-16.622667,-39.646603
+820,normal,820,1,unlabelled,normal,12.118539,-13.341047
+821,normal,821,1,unlabelled,normal,-0.29656425,1.9506646
+822,normal,822,1,unlabelled,normal,5.4381924,-9.834194
+823,"acute lymphoblastic leukemia, lymphoproliferative disorder",823,2,unlabelled,"acute lymphoblastic leukemia, lymphoproliferative disorder",17.269762,41.649174
+824,normal,824,1,unlabelled,normal,7.369953,-3.3478332
+825,myelodysplastic syndrome,825,1,unlabelled,myelodysplastic syndrome,-24.829563,-3.9642653
+826,hypercellular,826,1,unlabelled,hypercellular,-25.94509,-38.3819
+827,normal,827,1,unlabelled,normal,-11.295947,-1.0752048
+828,normal,828,1,unlabelled,normal,27.306171,-4.6398125
+829,"hemophagocytosis, hypocellular",829,2,unlabelled,"hemophagocytosis, hypocellular",-15.9042,1.7603046
+830,normal,830,1,unlabelled,normal,20.650152,-5.1653543
+831,lymphoproliferative disorder,831,1,unlabelled,lymphoproliferative disorder,13.379186,39.704876
+832,"hypocellular, lymphoproliferative disorder",832,2,unlabelled,"hypocellular, lymphoproliferative disorder",19.637405,37.471897
+833,plasma cell neoplasm,833,1,unlabelled,plasma cell neoplasm,-18.50635,-40.02242
+834,plasma cell neoplasm,834,1,unlabelled,plasma cell neoplasm,-21.384771,-41.48252
+835,normal,835,1,unlabelled,normal,6.6576815,-18.76402
+836,normal,836,1,unlabelled,normal,5.4383607,2.613746
+837,normal,837,1,unlabelled,normal,24.091925,-21.341906
+838,normal,838,1,unlabelled,normal,28.725878,-13.205893
+839,hypercellular,839,1,unlabelled,hypercellular,-11.993225,15.57572
+840,myelodysplastic syndrome,840,1,unlabelled,myelodysplastic syndrome,-29.556091,-4.961944
+841,acute myeloid leukemia,841,1,unlabelled,acute myeloid leukemia,-16.734957,6.9655905
+842,"basophilia, eosinophilia, hypercellular",842,3,unlabelled,"basophilia, eosinophilia, hypercellular",-19.470915,19.661715
+843,plasma cell neoplasm,843,1,unlabelled,plasma cell neoplasm,-12.83584,-38.637222
+844,eosinophilia,844,1,unlabelled,eosinophilia,-13.02723,20.078695
+845,hemophagocytosis,845,1,unlabelled,hemophagocytosis,-17.05449,4.214953
+846,inadequate,846,1,unlabelled,inadequate,-6.558798,29.074484
+847,normal,847,1,unlabelled,normal,4.320366,10.516383
+848,normal,848,1,unlabelled,normal,26.134676,-13.813764
+849,lymphoproliferative disorder,849,1,unlabelled,lymphoproliferative disorder,14.546589,32.446568
+850,normal,850,1,unlabelled,normal,15.973106,1.2562755
+851,normal,851,1,unlabelled,normal,16.530245,3.1072657
+852,myelodysplastic syndrome,852,1,unlabelled,myelodysplastic syndrome,-29.188662,-6.754535
+853,normal,853,1,unlabelled,normal,8.573614,3.700625
+854,normal,854,1,unlabelled,normal,15.193226,2.617017
+855,inadequate,855,1,unlabelled,inadequate,-5.35282,26.995607
+856,plasma cell neoplasm,856,1,unlabelled,plasma cell neoplasm,-10.425967,-39.579044
+857,acute myeloid leukemia,857,1,unlabelled,acute myeloid leukemia,-26.74498,6.411924
+858,lymphoproliferative disorder,858,1,unlabelled,lymphoproliferative disorder,13.672226,36.19172
+859,normal,859,1,unlabelled,normal,29.302574,3.085661
+860,"granulocytic hyperplasia, hypercellular",860,2,unlabelled,"granulocytic hyperplasia, hypercellular",0.42426953,-21.056433
+861,"myelodysplastic syndrome, myeloproliferative neoplasm",861,2,unlabelled,"myelodysplastic syndrome, myeloproliferative neoplasm",-32.389877,-3.2092052
+862,plasma cell neoplasm,862,1,unlabelled,plasma cell neoplasm,-15.934622,-40.65866
+863,"myelodysplastic syndrome, plasma cell neoplasm",863,2,unlabelled,"myelodysplastic syndrome, plasma cell neoplasm",-34.26097,-16.063879
+864,normal,864,1,unlabelled,normal,8.423879,-6.5692635
+865,myelodysplastic syndrome,865,1,unlabelled,myelodysplastic syndrome,-28.29636,-12.72679
+866,eosinophilia,866,1,unlabelled,eosinophilia,-11.3205385,19.342575
+867,normal,867,1,unlabelled,normal,24.11308,-13.163399
+868,normal,868,1,unlabelled,normal,17.489609,-1.5461308
+869,"eosinophilia, hypercellular, myelodysplastic syndrome",869,3,unlabelled,"eosinophilia, hypercellular, myelodysplastic syndrome",-35.842934,-1.9864284
+870,plasma cell neoplasm,870,1,unlabelled,plasma cell neoplasm,-18.412792,-42.437206
+871,normal,871,1,unlabelled,normal,12.459987,5.7648454
+872,"iron deficiency, normal",872,2,unlabelled,"iron deficiency, normal",32.27381,4.9186463
+873,normal,873,1,unlabelled,normal,4.1031322,6.328191
+874,normal,874,1,unlabelled,normal,-1.537734,1.3715599
+875,"iron deficiency, normal",875,2,unlabelled,"iron deficiency, normal",34.067772,4.9162846
+876,myeloproliferative neoplasm,876,1,unlabelled,myeloproliferative neoplasm,-24.927914,21.576374
+877,normal,877,1,unlabelled,normal,-0.5964053,8.807774
+878,inadequate,878,1,unlabelled,inadequate,-7.645198,27.553213
+879,"hypercellular, myelodysplastic syndrome",879,2,unlabelled,"hypercellular, myelodysplastic syndrome",-37.58736,-7.659108
+880,normal,880,1,unlabelled,normal,28.279123,-10.613095
+881,normal,881,1,unlabelled,normal,-1.7662168,20.642347
+882,normal,882,1,unlabelled,normal,3.9660969,10.735781
+883,lymphoproliferative disorder,883,1,unlabelled,lymphoproliferative disorder,15.368679,28.445086
+884,normal,884,1,unlabelled,normal,20.814743,-1.2166793
+885,"hypercellular, lymphoproliferative disorder, myelodysplastic syndrome",885,3,unlabelled,"hypercellular, lymphoproliferative disorder, myelodysplastic syndrome",11.703478,45.820957
+886,normal,886,1,unlabelled,normal,30.569212,6.145191
+887,normal,887,1,unlabelled,normal,1.4785945,2.0937219
+888,"acute myeloid leukemia, myelodysplastic syndrome",888,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-30.486723,1.124267
+889,"lymphoproliferative disorder, mastocytosis",889,2,unlabelled,"lymphoproliferative disorder, mastocytosis",7.402621,40.511448
+890,eosinophilia,890,1,unlabelled,eosinophilia,-13.158793,19.28776
+891,lymphoproliferative disorder,891,1,unlabelled,lymphoproliferative disorder,16.092031,38.335655
+892,normal,892,1,unlabelled,normal,27.14261,-18.9585
+893,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",893,3,unlabelled,"acute lymphoblastic leukemia, hypercellular, lymphoproliferative disorder",15.013295,44.602123
+894,lymphoproliferative disorder,894,1,unlabelled,lymphoproliferative disorder,12.2869215,36.774426
+895,acute myeloid leukemia,895,1,unlabelled,acute myeloid leukemia,-28.523438,8.065281
+896,"acute lymphoblastic leukemia, lymphoproliferative disorder",896,2,unlabelled,"acute lymphoblastic leukemia, lymphoproliferative disorder",14.644474,43.230618
+897,myelodysplastic syndrome,897,1,unlabelled,myelodysplastic syndrome,-29.03994,-4.502946
+898,normal,898,1,unlabelled,normal,4.207304,-9.619399
+899,normal,899,1,unlabelled,normal,31.70833,-13.497833
+900,"chronic myeloid leukemia, myeloproliferative neoplasm",900,2,unlabelled,"chronic myeloid leukemia, myeloproliferative neoplasm",-23.472809,23.056864
+901,lymphoproliferative disorder,901,1,unlabelled,lymphoproliferative disorder,14.565492,34.049274
+902,normal,902,1,unlabelled,normal,18.212383,7.914783
+903,normal,903,1,unlabelled,normal,0.83152145,-7.708373
+904,plasma cell neoplasm,904,1,unlabelled,plasma cell neoplasm,-19.217426,-37.674206
+905,normal,905,1,unlabelled,normal,30.584797,4.468587
+906,normal,906,1,unlabelled,normal,27.45454,-9.149507
+907,inadequate,907,1,unlabelled,inadequate,-7.0248303,30.01657
+908,normal,908,1,unlabelled,normal,5.398708,8.798731
+909,"acute lymphoblastic leukemia, lymphoproliferative disorder",909,2,unlabelled,"acute lymphoblastic leukemia, lymphoproliferative disorder",15.48634,42.95148
+910,normal,910,1,unlabelled,normal,27.46647,1.8940674
+911,"iron deficiency, normal",911,2,unlabelled,"iron deficiency, normal",32.029053,5.3860064
+912,acute myeloid leukemia,912,1,unlabelled,acute myeloid leukemia,-28.301413,6.982611
+913,normal,913,1,unlabelled,normal,-9.982052,17.343401
+914,normal,914,1,unlabelled,normal,28.193583,-10.390861
+915,normal,915,1,unlabelled,normal,16.072815,24.855955
+916,acute myeloid leukemia,916,1,unlabelled,acute myeloid leukemia,-25.949875,4.3054595
+917,lymphoproliferative disorder,917,1,unlabelled,lymphoproliferative disorder,18.40495,39.160828
+918,acute myeloid leukemia,918,1,unlabelled,acute myeloid leukemia,-24.32422,4.728927
+919,normal,919,1,unlabelled,normal,11.184326,8.072555
+920,normal,920,1,unlabelled,normal,11.523609,-4.175815
+921,"acute leukemia, hypercellular, myelodysplastic syndrome",921,3,unlabelled,"acute leukemia, hypercellular, myelodysplastic syndrome",-40.098373,-2.1903045
+922,inadequate,922,1,unlabelled,inadequate,-3.022276,21.232405
+923,normal,923,1,unlabelled,normal,20.15418,-1.8085223
+924,normal,924,1,unlabelled,normal,12.14357,0.58349735
+925,normal,925,1,unlabelled,normal,-11.173653,-0.7378367
+926,"hypercellular, myelodysplastic syndrome",926,2,unlabelled,"hypercellular, myelodysplastic syndrome",-37.590225,-7.324631
+927,normal,927,1,unlabelled,normal,27.185448,-18.829735
+928,acute myeloid leukemia,928,1,unlabelled,acute myeloid leukemia,-26.717531,6.9097023
+929,"granulocytic hyperplasia, hypercellular",929,2,unlabelled,"granulocytic hyperplasia, hypercellular",0.3139877,-21.860374
+930,inadequate,930,1,unlabelled,inadequate,-4.9536295,30.433151
+931,"inadequate, lymphoproliferative disorder",931,2,unlabelled,"inadequate, lymphoproliferative disorder",-1.0729473,33.694534
+932,normal,932,1,unlabelled,normal,18.695679,0.92442185
+933,normal,933,1,unlabelled,normal,4.263024,-8.41386
+934,normal,934,1,unlabelled,normal,10.556008,6.809113
+935,normal,935,1,unlabelled,normal,19.715221,-7.5943804
+936,"myelodysplastic syndrome, plasma cell neoplasm",936,2,unlabelled,"myelodysplastic syndrome, plasma cell neoplasm",-33.365578,-15.755962
+937,myelodysplastic syndrome,937,1,unlabelled,myelodysplastic syndrome,-34.71744,-7.6617
+938,normal,938,1,unlabelled,normal,11.591656,1.695661
+939,"myelodysplastic syndrome, plasma cell neoplasm",939,2,unlabelled,"myelodysplastic syndrome, plasma cell neoplasm",-34.94853,-15.467525
+940,"hypercellular, lymphoproliferative disorder, myelodysplastic syndrome",940,3,unlabelled,"hypercellular, lymphoproliferative disorder, myelodysplastic syndrome",11.717909,45.78067
+941,myelodysplastic syndrome,941,1,unlabelled,myelodysplastic syndrome,-29.617321,-5.3563237
+942,hypocellular,942,1,unlabelled,hypocellular,-22.001936,-8.329412
+943,normal,943,1,unlabelled,normal,27.909494,-14.241104
+944,plasma cell neoplasm,944,1,unlabelled,plasma cell neoplasm,-9.691938,-40.402504
+945,normal,945,1,unlabelled,normal,17.679636,0.33790377
+946,myelodysplastic syndrome,946,1,unlabelled,myelodysplastic syndrome,-34.393333,-6.0786557
+947,inadequate,947,1,unlabelled,inadequate,-2.040793,21.763288
+948,"hypercellular, myelodysplastic syndrome",948,2,unlabelled,"hypercellular, myelodysplastic syndrome",-35.71315,0.8057219
+949,"inadequate, lymphoproliferative disorder",949,2,unlabelled,"inadequate, lymphoproliferative disorder",-2.1105487,34.798687
+950,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",950,3,unlabelled,"erythroid hyperplasia, hypercellular, myelodysplastic syndrome",-38.43553,-11.351868
+951,acute myeloid leukemia,951,1,unlabelled,acute myeloid leukemia,-12.314254,7.244244
+952,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",952,3,unlabelled,"hypercellular, myelodysplastic syndrome, myeloproliferative neoplasm",-34.49643,2.365671
+953,normal,953,1,unlabelled,normal,5.776901,0.39620805
+954,plasma cell neoplasm,954,1,unlabelled,plasma cell neoplasm,-14.970569,-39.93247
+955,lymphoproliferative disorder,955,1,unlabelled,lymphoproliferative disorder,19.617317,36.69066
+956,"hypercellular, myelodysplastic syndrome",956,2,unlabelled,"hypercellular, myelodysplastic syndrome",-38.353207,-7.458977
+957,normal,957,1,unlabelled,normal,4.7764,7.5103307
+958,normal,958,1,unlabelled,normal,-2.368114,7.776797
+959,hypercellular,959,1,unlabelled,hypercellular,1.4279796,-22.698599
+960,normal,960,1,unlabelled,normal,27.95314,-12.838923
+961,normal,961,1,unlabelled,normal,1.5659523,-1.6649988
+962,normal,962,1,unlabelled,normal,30.359383,-12.370126
+963,inadequate,963,1,unlabelled,inadequate,-3.7499266,23.815147
+964,hypercellular,964,1,unlabelled,hypercellular,1.8597158,20.943182
+965,acute myeloid leukemia,965,1,unlabelled,acute myeloid leukemia,-24.966192,5.747444
+966,eosinophilia,966,1,unlabelled,eosinophilia,-12.005639,16.28478
+967,"eosinophilia, hypercellular",967,2,unlabelled,"eosinophilia, hypercellular",-15.262022,17.120087
+968,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",968,3,unlabelled,"acute myeloid leukemia, acute promyelocytic leukemia, hypercellular",-30.55042,9.26518
+969,"acute myeloid leukemia, hemophagocytosis, hypocellular",969,3,unlabelled,"acute myeloid leukemia, hemophagocytosis, hypocellular",-17.764833,1.7409316
+970,normal,970,1,unlabelled,normal,2.9274793,3.1863482
+971,normal,971,1,unlabelled,normal,8.835598,7.21944
+972,normal,972,1,unlabelled,normal,17.382347,1.1833231
+973,"erythroid hyperplasia, myelodysplastic syndrome",973,2,unlabelled,"erythroid hyperplasia, myelodysplastic syndrome",-38.551502,-11.704768
+974,normal,974,1,unlabelled,normal,17.426304,1.8520834
+975,normal,975,1,unlabelled,normal,21.469238,-5.785852
+976,eosinophilia,976,1,unlabelled,eosinophilia,-12.157973,21.517351
+977,normal,977,1,unlabelled,normal,17.189047,-16.564396
+978,normal,978,1,unlabelled,normal,8.67865,-7.40816
+979,plasma cell neoplasm,979,1,unlabelled,plasma cell neoplasm,-16.978222,-41.732555
+980,normal,980,1,unlabelled,normal,13.338925,4.1612625
+981,"hypercellular, plasma cell neoplasm",981,2,unlabelled,"hypercellular, plasma cell neoplasm",-24.454876,-40.871674
+982,normal,982,1,unlabelled,normal,27.856808,1.682134
+983,lymphoproliferative disorder,983,1,unlabelled,lymphoproliferative disorder,18.140438,34.305733
+984,"acute lymphoblastic leukemia, lymphoproliferative disorder",984,2,unlabelled,"acute lymphoblastic leukemia, lymphoproliferative disorder",16.881512,41.606007
+985,"acute myeloid leukemia, myelodysplastic syndrome",985,2,unlabelled,"acute myeloid leukemia, myelodysplastic syndrome",-26.783669,4.0071316
+986,hypercellular,986,1,unlabelled,hypercellular,2.5482523,-21.814337
+987,myelodysplastic syndrome,987,1,unlabelled,myelodysplastic syndrome,-31.068499,-11.787235
+988,plasma cell neoplasm,988,1,unlabelled,plasma cell neoplasm,-14.600377,-45.89057
+989,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",989,5,unlabelled,"acute myeloid leukemia, basophilia, eosinophilia, hypercellular, myelodysplastic syndrome",-35.360046,3.1413317
+990,plasma cell neoplasm,990,1,unlabelled,plasma cell neoplasm,-9.498269,-41.62462
+991,hypercellular,991,1,unlabelled,hypercellular,-26.941559,-40.438282
+992,normal,992,1,unlabelled,normal,7.850501,-5.47877
+993,normal,993,1,unlabelled,normal,14.794352,-2.7448745
+994,normal,994,1,unlabelled,normal,-10.819275,-0.99763525
+995,normal,995,1,unlabelled,normal,18.499165,4.68806
+996,normal,996,1,unlabelled,normal,19.091373,-17.737816
+997,lymphoproliferative disorder,997,1,unlabelled,lymphoproliferative disorder,12.854494,38.872612
+998,"hemophagocytosis, hypocellular",998,2,unlabelled,"hemophagocytosis, hypocellular",-16.717115,0.7719338
+999,"eosinophilia, hypercellular, myelodysplastic syndrome",999,3,unlabelled,"eosinophilia, hypercellular, myelodysplastic syndrome",-35.985306,-0.23446195

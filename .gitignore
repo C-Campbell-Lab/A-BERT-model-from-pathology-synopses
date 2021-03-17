@@ -152,3 +152,4 @@ out
 *.csv
 *.ipynb
 !*.pu
+!result_data/*

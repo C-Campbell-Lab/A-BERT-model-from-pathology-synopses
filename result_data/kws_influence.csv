@@ -1,0 +1,106 @@
+,influence,reason,tag
+0,0.966,PLASMA,plasma cell neoplasm
+1,0.15,AMYLOID,plasma cell neoplasm
+2,0.063,MYELOMA,plasma cell neoplasm
+3,0.058,WITH,plasma cell neoplasm
+4,0.055,NEOPLASTIC,plasma cell neoplasm
+5,0.648,REMISSION,normal
+6,0.351,EVIDENCE,normal
+7,0.319,FOR,normal
+8,0.297,NOT,normal
+9,0.247,MARROW,normal
+10,0.509,LYMPHOCYTES,lymphoproliferative disorder
+11,0.481,LYMPHOID,lymphoproliferative disorder
+12,0.302,RELAPSE,lymphoproliferative disorder
+13,0.281,LYMPHOBLASTS,lymphoproliferative disorder
+14,0.251,LYMPHOPROLIFERATIVE,lymphoproliferative disorder
+15,0.889,AML,acute myeloid leukemia
+16,0.351,LEUKEMIA,acute myeloid leukemia
+17,0.26,MYELOID,acute myeloid leukemia
+18,0.061,FOR,acute myeloid leukemia
+19,0.052,PROMYELOCYTIC,acute myeloid leukemia
+20,0.723,DYSPLASTIC,myelodysplastic syndrome
+21,0.489,CMML,myelodysplastic syndrome
+22,0.388,DYSERYTHROPOIESIS,myelodysplastic syndrome
+23,0.162,MDS,myelodysplastic syndrome
+24,0.126,DYSPLASIA,myelodysplastic syndrome
+25,0.963,HYPERCELLULAR,hypercellular
+26,0.114,INCREASED,hypercellular
+27,0.101,IN,hypercellular
+28,0.077,CORRELATE,hypercellular
+29,0.075,BASOPHILS,hypercellular
+30,0.978,EOSINOPHILS,eosinophilia
+31,0.158,BASOPHILS,eosinophilia
+32,0.073,INCREASED,eosinophilia
+33,0.071,IN,eosinophilia
+34,0.045,INCREASE,eosinophilia
+35,0.942,CMML,myeloproliferative neoplasm
+36,0.227,MYELOPROLIFERATIVE,myeloproliferative neoplasm
+37,0.128,BASOPHILS,myeloproliferative neoplasm
+38,0.074,CML,myeloproliferative neoplasm
+39,0.028,FEATURES,myeloproliferative neoplasm
+40,0.842,TOUCH,inadequate
+41,0.401,ONLY,inadequate
+42,0.205,PREP,inadequate
+43,0.126,NOT,inadequate
+44,0.096,Touch,inadequate
+45,0.998,METASTATIC,metastatic
+46,0.028,CLUMP,metastatic
+47,0.026,ERYTHROID,metastatic
+48,0.022,OSTEOCLASTIC,metastatic
+49,0.021,LYMPHOCYTES,metastatic
+50,0.975,IRON,iron deficiency
+51,0.166,DEFICIENCY,iron deficiency
+52,0.126,DEPLETION,iron deficiency
+53,0.04,STORES,iron deficiency
+54,0.035,ABSENT,iron deficiency
+55,0.971,MAST,mastocytosis
+56,0.163,CELLS,mastocytosis
+57,0.117,MASTOCYTOSIS,mastocytosis
+58,0.085,Mast,mastocytosis
+59,0.051,INCREASED,mastocytosis
+60,0.737,HYPERPLASIA,erythroid hyperplasia
+61,0.669,ERYTHROID,erythroid hyperplasia
+62,0.042,HYPERCELLULAR,erythroid hyperplasia
+63,0.028,EYTHROID,erythroid hyperplasia
+64,0.019,DYSPLASTIC,erythroid hyperplasia
+65,0.839,CHEMOTHERAPY,hemophagocytosis
+66,0.238,BLASTS,hemophagocytosis
+67,0.155,BLAST,hemophagocytosis
+68,0.133,RARE,hemophagocytosis
+69,0.116,HYPOCELLULAR,hemophagocytosis
+70,0.81,CHEMOTHERAPY,hypocellular
+71,0.507,HYPOCELLULAR,hypocellular
+72,0.251,RELAPSED,hypocellular
+73,0.059,ALL,hypocellular
+74,0.047,BIOPSY,hypocellular
+75,0.995,BASOPHILS,basophilia
+76,0.068,EOSINOPHILS,basophilia
+77,0.037,MYELOPROLIFERATIVE,basophilia
+78,0.034,FAVOUR,basophilia
+79,0.016,SEEN,basophilia
+80,0.983,CML,chronic myeloid leukemia
+81,0.14,CHRONIC,chronic myeloid leukemia
+82,0.07,MYELOID,chronic myeloid leukemia
+83,0.048,CYTOGENETICS,chronic myeloid leukemia
+84,0.046,BASOPHILS,chronic myeloid leukemia
+85,0.783,PROMYELOCYTES,acute promyelocytic leukemia
+86,0.423,PROMYELOCYTIC,acute promyelocytic leukemia
+87,0.337,PROMYELOCYTE,acute promyelocytic leukemia
+88,0.257,HYPERGRANULATED,acute promyelocytic leukemia
+89,0.077,AUER,acute promyelocytic leukemia
+90,0.615,INCREASED,granulocytic hyperplasia
+91,0.483,HYPERCELLULAR,granulocytic hyperplasia
+92,0.236,HYPERPLASIA,granulocytic hyperplasia
+93,0.23,IN,granulocytic hyperplasia
+94,0.197,EVIDENCE,granulocytic hyperplasia
+95,0.741,LYMPHOBLASTS,acute lymphoblastic leukemia
+96,0.585,RELAPSE,acute lymphoblastic leukemia
+97,0.28,RELAPSED,acute lymphoblastic leukemia
+98,0.153,LYMPHOID,acute lymphoblastic leukemia
+99,0.062,HYPERCELLULAR,acute lymphoblastic leukemia
+100,0.942,BLASTS,acute leukemia
+101,0.208,ACUTE,acute leukemia
+102,0.135,RARE,acute leukemia
+103,0.116,LEUKEMIA,acute leukemia
+104,0.086,BLAST,acute leukemia
