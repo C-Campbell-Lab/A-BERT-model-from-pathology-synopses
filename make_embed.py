@@ -13,4 +13,6 @@ def embed(model_p, case_p):
 
 
 if __name__ == "__main__":
-    embed("model", "cases.json")
+    from fire import Fire
+
+    Fire(embed)

@@ -53,7 +53,7 @@ def plot_feedback(start_f1, start_err, fd_df):
     fig = go.Figure()
     experts = ["feedbackC", "feedbackM"]
     validation = [True, False]
-    marker_color = ["navy", "crimson"]
+    marker_color = ["cornflowerblue", "coral"]
 
     phase = []
     f1s = []
@@ -123,6 +123,15 @@ def plot_feedback(start_f1, start_err, fd_df):
         showlegend=True,
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         xaxis=dict(tickmode="linear", tick0=1, dtick=1),
+    )
+    fig.add_annotation(
+        x=1,
+        y=1.05,
+        xref="paper",
+        yref="paper",
+        align="left",
+        text="n=4 independent experiments",
+        showarrow=False,
     )
     out_df = pd.DataFrame(dict(phase=phase, f1=f1s, err=err, sources=sources))
     return fig, out_df

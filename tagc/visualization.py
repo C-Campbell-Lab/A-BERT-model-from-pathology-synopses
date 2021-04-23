@@ -320,7 +320,7 @@ def plot_tag_performance(performance: pd.DataFrame, overall, auc=False):
         go.Scatter(
             x=x,
             y=performance[y_title],
-            marker_color="crimson",
+            marker_color="coral",
             mode="markers+text",
             text=[f"{v:.02f}" for v in performance[y_title]],
             marker_size=10,

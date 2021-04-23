@@ -55,7 +55,7 @@ def df_cal(df, is_active):
 def plot_ac_compare(ac_up_df, rd_up_df):
     TEMPLATE = "plotly_white"
     fig = go.Figure()
-    colors = ["gray", "crimson"]
+    colors = ["gray", "cornflowerblue"]
     p1 = ac_up_df.iloc[:6, :]
     p2 = ac_up_df.iloc[5:, :]
     for idx, df in enumerate([p1, p2]):
@@ -78,7 +78,8 @@ def plot_ac_compare(ac_up_df, rd_up_df):
                 line=dict(color=colors[idx], width=2),
                 textposition="bottom right",
                 name="active learning",
-            )
+                showlegend=idx == 0,
+            ),
         )
 
     x = rd_up_df["sizes"]
@@ -109,7 +110,7 @@ def plot_ac_compare(ac_up_df, rd_up_df):
         height=600,
         xaxis_title="Training Size",
         yaxis_title="Micro F1",
-        showlegend=False,
+        showlegend=True,
         legend=dict(
             orientation="h",
         ),
@@ -133,4 +134,14 @@ def plot_ac_compare(ac_up_df, rd_up_df):
     fig.add_annotation(
         x=450, y=rd_max, align="left", text="<b>Random sampling</b>", showarrow=False
     )
+    fig.add_annotation(
+        x=0,
+        y=-0.12,
+        xref="paper",
+        yref="paper",
+        align="left",
+        text="n=4 independent experiments",
+        showarrow=False,
+    )
+
     return fig

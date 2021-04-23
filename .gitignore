@@ -153,3 +153,4 @@ out
 *.ipynb
 !*.pu
 !result_data/*
+*.pdf

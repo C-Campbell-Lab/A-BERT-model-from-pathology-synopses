@@ -93,7 +93,7 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
                 array=performance[f"{y_title}_std"],
                 visible=True,
             ),
-            marker_color="crimson",
+            marker_color="skyblue",
             mode="markers+text",
             text=[f"{v:.02f}" for v in performance[f"{y_title}_mean"]],
             marker_size=10,
@@ -112,6 +112,7 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
         xaxis_title="Semantic Label",
         yaxis_title="Metrics",
         showlegend=True,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         annotations=[
             dict(
                 x=x_loc,
@@ -123,6 +124,15 @@ def plot_tag_perf_with_std(performance, perf_average, perf_err):
                 font=dict(size=15),
             ),
         ],
+    )
+    fig.add_annotation(
+        x=1,
+        y=1.05,
+        xref="paper",
+        yref="paper",
+        align="left",
+        text="n=4 independent experiments",
+        showarrow=False,
     )
     return fig
 
